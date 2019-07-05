@@ -1,8 +1,8 @@
 {
   "basics": {
-    "name": "Molly Maluhia",
-    "label": "Student",
-    "picture": "https://techfolios.github.io/template/images/molly.png",
+    "name": "Jack Grimes",
+    "label": "Data Scientist",
+    "picture": "https://techfolios.github.io/template/images/jack.jpg",
     "email": "molly@hawaii.edu",
     "phone": "808-333-4444",
     "website": "https://mmaluhia.github.io",
@@ -17,24 +17,19 @@
     "profiles": [
       {
         "network": "github",
-        "username": "mmaluhia",
-        "url": "http://github.com/changeme"
+        "username": "jackgrimes",
+        "url": "http://github.com/jackgrimes"
       },
       {
         "network": "linkedin",
-        "username": "mollymaluhia",
-        "url": "http://linkedin.com/in/changeme"
+        "username": "jack-grimes-86a1414b",
+        "url": "http://linkedin.com/in/jack-grimes-86a1414b"
       },
       {
-        "network": "twitter",
-        "username": "mollymal",
-        "url": "http://twitter.com/changeme"
+        "network": "Google Scholar",
+        "username": "HZLogpQAAAAJ",
+        "url": "https://scholar.google.co.uk/citations?hl=en&user=HZLogpQAAAAJ"
       },
-      {
-        "network": "instagram",
-        "username": "molly",
-        "url": "http://instagram.com/changeme"
-      }
     ]
   },
   "interests": [
