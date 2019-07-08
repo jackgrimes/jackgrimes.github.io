@@ -29,7 +29,7 @@
         "network": "Google Scholar",
         "username": "HZLogpQAAAAJ",
         "url": "https://scholar.google.co.uk/citations?hl=en&user=HZLogpQAAAAJ"
-      },
+      }
     ]
   },
   "interests": [
@@ -55,43 +55,55 @@
       "level": "",
       "keywords": [
         "Python",
-        "R",
-        "Java",
-        "Javascript",
-        "Assembly",
-        "Common Lisp"
+        "R"
       ]
     },
     {
       "name": "Toolsets/OS",
       "level": "",
       "keywords": [
-        "MacOS",
-        "Ubuntu",
         "Git/GitHub",
-        "g++",
-        "TI LaunchPad"
       ]
     }
   ],
   "education": [
     {
-      "institution": "University of Hawaii, Honolulu, HI",
-      "area": "Computer Science (expected Spring, 2018)",
-      "studyType": "B.S.",
-      "startDate": "2013-09-01",
-      "endDate": "Present",
+      "institution": "Imperial College London",
+      "area": "Engineering/Epidemiology",
+      "studyType": "Ph.D",
+      "startDate": "2012",
+      "endDate": "2015",
       "gpa": "",
       "courses": [
+      ]
+    },
+    {
+      "institution": "Imperial College London",
+      "area": "Environmental Engineering and Sustainable Development",
+      "studyType": "M.Sc.",
+      "startDate": "2010",
+      "endDate": "2011",
+      "gpa": "",
+      "courses": [
+      ]
+    },
+    {
+      "institution": "University of Oxford",
+      "area": "Physics",
+      "studyType": "B.A.",
+      "startDate": "2007",
+      "endDate": "2010",
+      "gpa": "",
+      "courses": ["Optics", "Quantum"
       ]
     }
   ],
   "work": [
     {
-      "company": "UH Manoa Board of Publications",
-      "position": "Web Developer",
+      "company": "Lloyds Banking Group",
+      "position": "Data Scientist, Machine Intelligence Programme",
       "website": "",
-      "startDate": "2015-08-01",
+      "startDate": "2019",
       "endDate": "Present",
       "summary": "Head of online presence for Ka Leo",
       "highlights": [
@@ -100,15 +112,27 @@
       ]
     },
     {
-      "company": "UH Information Technology Services",
-      "position": "Help Desk Consultant",
-      "website": "http://www.hawaii.edu/its/",
-      "startDate": "2015-01-01",
-      "endDate": "2016-03-15",
+      "company": "Lloyds Banking Group",
+      "position": "Data Scientist, Risk Innovation",
+      "website": "",
+      "startDate": "2017",
+      "endDate": "2019",
       "summary": "",
       "highlights": [
         "Troubleshoot software, hardware and networking issues over the phone",
         "Answer phone and email responses to the ITS Help Desk"
+      ]
+    },
+    {
+      "company": "Imperial College London",
+      "position": "Postdoctoral researcher",
+      "website": "",
+      "startDate": "2016",
+      "endDate": "2017",
+      "summary": "",
+      "highlights": [
+        "<a href='https://journals.plos.org/plosntds/article?id=10.1371/journal.pntd.0005948'>Mixed effects logistic regression to assess the relationships between environmental risk factors, parasites, and overall health</a>",
+        "Using parasite infection intensity and Box-Cox transformations, for more accurate estimations of parasite infection prevalence"
       ]
     }
   ],
@@ -141,31 +165,42 @@
   ],
   "awards": [
     {
-      "title": "B+ Scholarship",
-      "date": "2013-Present",
-      "awarder": "State of Hawaii",
-      "summary": "Scholarships awarded to incoming freshmen and continuing students who complete a rigorous high school curriculum with a minimum overall GPA of 3.0 at a Hawai'i public school."
-    },
-    {
-      "title": "First place",
-      "date": "2015",
-      "awarder": "University of Hawaii Micromouse Competition",
-      "summary": "My team won first place in 2015.  See my portfolio site for more details."
+      "title": "Best presentation",
+      "date": "2016",
+      "awarder": "Wellcome Centre for Global Health Research Annual Meeting",
+      "summary": "My presentation on my PhD findings won the 'Best Presentation' award."
     }
   ],
   "courses": [
     {
-      "company": "Coursera",
-      "position": "Web Developer",
-      "website": "",
-      "startDate": "2015-08-01",
+      "course": "Deep Learning Specialization",
+      "website": "https://www.coursera.org/specializations/deep-learning",
+      "startDate": "2019-06",
       "endDate": "Present",
-      "summary": "Head of online presence for Ka Leo",
+      "provider": "Coursera, deeplearning.ai",
       "highlights": [
-        "Maintain, update, and oversee official college newspaper website",
-        "Drive, design and build student-community projects for UH Manoa"
+        "Neural Networks and Deep Learning",
+        "Improving Deep Neural Networks: Hyperparameter tuning, Regularization and Optimization",
+        "Structuring Machine Learning Projects",
+        "Convolutional Neural Networks",
+        "Sequence Models"
       ]
     },
+    {
+      "course": "Machine Learning",
+      "website": "https://www.coursera.org/learn/machine-learning",
+      "startDate": "2017",
+      "endDate": "2017",
+      "provider": "Coursera, Stanford University",
+      "highlights": [
+        "Neural Networks",
+        "Support Vector Machines",
+        "Unsupervised Learning",
+        "Dimensionality Reduction",
+        "Anomaly Detection",
+        "Recommender Systems"
+      ]
+    }
   ],
   "references": [
     {
