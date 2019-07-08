@@ -11,10 +11,7 @@
 
     <div class="ui grid">
       <div class="twelve wide column no-bottom">
-        <p class="ui no-bottom"><b>{{ entry.position }}, {{ entry.company }}</b></p>
-        <p class="ui no-bottom"><a href="{{ entry.website }}">{{ entry.website | remove: "http://" | remove: "https://"
-          }}</a></p>
-        <p class="ui no-bottom">{{ entry.summary }}</p>
+        <p class="ui no-bottom"><b><a href="{{ entry.website }}">{{ entry.course }} ({{ entry.provider }})</a></b></p>
         {% if entry.highlights %}
         <ul style="margin: 0px;">
           {% for highlight in entry.highlights %}
