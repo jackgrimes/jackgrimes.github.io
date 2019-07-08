@@ -3,16 +3,16 @@
     "name": "Jack Grimes",
     "label": "Data Scientist",
     "picture": "https://jackgrimes.github.io/images/jack.jpg",
-    "email": "molly@hawaii.edu",
-    "phone": "808-333-4444",
+    "email": "",
+    "phone": "",
     "website": "https://jackgrimes.github.io",
-    "summary": "I am studying for a B.S. in Computer Science in the Department of Information and Computer Sciences at the University of Hawaii. I expect to graduate in Spring, 2020.",
+    "summary": "I am a London-based data scientist with experience in financial services, epidemiology, engineering and physics.",
     "location": {
       "address": "",
-      "postalCode": "96822",
-      "city": "Honolulu",
-      "countryCode": "USA",
-      "region": "Hawaii"
+      "postalCode": "",
+      "city": "London",
+      "countryCode": "UK",
+      "region": ""
     },
     "profiles": [
       {
@@ -34,19 +34,17 @@
   },
   "interests": [
     {
-      "name": "internet of things",
-      "keywords": [
-        "Arduino",
-        "TI MSP430"
-      ]
-    },
-    {
-      "name": "data mining",
+      "name": "deep learning",
       "keywords": [
       ]
     },
     {
-      "name": "artificial intelligence",
+      "name": "classical statistics",
+      "keywords": [
+      ]
+    },
+    {
+      "name": "visualisation",
       "keywords": [
       ]
     }
@@ -56,8 +54,8 @@
       "name": "Languages and Frameworks",
       "level": "",
       "keywords": [
-        "C",
-        "C++",
+        "Python",
+        "R",
         "Java",
         "Javascript",
         "Assembly",
@@ -154,6 +152,20 @@
       "awarder": "University of Hawaii Micromouse Competition",
       "summary": "My team won first place in 2015.  See my portfolio site for more details."
     }
+  ],
+  "courses": [
+    {
+      "company": "Coursera",
+      "position": "Web Developer",
+      "website": "",
+      "startDate": "2015-08-01",
+      "endDate": "Present",
+      "summary": "Head of online presence for Ka Leo",
+      "highlights": [
+        "Maintain, update, and oversee official college newspaper website",
+        "Drive, design and build student-community projects for UH Manoa"
+      ]
+    },
   ],
   "references": [
     {
