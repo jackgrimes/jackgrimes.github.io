@@ -76,12 +76,14 @@
       "gpa": "",
       "courses": [
         "Systematic Review and Meta-analysis",
-        "GIS and Spatial Statistics",
-        "Non-parametric Statistics",
-        "Primary data collection in surveys: training and supervision of 41 data collectors",
+        "GIS and Spatial Statistics using R and ArcGIS",
+        "Non-parametric Statistics using R",
+        "Data management using R",
+        "Primary data collection in surveys: training and supervision of 41 data collectors, data collected from over 100,000 children in over 2,000 schools",
         "Presentations at: the Wellcome Centre for Global Health Research Annual Meeting (2016), the launch of the Centre for International Child Health at Imperial College London (2016), the International Society for Neglected Tropical Diseases: Water Conference (2014), and the American Society of Tropical Medicine and Hygiene Annual Meetings (2012, 2013 and 2016), and many less formal meetings in London",
         "Supervision of 2 M.Sc. students",
-        "First author of 6 papers, also contributed to 4 more"
+        "Fieldwork: spent around 6 months of my Ph.D. in Ethiopia - supervising data collection but also negotiating contracts, obtaining equipment, hiring staff and so on",
+        "First author of 6 papers, also contributed to 4 more (see <a href='https://scholar.google.co.uk/citations?hl=en&user=HZLogpQAAAAJ'>Google Scholar</a>)"
       ]
     },
     {
@@ -124,14 +126,15 @@
   "work": [
     {
       "company": "Lloyds Banking Group",
-      "position": "Data Scientist, Machine Intelligence Programme",
+      "position": "Data Scientist/Software Engineer, Machine Intelligence Programme",
       "website": "",
       "startDate": "2019",
       "endDate": "Present",
-      "summary": "Head of online presence for Ka Leo",
+      "summary": "",
       "highlights": [
-        "Maintain, update, and oversee official college newspaper website",
-        "Drive, design and build student-community projects for UH Manoa"
+        "Predominantly using Python, GitHub, pytest, PyCharm, pandas",
+        "Focus on writing high-quality (efficient and readable), production-ready tested code",
+        "Quality control and investigation of the performance of that code"
       ]
     },
     {
@@ -142,8 +145,13 @@
       "endDate": "2019",
       "summary": "",
       "highlights": [
-        "Troubleshoot software, hardware and networking issues over the phone",
-        "Answer phone and email responses to the ITS Help Desk"
+        "Predominantly using Python, GitHub, SAS VA, Flask",
+        "Predictive analytics using pandas, sklearn",
+        "Topic modelling using gensim, Latent Dirichlet allocation, SAS VA",
+        "Web app development using flask",
+        "Dashboards in SAS VA",
+        "Management of an intern",
+        "Presented my work widely, at internal conferences throughout the UK"
       ]
     },
     {
@@ -154,35 +162,8 @@
       "endDate": "2017",
       "summary": "",
       "highlights": [
-        "<a href='https://journals.plos.org/plosntds/article?id=10.1371/journal.pntd.0005948'>Mixed effects logistic regression to assess the relationships between environmental risk factors, parasites, and overall health</a>",
-        "Using parasite infection intensity and Box-Cox transformations, for more accurate estimations of parasite infection prevalence"
-      ]
-    }
-  ],
-  "volunteer": [
-    {
-      "organization": "Center for Renewable Energy and Island Sustainability",
-      "website": "http://manoa.hawaii.edu/reis",
-      "position": "Software Developer",
-      "startDate": "2016-01-01",
-      "endDate": "Present",
-      "summary": "Lead developer for weather sensing project",
-      "highlights": [
-        "Design firmware for distributed weather sensor network",
-        "Maintain custom data collection and storage infrastructure"
-      ]
-    },
-    {
-      "organization": "",
-      "website": "",
-      "position": "Professional organization involvement",
-      "startDate": "",
-      "endDate": "",
-      "summary": "",
-      "highlights": [
-        "Chair, ACM Manoa, 2016-Present",
-        "Member, IEEE Student Branch, 2014-Present",
-        "Webmaster/IT Officer, IEEE Student Branch, UH Manoa, 2012-2013"
+        "<a href='https://journals.plos.org/plosntds/article?id=10.1371/journal.pntd.0005948'>Mixed effects logistic regression to assess the relationships between environmental risk factors, parasites, and overall health (using R, lme4)</a>",
+        "Using parasite infection intensity and Box-Cox transformations, for more accurate estimations of parasite infection prevalence (using R)"
       ]
     }
   ],
@@ -192,6 +173,12 @@
       "date": "2016",
       "awarder": "Wellcome Centre for Global Health Research Annual Meeting",
       "summary": "My presentation on my PhD findings won the 'Best Presentation' award."
+    },
+    {
+      "title": "Collections (exam) prize",
+      "date": "2009",
+      "awarder": "University of Oxford",
+      "summary": "I won a prize for achievement in the college exams."
     }
   ],
   "courses": [
@@ -222,6 +209,42 @@
         "Dimensionality Reduction",
         "Anomaly Detection",
         "Recommender Systems"
+      ]
+    },
+    {
+      "course": "Codecademy Learn SQL",
+      "website": "https://www.codecademy.com/learn/learn-sql",
+      "startDate": "2017",
+      "endDate": "2017",
+      "provider": "Codecademy",
+      "highlights": [
+      ]
+    },
+    {
+      "course": "Codecademy SQL: Table Transformation",
+      "website": "https://www.codecademy.com/learn/sql-table-transformation",
+      "startDate": "2017",
+      "endDate": "2017",
+      "provider": "Codecademy",
+      "highlights": [
+      ]
+    },
+    {
+      "course": "Codecademy SQL: Analyzing Business Metrics",
+      "website": "https://www.codecademy.com/learn/sql-analyzing-business-metrics",
+      "startDate": "2017",
+      "endDate": "2017",
+      "provider": "Codecademy",
+      "highlights": [
+      ]
+    },
+    {
+      "course": "Codecademy Learn Python 2",
+      "website": "https://www.codecademy.com/learn/learn-python",
+      "startDate": "2017",
+      "endDate": "2017",
+      "provider": "Codecademy",
+      "highlights": [
       ]
     }
   ],
