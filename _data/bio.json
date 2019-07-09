@@ -62,19 +62,26 @@
       "name": "Toolsets/OS",
       "level": "",
       "keywords": [
-        "Git/GitHub",
+        "Git/GitHub"
       ]
     }
   ],
   "education": [
     {
       "institution": "Imperial College London",
-      "area": "Engineering/Epidemiology",
+      "area": "Engineering/Epidemiology: <i>An investigation into the roles of water, sanitation, and hygiene in the control of schistosomes and other helminths</i> <a href='https://spiral.imperial.ac.uk/handle/10044/1/44497'>(thesis)</a>",
       "studyType": "Ph.D",
       "startDate": "2012",
       "endDate": "2015",
       "gpa": "",
       "courses": [
+        "Systematic Review and Meta-analysis",
+        "GIS and Spatial Statistics",
+        "Non-parametric Statistics",
+        "Primary data collection in surveys: training and supervision of 41 data collectors",
+        "Presentations at: the Wellcome Centre for Global Health Research Annual Meeting (2016), the launch of the Centre for International Child Health at Imperial College London (2016), the International Society for Neglected Tropical Diseases: Water Conference (2014), and the American Society of Tropical Medicine and Hygiene Annual Meetings (2012, 2013 and 2016), and many less formal meetings in London",
+        "Supervision of 2 M.Sc. students",
+        "First author of 6 papers, also contributed to 4 more"
       ]
     },
     {
@@ -85,6 +92,12 @@
       "endDate": "2011",
       "gpa": "",
       "courses": [
+        "Hydroinformatics and Matlab",
+        "Water supply",
+        "Environmental Management in Developing Countries",
+        "Environmental Management and Decision Making",
+        "Air Pollution Control",
+        "Engineering for Sustainable Development"
       ]
     },
     {
@@ -94,7 +107,17 @@
       "startDate": "2007",
       "endDate": "2010",
       "gpa": "",
-      "courses": ["Optics", "Quantum"
+      "courses": [
+        "C++",
+        "Statistical Mechanics and Thermal Physics",
+        "Mechanics and Special relativity",
+        "Mathematical Methods",
+        "Differential Equations",
+        "Waves and Optics",
+        "Quantum Mechanics",
+        "Electromagnetism and Circuits",
+        "Condensed Matter Physics and Photonics",
+        "Astrophysics and Atmospheric Physics"
       ]
     }
   ],
@@ -125,7 +148,7 @@
     },
     {
       "company": "Imperial College London",
-      "position": "Postdoctoral researcher",
+      "position": "Postdoctoral Researcher",
       "website": "",
       "startDate": "2016",
       "endDate": "2017",
