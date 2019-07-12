@@ -69,13 +69,14 @@
   "education": [
     {
       "institution": "Imperial College London",
-      "area": "Engineering/Epidemiology: <i>An investigation into the roles of water, sanitation, and hygiene in the control of schistosomes and other helminths</i> <a href='https://spiral.imperial.ac.uk/handle/10044/1/44497'>(thesis)</a>",
+      "area": "Engineering/Epidemiology<br/>
+      <a href='https://spiral.imperial.ac.uk/handle/10044/1/44497'><i>An investigation into the roles of water, sanitation, and hygiene in the control of schistosomes and other helminths</i></a>",
       "studyType": "Ph.D",
       "startDate": "2012",
       "endDate": "2015",
       "gpa": "",
       "courses": [
-        "Systematic Review and Meta-analysis",
+        "Systematic Review and Meta-analysis (<a href='https://journals.plos.org/plosntds/article?id=10.1371/journal.pntd.0003296'>paper</a>)",
         "GIS and Spatial Statistics using R and ArcGIS",
         "Non-parametric Statistics using R",
         "Data management using R",
@@ -163,7 +164,7 @@
       "endDate": "2017",
       "summary": "",
       "highlights": [
-        "<a href='https://journals.plos.org/plosntds/article?id=10.1371/journal.pntd.0005948'>Mixed effects logistic regression to assess the relationships between environmental risk factors, parasites, and overall health (using R, lme4)</a>",
+        "Mixed effects logistic regression to assess the relationships between environmental risk factors, parasites, and overall health, using R and lme4) (<a href='https://journals.plos.org/plosntds/article?id=10.1371/journal.pntd.0005948'>paper</a>)",
         "Using parasite infection intensity and Box-Cox transformations, for more accurate estimations of parasite infection prevalence (using R)"
       ]
     }
