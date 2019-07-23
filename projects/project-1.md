@@ -1,7 +1,7 @@
 ---
 layout: project
 type: project
-image: images/face_rec_investigation.png
+image: images/face_rec_investigation_sq.png
 title: Face recognition distances investigation
 permalink: projects/face_recognition
 # All dates must be YYYY-MM-DD format!
