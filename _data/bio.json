@@ -187,8 +187,7 @@
     {
       "course": "Deep Learning Specialization",
       "website": "https://www.coursera.org/specializations/deep-learning",
-      "startDate": "2019-06",
-      "endDate": "Present",
+      "date": "2019 - Present",
       "provider": "Coursera, deeplearning.ai",
       "highlights": [
         "Neural Networks and Deep Learning",
@@ -201,8 +200,7 @@
     {
       "course": "Machine Learning",
       "website": "https://www.coursera.org/learn/machine-learning",
-      "startDate": "2017",
-      "endDate": "2017",
+      "date": "2017",
       "provider": "Coursera, Stanford University",
       "highlights": [
         "Neural Networks",
@@ -216,8 +214,7 @@
     {
       "course": "Codecademy Learn SQL",
       "website": "https://www.codecademy.com/learn/learn-sql",
-      "startDate": "2017",
-      "endDate": "2017",
+      "date": "2017",
       "provider": "Codecademy",
       "highlights": [
       ]
@@ -225,8 +222,7 @@
     {
       "course": "Codecademy SQL: Table Transformation",
       "website": "https://www.codecademy.com/learn/sql-table-transformation",
-      "startDate": "2017",
-      "endDate": "2017",
+      "date": "2017",
       "provider": "Codecademy",
       "highlights": [
       ]
@@ -234,8 +230,7 @@
     {
       "course": "Codecademy SQL: Analyzing Business Metrics",
       "website": "https://www.codecademy.com/learn/sql-analyzing-business-metrics",
-      "startDate": "2017",
-      "endDate": "2017",
+      "date": "2017",
       "provider": "Codecademy",
       "highlights": [
       ]
@@ -243,8 +238,7 @@
     {
       "course": "Codecademy Learn Python 2",
       "website": "https://www.codecademy.com/learn/learn-python",
-      "startDate": "2017",
-      "endDate": "2017",
+      "date": "2017",
       "provider": "Codecademy",
       "highlights": [
       ]
