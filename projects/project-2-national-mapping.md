@@ -10,7 +10,7 @@ labels:
   - R
   - Kendall's &tau;
   - GIS
-summary: Comapring parasite infection rates with school water, sanitation and hygiene provision in a national survey across Ethiopia.
+summary: Comparing parasite infection rates with school water, sanitation and hygiene provision in a national survey across Ethiopia.
 ---
 
 About the national mapping
