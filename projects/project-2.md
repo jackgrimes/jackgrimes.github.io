@@ -3,7 +3,7 @@ layout: project
 type: project
 image: video/journeys_sq.png
 title: Journey Plotter
-permalink: projects/journeyplotter
+permalink: projects/journey_plotter
 # All dates must be YYYY-MM-DD format!
 date: 2019-07-18
 labels:
