@@ -2,7 +2,7 @@
 layout: project
 type: project
 image: images/mixed_effects_regression.jpg
-title: Mixed-effects regressions comparing water, sanitation, hookworm infection, and child health
+title: Mixed-effects regressions comparing sanitation, hookworm infection, and child health
 permalink: projects/mixed_effects_regressions
 # All dates must be YYYY-MM-DD format!
 date: 2017-10-09
