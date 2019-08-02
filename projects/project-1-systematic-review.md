@@ -2,8 +2,8 @@
 layout: project
 type: project
 image: images/systematic_review.jpg
-title: Water, sanitation, hygiene, and schistosomiasis - a systematic review and meta-analysis
-permalink: projects/national_mapping_ethiopia
+title: "Water, sanitation, hygiene, and schistosomiasis: a systematic review and meta-analysis"
+permalink: projects/systematic_review
 # All dates must be YYYY-MM-DD format!
 date: 2014-12-04
 labels:
@@ -11,6 +11,7 @@ labels:
   - random effects
   - GIS
 summary: A systematic review and meta-analysis to summarise the strengths of the relationships between these risk factors and parasitic infections.
+
 ---
 
 About the systematic review
