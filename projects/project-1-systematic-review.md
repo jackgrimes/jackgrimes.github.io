@@ -9,7 +9,6 @@ date: 2014-12-04
 labels:
   - meta-analysis
   - random effects
-  - GIS
 summary: A systematic review and meta-analysis to summarise the strengths of the relationships between these risk factors and parasitic infections.
 
 ---
