@@ -28,8 +28,12 @@ This lifecycle suggests that schistosome transmission might be controlled by mea
   <li>Kill parasite larvae in the water (soaps are toxic to cercariae and miracidia)</li>
 </ul> 
 
-One of my PhD projects was a systematic review and meta-analysis to investigate whether schistosome infection status was associated with access to safe water and adequate sanitation, and the use of soap. we used reandom-effects meta-analysis to synthesise different studies' findings. We assessed publication bias (the risk of studies' findings affecting their likelihood of being published) through the visual inspection of funnel plots and through Egger's test. Heterogeneity of datasets (the overall spread of different effect sizes in different studies) was quantified using Higgins' I<sup>2</sup> and investigated in subgroup analysis.
+One of my PhD projects was a systematic review and meta-analysis to investigate whether schistosome infection status was associated with access to safe water and adequate sanitation, and the use of soap. we used reandom-effects meta-analysis to synthesise different studies' findings. We assessed publication bias (the risk of studies' findings affecting their likelihood of being published) through the visual inspection of funnel plots and through Egger's test. Heterogeneity of datasets (the overall spread of different effect sizes in different studies) was quantified using Higgins' <i>I</i><sup>2</sup> and investigated in subgroup analysis.
 
 Safe water supplies were associated with significantly less schistosomiasis (odds ratio (OR) = 0.53, 95% confidence interval (CI): 0.47–0.61), adequate sanitation was associated with less infection with <i>Schistosoma mansoni</i> (the parasite causing intestinal schistosomiasis in Africa and Latin Ameria), (OR = 0.59, 95% CI: 0.47–0.73) and <i>Schistosoma haematobium</i> (the parasite causing urogential schistosomaisis in Africa and the Middle East) (OR = 0.69, 95% CI: 0.57–0.84). No studies were found providing eligible data on hygiene practices and schistosome infection.
+
+This is a forest plot, taken from the systematic review paper. It shows the indivual studies', as well as the over odds ratio and confidence interval for the relationship between safe water access and schistosomiasis. The different species of schistosome are shown in the different colours.
+
+<p style="text-align:center;"><img src="/images/systematic_review.jpg" alt="maps" style="max-width: 100%;"></p>
 
 You can read the [full open-access paper published by PLOS Neglected Tropical Diseases](https://journals.plos.org/plosntds/article?id=10.1371/journal.pntd.0003296).
