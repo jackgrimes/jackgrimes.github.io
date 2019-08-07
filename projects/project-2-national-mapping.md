@@ -19,7 +19,7 @@ In each of the included schools, the levels of infection with the various parasi
 
 This map shows the locations in Ethiopia of the schools with at least one infection detected, of the various parasites: 
 
-<p style="text-align:center;"><img src="/images/national_mapping.jpg" alt="maps" style="max-width: 100%;"></p>
+<p style="text-align:center;"><img src="/images/national_mapping_non_sq.png" alt="maps" style="max-width: 100%;"></p>
 
 The WASH data were transformed into scores, for: 
 

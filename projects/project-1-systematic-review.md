@@ -34,6 +34,6 @@ Safe water supplies were associated with significantly less schistosomiasis (odd
 
 This is a forest plot, taken from the systematic review paper. It shows the indivual studies', as well as the over odds ratio and confidence interval for the relationship between safe water access and schistosomiasis. The different species of schistosome are shown in the different colours.
 
-<p style="text-align:center;"><img src="/images/systematic_review.jpg" alt="maps" style="max-width: 100%;"></p>
+<p style="text-align:center;"><img src="/images/systematic_review_non_sq.png" alt="maps" style="max-width: 100%;"></p>
 
 You can read the [full open-access paper published by PLOS Neglected Tropical Diseases](https://journals.plos.org/plosntds/article?id=10.1371/journal.pntd.0003296).
