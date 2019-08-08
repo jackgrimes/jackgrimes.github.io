@@ -1,7 +1,7 @@
 ---
 layout: project
 type: project
-image: images/30_schools_map_sq.png
+image: images/30_schools_map_sq.jpg
 title: Mixed-effects regressions comparing sanitation, hookworm infection, and child health
 permalink: projects/mixed_effects_regressions
 # All dates must be YYYY-MM-DD format!
