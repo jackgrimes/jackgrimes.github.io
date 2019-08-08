@@ -1,7 +1,7 @@
 ---
 layout: project
 type: project
-image: images/mixed_effects_regression.jpg
+image: images/latrines_sq.jpg
 title: Mixed-effects regressions comparing sanitation, hookworm infection, and child health
 permalink: projects/mixed_effects_regressions
 # All dates must be YYYY-MM-DD format!
@@ -19,7 +19,11 @@ Hookworms are parasitic roundworms that live in the intenstine and feed on blood
 
 <b>Transmission</b>
 
-Infection occurs when hookworm larvae in the soil come into contact with, then burrow through, the bare skin. The worms living in the intestines lay eggs that leave the body in the faeces - open defecation puts these eggs into the soil, where they develop into larvae, which can later infect people coming into contact with the soil. However, open defecation alone will not increase the risk of infection if larvae die before they can infect a person, for example because:
+Infection occurs when hookworm larvae in the soil come into contact with, then burrow through, the bare skin. The worms living in the intestines lay eggs that leave the body in the faeces - open defecation puts these eggs into the soil, where they develop into larvae, which can later infect people coming into contact with the soil. 
+
+<p style="text-align:center;"><img src="/images/latrines.jpg" alt="latrines" style="max-width: 100%;  margin-bottom: -1em;"></p><p style="text-align:left;"><font size="2">Adequate sanitation may help to protect against hookworm infection, by containing eggs that would otherwise be free to infect people.</font></p>
+
+However, open defecation alone will not increase the risk of infection if larvae die before they can infect a person, for example because:
 
  <ul>
   <li>Soil conditions are not conducive to larval develop (for example if it's too dry)</li>

@@ -17,9 +17,7 @@ Ethiopia recently conducted a national mapping of schistosomiasis and the soil-t
 
 In each of the included schools, the levels of infection with the various parasites was assessed. The school water, sanitation, and hygiene (WASH) facilities and practices were also through a set of questions to the school director (headteacher) and a guided inspection of the school facilities.
 
-This map shows the locations in Ethiopia of the schools with at least one infection detected, of the various parasites: 
-
-<p style="text-align:center;"><img src="/images/national_mapping_non_sq.png" alt="maps" style="max-width: 100%;"></p>
+<p style="text-align:center;"><img src="/images/national_mapping_non_sq.png" alt="maps" style="max-width: 100%;  margin-bottom: -1em;"></p><p style="text-align:left;"><font size="2">These maps show the locations in Ethiopia of the schools with at least one infection detected, of the various parasites.</font></p>
 
 The WASH data were transformed into scores, for: 
 
