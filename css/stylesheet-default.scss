@@ -33,3 +33,21 @@ body {
   margin-bottom: 0px !important;
   padding-bottom: 0px !important;
 }
+
+//For the table on the face recognition page
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  margin: 10px auto;
+  //width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: right;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
