@@ -5,7 +5,7 @@ image: images/face_rec_investigation_sq.png
 title: Face recognition distances investigation
 permalink: projects/face_recognition
 # All dates must be YYYY-MM-DD format!
-date: 2019-08-15
+date: 2019-08-23
 labels:
   - Python
   - face_recognition
