@@ -1,5 +1,5 @@
 ---
-layout: projects
+layout: default
 ---
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -8,7 +8,10 @@ layout: projects
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
+
   gtag('config', 'UA-145091317-1');
 </script>
 
-{% include {{ site.theme-projects }} %}
+{% include menubar.html active="cv"%}
+
+<meta http-equiv="Refresh" content="0; url={{ site.cv-file-name }}" />
