@@ -55,7 +55,7 @@ By collecting the face distances for all those combinations, comparing them with
   </tr>
   <tr>
     <td>0.55</td>
-    <td>0.70</td>
+    <td>0.71</td>
     <td>0.96</td>
   </tr>
     <tr>
@@ -98,48 +98,48 @@ While carrying out these comparisons, we can also investigate which people look 
   </tr>
   <tr>
     <td>2</td>
-    <td>Michael Schumacher</td>
-    <td>0.89</td>
-  </tr>
-  <tr>
-    <td>2</td>
     <td>Bill Simon</td>
     <td>0.81</td>
   </tr>
   <tr>
     <td>3</td>
-    <td>Recep Tayyip Erdogan</td>
-    <td>0.78</td>
-  </tr>
-  <tr>
-    <td>4</td>
     <td>Debra Messing</td>
     <td>0.78</td>
   </tr>
   <tr>
-    <td>6</td>
+    <td>4</td>
     <td>Cristina Fernandez</td>
     <td>0.76</td>
   </tr>
     <tr>
-    <td>7</td>
+    <td>5</td>
     <td>Jennifer Lopez</td>
     <td>0.74</td>
   </tr>
   <tr>
-    <td>8</td>
-    <td>Janica Kostelic</td>
-    <td>0.73</td>
-  </tr>
-  <tr>
-    <td>9</td>
+    <td>6</td>
     <td>Lance Armstrong</td>
     <td>0.72</td>
   </tr>
-    <tr>
-    <td>10</td>
+  <tr>
+    <td>7</td>
     <td>Anna Kournikova</td>
     <td>0.71</td>
+  </tr>
+    <tr>
+    <td>8</td>
+    <td>Britney Spears</td>
+    <td>0.71</td>
+  </tr>
+    <tr>
+    <td>9</td>
+    <td>Gerhard Schroeder</td>
+    <td>0.71</td>
+  </tr>
+    <tr>
+    <td>10</td>
+    <td>Mahmoud Abbas</td>
+    <td>0.70</td>
   </tr>
 </table>
 
