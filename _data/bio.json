@@ -134,6 +134,7 @@
       "summary": "",
       "highlights": [
         "Predominantly using Python, GitHub, pytest, PyCharm, pandas",
+        "Fitting and evaluating natural language processing models, and using them for prediction",
         "Focus on writing high-quality (efficient and readable), production-ready tested code",
         "Quality control and investigation of the performance of that code",
         "Running the Modelling Interest Group, organising sessions about interesting modelling topics"
@@ -185,9 +186,17 @@
   ],
   "courses": [
     {
+      "course": "Bayesian Statistics: From Concept to Data Analysis",
+      "website": "https://www.coursera.org/learn/bayesian-statistics",
+      "date": "2019 - Present",
+      "provider": "Coursera, deeplearning.ai",
+      "highlights": [
+      ]
+    },
+    {
       "course": "Deep Learning Specialization",
       "website": "https://www.coursera.org/specializations/deep-learning",
-      "date": "2019 - Present",
+      "date": "2019",
       "provider": "Coursera, deeplearning.ai",
       "highlights": [
         "Neural Networks and Deep Learning",
