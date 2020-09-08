@@ -64,6 +64,14 @@
       "keywords": [
         "Git/GitHub"
       ]
+    },
+	{
+      "name": "Platforms",
+      "level": "",
+      "keywords": [
+        "Google Cloud Platform", 
+		"Domino"
+      ]
     }
   ],
   "education": [
