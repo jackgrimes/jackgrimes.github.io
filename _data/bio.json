@@ -133,9 +133,8 @@
       "endDate": "Present",
       "summary": "",
       "highlights": [
+		"Predominantly using Python, git, PyCharm, Jenkins , pandas, spaCy, sklearn, pytest, NetworkX"
 		"Natural Language Processing models and network analysis",
-		"Fitting and evaluating natural language processing models, and using them for prediction",
-		"Predominantly using Python, git, pytest, PyCharm, pandas, sklearn, GridSearchCV, spaCy, Jenkins",
 		"Fitting and evaluating natural language processing models, and using them for prediction",
 		"High-quality (efficient and readable), production-ready tested code",
 		"Quality control and investigation of the performance of that code",
@@ -156,7 +155,7 @@
         "Topic modelling using gensim, Latent Dirichlet allocation, SAS VA",
         "Web app development using flask",
         "Dashboards in SAS VA",
-        "Management of an intern",
+        "Line-management of an intern",
         "Presented my work widely, at internal conferences throughout the UK"
       ]
     },
