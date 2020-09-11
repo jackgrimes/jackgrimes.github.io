@@ -22,7 +22,16 @@
           {% endfor %}
         </ul>
         {% endif %}
+		{% if entry.projects %}
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Projects</b>
+        <ul style="margin-left: 20px; margin-top: 0px;">
+          {% for project in entry.projects %}
+          <li>{{ project }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}		
       </div>
+
       <div class="four wide right aligned column no-bottom">
         <p class="ui no-bottom"><b>
           {% if entry.startDate %}
