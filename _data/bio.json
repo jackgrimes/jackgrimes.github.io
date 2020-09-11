@@ -151,7 +151,7 @@
 		],
 	  "projects": [
 		"Rectification of incorrect indicator application through supervised machine learning (spaCy, sklearn, tf-idf, random forests, logistic regressions)",
-		"Rectification of incorrect indicator application through unsupervised machine learning (spaCy, sklearn, tf-idf, k nearest neighbours)",
+		"Rectification of incorrect indicator application through unsupervised machine learning (spaCy, sklearn, tf-idf, k-nearest neighbours)",
 		"Understanding the indicator portfolio through network analysis (NetworkX, netwulf)",
 		"Automatic verification of mortgage applicants' incomes"
 		]
@@ -189,7 +189,7 @@
 		"Face recognition for fraud prevention (flask, face_recognition, python)",
 		"Natural language processing to understand complaints made to the Financial Ombudsman Service (gensim, SAS VA, Latent Dirichlet Analysis",
 		"Predictive model of falling into financial difficulty (sklearn, pandas, imblearn)",
-		"Predictive model of fraudulent transactions in commerical bank accounts(sklearn, pandas, imblearn)",
+		"Predictive model of fraudulent transactions in commerical bank accounts (sklearn, pandas, imblearn)",
 		"Web app to scrape macroeconomic indicators from the Bank of England website (bokeh, urllib, pandas)",
 	  ]
     },
