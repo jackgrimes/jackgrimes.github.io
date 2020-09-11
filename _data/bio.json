@@ -148,7 +148,13 @@
 		"Quality control and investigation of the performance of that code",
 		"Running the Modelling Interest Group, organising sessions about interesting modelling topics",
 		"Planning the Advanced Modelling and Natural Language Processing parts of the graduate scheme training programme"
-      ]
+		],
+	  "projects": [
+		"Rectification of incorrect indicator application through supervised machine learning (spaCy, sklearn, tf-idf, random forests, logistic regressions)",
+		"Rectification of incorrect indicator application through unsupervised machine learning (spaCy, sklearn, tf-idf, k nearest neighbours)",
+		"Understanding the indicator portfolio through network analysis (NetworkX, netwulf)",
+		"Automatic verification of mortgage applicants' incomes"
+		]
     },
     {
       "company": "Lloyds Banking Group",
@@ -165,7 +171,27 @@
         "Dashboards in SAS VA",
         "Line-management of an intern",
         "Presented my work widely, at internal conferences throughout the UK"
-      ]
+		],
+	  "hidden_projects": [
+		"Fraudulent applications robot: handling fraudulent applications process with Blue Prism robotic process automation",
+		"Personal Lending Ddecisions robot: updating one system with data from another with Blue Prism robotic process automation",
+		"Robotics/facial recognition integration: integrating machine learning solutions into Blue Prism robotic process automation",
+		"Credit strategy emulator: VBA code to run (and save results of) credit models. VBA and SAS/Le Mans integration",
+		"HIVE leaders macro (VBA to scrape from internal web page)",
+		"EUC dashboard - SAS VA", 
+		"Coffee club (flask app to encourage networking between colleagues)", 
+		"Python App to scrape and summarize regulations from FCA website", 
+		"Cards portfolio dashboard (SAS VA)",
+		"Text summariser (flask, gensim)",
+		"Chatbots (operational risk handbook)(IBM Watson)",
+		],
+	  "projects": [
+		"Face recognition for fraud prevention (flask, face_recognition, python)",
+		"Natural language processing to understand complaints made to the Financial Ombudsman Service (gensim, SAS VA, Latent Dirichlet Analysis",
+		"Predictive model of falling into financial difficulty (sklearn, pandas, imblearn)",
+		"Predictive model of fraudulent transactions in commerical bank accounts(sklearn, pandas, imblearn)",
+		"Web app to scrape macroeconomic indicators from the Bank of England website (bokeh, urllib, pandas)",
+	  ]
     },
     {
       "company": "Imperial College London",
