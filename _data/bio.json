@@ -76,7 +76,7 @@
   ],
   "education": [
     {
-      "institution": "Imperial College London",
+      "institution": "<a href='https://www.imperial.ac.uk'>Imperial College London</a>",
       "area": "Engineering/Epidemiology<br/>
       <a href='https://spiral.imperial.ac.uk/handle/10044/1/44497'><i>An investigation into the roles of water, sanitation, and hygiene in the control of schistosomes and other helminths</i></a>",
       "studyType": "Ph.D",
@@ -96,7 +96,7 @@
       ]
     },
     {
-      "institution": "Imperial College London",
+      "institution": "<a href='https://www.imperial.ac.uk'>Imperial College London</a>",
       "area": "Environmental Engineering and Sustainable Development",
       "studyType": "M.Sc.",
       "startDate": "2010",
@@ -112,7 +112,7 @@
       ]
     },
     {
-      "institution": "University of Oxford",
+	  "institution": "<a href='https://www.ox.ac.uk'>University of Oxford</a>",
       "area": "Physics",
       "studyType": "B.A.",
       "startDate": "2007",
@@ -134,40 +134,43 @@
   ],
   "work": [
     {
-      "company": "Lloyds Banking Group",
+	  "company": "<a href='https://www.lloydsbankinggroup.com'>Lloyds Banking Group</a>",
       "position": "Data Scientist, Machine Intelligence Programme",
       "website": "",
       "startDate": "2019",
       "endDate": "Present",
       "summary": "",
       "highlights": [
-		"Predominantly using Python, git, PyCharm, Jenkins , pandas, spaCy, sklearn, pytest, NetworkX",
-		"Natural Language Processing models and network analysis",
-		"Fitting and evaluating natural language processing models, and using them for prediction",
+		"Predominantly using Python, Git, PyCharm, Jenkins , pandas, spaCy, scikit-learn, pytest, NetworkX",
+		"Natural language processing (NLP), network analysis, classification, clustering",
 		"High-quality (efficient and readable), production-ready tested code",
 		"Quality control and investigation of the performance of that code",
 		"Running the Modelling Interest Group, organising sessions about interesting modelling topics",
-		"Planning the Advanced Modelling and Natural Language Processing parts of the graduate scheme training programme"
+		"Planning and delivering the Advanced Modelling and Natural Language Processing parts of the Data Science Graduate Scheme Training Programme"
 		],
 	  "projects": [
-		"Rectification of incorrect indicator application through supervised machine learning (spaCy, sklearn, tf-idf, random forests, logistic regressions)",
-		"Rectification of incorrect indicator application through unsupervised machine learning (spaCy, sklearn, tf-idf, k-nearest neighbours)",
+		"Rectification of incorrect indicator application through supervised machine learning (spaCy, scikit-learn, tf-idf, random forests, logistic regressions)",
+		"Rectification of incorrect indicator application through unsupervised machine learning (spaCy, scikit-learn, tf-idf, k-nearest neighbours)",
 		"Understanding the indicator portfolio through network analysis (NetworkX, netwulf)",
 		"Automatic verification of mortgage applicants' incomes"
-		]
+		],
+	  "hidden_projects": [
+		"Speech-to-text using deepspeech",
+		],
     },
     {
-      "company": "Lloyds Banking Group",
+	  "company": "<a href='https://www.lloydsbankinggroup.com'>Lloyds Banking Group</a>",
       "position": "Data Scientist, Risk Innovation",
       "website": "",
       "startDate": "2017",
       "endDate": "2019",
       "summary": "",
       "highlights": [
-        "Predominantly using Python, git, SAS VA, Flask",
-        "Predictive analytics using pandas, sklearn",
-        "Topic modelling using gensim, Latent Dirichlet allocation, SAS VA",
-        "Web app development using flask",
+        "Predominantly using Python, Git, SAS VA, Flask",
+        "Predictive analytics using pandas, scikit-learn",
+		"Fraud prevention using face_recognition",
+        "Topic modelling using Gensim, Latent Dirichlet allocation, SAS VA",
+        "Web app development using Flask",
         "Dashboards in SAS VA",
         "Line-management of an intern",
         "Presented my work widely, at internal conferences throughout the UK"
@@ -179,22 +182,22 @@
 		"Credit strategy emulator: VBA code to run (and save results of) credit models. VBA and SAS/Le Mans integration",
 		"HIVE leaders macro (VBA to scrape from internal web page)",
 		"EUC dashboard - SAS VA", 
-		"Coffee club (flask app to encourage networking between colleagues)", 
+		"Coffee club (Flask app to encourage networking between colleagues)", 
 		"Python App to scrape and summarize regulations from FCA website", 
 		"Cards portfolio dashboard (SAS VA)",
-		"Text summariser (flask, gensim)",
+		"Text summariser (Flask, gensim)",
 		"Chatbots (operational risk handbook)(IBM Watson)",
 		],
 	  "projects": [
-		"Face recognition for fraud prevention (flask, face_recognition, python)",
+		"Face recognition for fraud prevention (Flask, face_recognition, python)",
 		"Natural language processing to understand complaints made to the Financial Ombudsman Service (gensim, SAS VA, Latent Dirichlet Analysis",
-		"Predictive model of falling into financial difficulty (sklearn, pandas, imblearn)",
-		"Predictive model of fraudulent transactions in commerical bank accounts (sklearn, pandas, imblearn)",
+		"Predictive model of falling into financial difficulty (scikit-learn, pandas, imblearn)",
+		"Predictive model of fraudulent transactions in commerical bank accounts (scikit-learn, pandas, imblearn)",
 		"Web app to scrape macroeconomic indicators from the Bank of England website (bokeh, urllib, pandas)",
 	  ]
     },
     {
-      "company": "Imperial College London",
+      "company": "<a href='https://www.imperial.ac.uk'>Imperial College London</a>",
       "position": "Postdoctoral Researcher",
       "website": "",
       "startDate": "2016",
