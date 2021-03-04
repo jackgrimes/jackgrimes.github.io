@@ -150,7 +150,7 @@
 		],
 	  "projects": [
 		"Rectification of incorrect indicator application through supervised machine learning (spaCy, scikit-learn, tf-idf, random forests, logistic regressions)",
-		"Rectification of incorrect indicator application through unsupervised machine learning (spaCy, scikit-learn, tf-idf, k-nearest neighbours)",
+		"Rectification of incorrect indicator application through unsupervised machine learning (spaCy, scikit-learn, tf-idf, <i>k</i>-means clustering)",
 		"Understanding the indicator portfolio through network analysis (NetworkX, netwulf)",
 		"Automatic verification of mortgage applicants' incomes"
 		],
@@ -186,12 +186,12 @@
 		"Coffee club (Flask app to encourage networking between colleagues)", 
 		"Python App to scrape and summarize regulations from FCA website", 
 		"Cards portfolio dashboard (SAS VA)",
-		"Text summariser (Flask, gensim)",
+		"Text summariser (Flask, Gensim)",
 		"Chatbots (operational risk handbook)(IBM Watson)",
 		],
 	  "projects": [
 		"Face recognition for fraud prevention (Flask, face_recognition, python)",
-		"Natural language processing to understand complaints made to the Financial Ombudsman Service (gensim, SAS VA, Latent Dirichlet Analysis",
+		"Natural language processing to understand complaints made to the Financial Ombudsman Service (Gensim, SAS VA, Latent Dirichlet Analysis",
 		"Predictive model of falling into financial difficulty (scikit-learn, pandas, imblearn)",
 		"Predictive model of fraudulent transactions in commerical bank accounts (scikit-learn, pandas, imblearn)",
 		"Web app to scrape macroeconomic indicators from the Bank of England website (bokeh, urllib, pandas)",
