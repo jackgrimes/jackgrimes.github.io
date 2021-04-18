@@ -2,7 +2,7 @@
   "basics": {
     "name": "Jack Grimes",
     "label": "Data Scientist",
-    "picture": "https://jackgrimes.github.io/images/jack.jpg",
+    "picture": "/images/jack.jpg",
     "email": "jack@jackgrimes.uk",
     "phone": "",
     "website": "http://jackgrimes.uk",
