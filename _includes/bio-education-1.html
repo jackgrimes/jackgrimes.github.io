@@ -20,6 +20,14 @@
         {% endfor %}
       </ul>
       {% endif %}
+      {% if entry.presentations %}
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <b>Presentations</b>
+      <ul style="margin-left: 20px; margin-top: 0px;">
+          {% for presentation in entry.presentations %}
+          <li>{{ presentation }}</li>
+      {% endfor %}
+      </ul>
+  {% endif %}
     </div>
     <div class="four wide right aligned column no-bottom">
       <p class="ui no-bottom"><b>
