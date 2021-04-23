@@ -224,7 +224,7 @@
         "Chatbots (operational risk handbook)(IBM Watson)"
       ],
       "projects": [
-        "Face recognition for fraud prevention (Flask, face_recognition, python)",
+        "Face recognition for fraud prevention (Flask, face_recognition, Python)",
         "Natural language processing to understand complaints made to the Financial Ombudsman Service (Gensim, SAS VA, Latent Dirichlet Analysis",
         "Predictive model of falling into financial difficulty (scikit-learn, pandas, imblearn)",
         "Predictive model of fraudulent transactions in commercial bank accounts (scikit-learn, pandas, imblearn)",
