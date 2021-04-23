@@ -7,8 +7,15 @@
 
 {% for entry in site.data.bio.education %}
 <div class="twelve wide column no-bottom">
-    <p class="ui no-bottom"><b>{{ entry.institution }}</b></p>
     <p class="ui no-bottom">{{ entry.studyType }}, {{ entry.area }}</p>
+    <p class="ui no-bottom"><b>{{ entry.institution }}</b></p>
+
+    {% if entry.thesis %}
+    {% for t in entry.thesis %}
+    {{ t }}
+    {% endfor %}
+    {% endif %}
+
     {% if entry.courses %}
     <ul style="margin: 0px;">
         {% for course in entry.courses %}
