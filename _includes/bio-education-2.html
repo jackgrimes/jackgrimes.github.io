@@ -1,38 +1,38 @@
 <!-- Used by theme-bio-builtin-2 -->
 
 <div class="sixteen wide column no-bottom">
-  <h2 class="ui left aligned header no-bottom">Education</h2>
-  <hr style="margin: 0px;">
+    <h2 class="ui left aligned header no-bottom">Education</h2>
+    <hr style="margin: 0px;">
 </div>
 
 {% for entry in site.data.bio.education %}
-  <div class="twelve wide column no-bottom">
+<div class="twelve wide column no-bottom">
     <p class="ui no-bottom"><b>{{ entry.institution }}</b></p>
     <p class="ui no-bottom">{{ entry.studyType }}, {{ entry.area }}</p>
     {% if entry.courses %}
-      <ul style="margin: 0px;">
+    <ul style="margin: 0px;">
         {% for course in entry.courses %}
-          <li>{{ course }}</li>
+        <li>{{ course }}</li>
         {% endfor %}
-      </ul>
+    </ul>
     {% endif %}
-  </div>
-  <div class="four wide right aligned column no-bottom">
+</div>
+<div class="four wide right aligned column no-bottom">
     <h3 class="ui no-bottom"><b>
-      {% if entry.startDate %}
+        {% if entry.startDate %}
         {{ entry.startDate | slice: 0,4 }}
-      {% endif %}
-      {% if entry.startDate and entry.startDate != '' and entry.endDate and entry.endDate != '' %}
-        -
-      {% endif %}
-      {% if entry.endDate %}
-        {% if entry.endDate != "Present" %}
-          {{ entry.endDate | slice: 0,4 }}
-        {% else %}
-          {{ entry.endDate }}
         {% endif %}
-      {% endif %}
+        {% if entry.startDate and entry.startDate != '' and entry.endDate and entry.endDate != '' %}
+        -
+        {% endif %}
+        {% if entry.endDate %}
+        {% if entry.endDate != "Present" %}
+        {{ entry.endDate | slice: 0,4 }}
+        {% else %}
+        {{ entry.endDate }}
+        {% endif %}
+        {% endif %}
     </b></h3>
-  </div>
+</div>
 {% endfor %}
 

@@ -5,14 +5,18 @@ layout: projects
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-145091317-1"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    window.dataLayer = window.dataLayer || [];
 
-  gtag('config', 'UA-145091317-1');
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'UA-145091317-1');
 </script>
 
 <div style="margin-top: 20px; margin-bottom: 20px" class="ui text container">
- <h1>{{ page.title }}</h1>
- {{ content }}
+    <h1>{{ page.title }}</h1>
+    {{ content }}
 </div>

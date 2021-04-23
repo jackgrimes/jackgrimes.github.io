@@ -2,20 +2,20 @@
 
 {% if site.data.bio.interests %}
 <div class="row">
-  <div class="two wide column">
-    <h2 class="ui left aligned header no-bottom">Interests</h2>
-  </div>
+    <div class="two wide column">
+        <h2 class="ui left aligned header no-bottom">Interests</h2>
+    </div>
 
-  <div class="fourteen wide column no-bottom">
-    <p class="ui no-bottom">
+    <div class="fourteen wide column no-bottom">
+        <p class="ui no-bottom">
             {% if site.data.bio.interests %}
-      <ul style="margin: 0px;">
-        {% for interest in site.data.bio.interests %}
-        <li>{{ interest.name }}</li>
-        {% endfor %}
-      </ul>
-      {% endif %}
-    </p>
-  </div>
+        <ul style="margin: 0px;">
+            {% for interest in site.data.bio.interests %}
+            <li>{{ interest.name }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        </p>
+    </div>
 </div>
 {% endif %}

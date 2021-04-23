@@ -48,7 +48,7 @@
       "keywords": [
       ]
     },
-        {
+    {
       "name": "software engineering",
       "keywords": [
       ]
@@ -70,20 +70,19 @@
         "Git/GitHub"
       ]
     },
-	{
+    {
       "name": "Platforms",
       "level": "",
       "keywords": [
-        "Google Cloud Platform", 
-		"Domino"
+        "Google Cloud Platform",
+        "Domino"
       ]
     }
   ],
   "education": [
     {
       "institution": "<a href='https://www.imperial.ac.uk'>Imperial College London</a>",
-      "area": "Engineering/Epidemiology<br/>
-      <a href='https://spiral.imperial.ac.uk/handle/10044/1/44497'><i>An investigation into the roles of water, sanitation, and hygiene in the control of schistosomes and other helminths</i></a>",
+      "area": "Engineering/Epidemiology<br><a style='font-size:15px' href='https://spiral.imperial.ac.uk/handle/10044/1/44497'><i>An investigation into the roles of water, sanitation, and hygiene in the control of schistosomes and other helminths</i></a>",
       "studyType": "Ph.D",
       "startDate": "2012",
       "endDate": "2015",
@@ -98,12 +97,12 @@
         "Fieldwork: spent around 6 months of my Ph.D. in Ethiopia - supervising data collection but also negotiating contracts, obtaining equipment, hiring staff etc",
         "First author of 6 papers, also contributed to 5 more (see <a href='https://scholar.google.co.uk/citations?hl=en&user=HZLogpQAAAAJ'>Google Scholar</a>)"
       ],
-      "presentations":[
-	"The American Society of Tropical Medicine and Hygiene Annual Meetings (2012, 2013, and 2016)",
-	"The Wellcome Centre for Global Health Research Annual Meeting (2016)",
-	"The launch of the Centre for International Child Health at Imperial College London (2016)",
-	"The International Society for Neglected Tropical Diseases: Water Conference (2014)",
-	"Many less formal meetings in London"
+      "presentations": [
+        "The American Society of Tropical Medicine and Hygiene Annual Meetings (2012, 2013, and 2016)",
+        "The Wellcome Centre for Global Health Research Annual Meeting (2016)",
+        "The launch of the Centre for International Child Health at Imperial College London (2016)",
+        "The International Society for Neglected Tropical Diseases: Water Conference (2014)",
+        "Many less formal meetings in London"
       ]
     },
     {
@@ -123,7 +122,7 @@
       ]
     },
     {
-	  "institution": "<a href='https://www.ox.ac.uk'>University of Oxford</a>",
+      "institution": "<a href='https://www.ox.ac.uk'>University of Oxford</a>",
       "area": "Physics",
       "studyType": "B.A.",
       "startDate": "2007",
@@ -145,49 +144,49 @@
   ],
   "work": [
     {
-	  "company": "<a href='https://morsum.co/'>Morsum</a>",
+      "company": "<a href='https://morsum.co/'>Morsum</a>",
       "position": "Senior Data Scientist",
       "website": "",
       "startDate": "2021",
       "endDate": "Present",
       "summary": "",
       "highlights": [
-		"CI/CD pipelines using Github Actions",
-		],
-	  "projects": [
-		"CI/CD pipelines using Github Actions",
-		],
-	  "hidden_projects": [
-		],
+        "CI/CD pipelines using Github Actions"
+      ],
+      "projects": [
+        "CI/CD pipelines using Github Actions"
+      ],
+      "hidden_projects": [
+      ]
     },
     {
-	  "company": "<a href='https://www.lloydsbankinggroup.com'>Lloyds Banking Group</a>",
+      "company": "<a href='https://www.lloydsbankinggroup.com'>Lloyds Banking Group</a>",
       "position": "Data Scientist, Machine Intelligence Programme",
       "website": "",
       "startDate": "2019",
       "endDate": "2021",
       "summary": "",
       "highlights": [
-		"Predominantly using Python, Git, PyCharm, Jenkins, pandas, spaCy, scikit-learn, pytest, NetworkX",
-		"Natural language processing (NLP), network analysis, classification, clustering",
-		"High-quality (efficient and readable), production-ready tested code",
-		"Quality control and investigation of the performance of that code",
-		"Running the Modelling Interest Group, organising sessions about interesting modelling topics",
-		"Planning and delivering the <i>Advanced Modelling</i> and <i>Natural Language Processing</i> parts of the <i>Data Science Graduate Scheme Training Programme</i>"
-		],
-	  "projects": [
-		"Rectification of incorrect indicator application through supervised machine learning (spaCy, scikit-learn, tf-idf, random forests, logistic regressions)",
-		"Rectification of incorrect indicator application through unsupervised machine learning (spaCy, scikit-learn, tf-idf, <i>k</i>-means clustering)",
-		"Understanding the indicator portfolio through network analysis (NetworkX, netwulf)",
-		"Automatic verification of mortgage applicants' incomes"
-		],
-	  "hidden_projects": [
-		"Speech-to-text using deepspeech",
-		"Interviewing and selecting candidates for Data Science Graduate Scheme"
-		],
+        "Predominantly using Python, Git, PyCharm, Jenkins, pandas, spaCy, scikit-learn, pytest, NetworkX",
+        "Natural language processing (NLP), network analysis, classification, clustering",
+        "High-quality (efficient and readable), production-ready tested code",
+        "Quality control and investigation of the performance of that code",
+        "Running the Modelling Interest Group, organising sessions about interesting modelling topics",
+        "Planning and delivering the <i>Advanced Modelling</i> and <i>Natural Language Processing</i> parts of the <i>Data Science Graduate Scheme Training Programme</i>"
+      ],
+      "projects": [
+        "Rectification of incorrect indicator application through supervised machine learning (spaCy, scikit-learn, tf-idf, random forests, logistic regressions)",
+        "Rectification of incorrect indicator application through unsupervised machine learning (spaCy, scikit-learn, tf-idf, <i>k</i>-means clustering)",
+        "Understanding the indicator portfolio through network analysis (NetworkX, netwulf)",
+        "Automatic verification of mortgage applicants' incomes"
+      ],
+      "hidden_projects": [
+        "Speech-to-text using deepspeech",
+        "Interviewing and selecting candidates for Data Science Graduate Scheme"
+      ]
     },
     {
-	  "company": "<a href='https://www.lloydsbankinggroup.com'>Lloyds Banking Group</a>",
+      "company": "<a href='https://www.lloydsbankinggroup.com'>Lloyds Banking Group</a>",
       "position": "Data Scientist, Risk Innovation",
       "website": "",
       "startDate": "2017",
@@ -196,34 +195,40 @@
       "highlights": [
         "Predominantly using Python, Git, SAS VA, Flask",
         "Predictive analytics using pandas, scikit-learn",
-		"Fraud prevention using face_recognition",
+        "Fraud prevention using face_recognition",
         "Topic modelling using Gensim, Latent Dirichlet allocation, SAS VA",
         "Web app development using Flask",
         "Dashboards in SAS VA",
         "Line-management of an intern",
         "Presented my work widely, at internal conferences throughout the UK"
-		],
-	  "presentations_in": ["Edinburgh", "Birmingham (Helping Britain Prosper)", "Halifax", "Leeds", "London"],
-	  "hidden_projects": [
-		"Fraudulent applications robot: handling fraudulent applications process with Blue Prism robotic process automation",
-		"Personal Lending Decisions robot: updating one system with data from another with Blue Prism robotic process automation",
-		"Robotics/facial recognition integration: integrating machine learning solutions into Blue Prism robotic process automation",
-		"Credit strategy emulator: VBA code to run (and save results of) credit models. VBA and SAS/Le Mans integration",
-		"HIVE leaders macro (VBA to scrape from internal web page)",
-		"EUC dashboard - SAS VA", 
-		"Coffee club (Flask app to encourage networking between colleagues)", 
-		"Python App to scrape and summarise regulations from FCA website", 
-		"Cards portfolio dashboard (SAS VA)",
-		"Text summariser (Flask, Gensim)",
-		"Chatbots (operational risk handbook)(IBM Watson)",
-		],
-	  "projects": [
-		"Face recognition for fraud prevention (Flask, face_recognition, python)",
-		"Natural language processing to understand complaints made to the Financial Ombudsman Service (Gensim, SAS VA, Latent Dirichlet Analysis",
-		"Predictive model of falling into financial difficulty (scikit-learn, pandas, imblearn)",
-		"Predictive model of fraudulent transactions in commercial bank accounts (scikit-learn, pandas, imblearn)",
-		"Web app to scrape macroeconomic indicators from the Bank of England website (bokeh, urllib, pandas)",
-	  ]
+      ],
+      "presentations_in": [
+        "Edinburgh",
+        "Birmingham (Helping Britain Prosper)",
+        "Halifax",
+        "Leeds",
+        "London"
+      ],
+      "hidden_projects": [
+        "Fraudulent applications robot: handling fraudulent applications process with Blue Prism robotic process automation",
+        "Personal Lending Decisions robot: updating one system with data from another with Blue Prism robotic process automation",
+        "Robotics/facial recognition integration: integrating machine learning solutions into Blue Prism robotic process automation",
+        "Credit strategy emulator: VBA code to run (and save results of) credit models. VBA and SAS/Le Mans integration",
+        "HIVE leaders macro (VBA to scrape from internal web page)",
+        "EUC dashboard - SAS VA",
+        "Coffee club (Flask app to encourage networking between colleagues)",
+        "Python App to scrape and summarise regulations from FCA website",
+        "Cards portfolio dashboard (SAS VA)",
+        "Text summariser (Flask, Gensim)",
+        "Chatbots (operational risk handbook)(IBM Watson)"
+      ],
+      "projects": [
+        "Face recognition for fraud prevention (Flask, face_recognition, python)",
+        "Natural language processing to understand complaints made to the Financial Ombudsman Service (Gensim, SAS VA, Latent Dirichlet Analysis",
+        "Predictive model of falling into financial difficulty (scikit-learn, pandas, imblearn)",
+        "Predictive model of fraudulent transactions in commercial bank accounts (scikit-learn, pandas, imblearn)",
+        "Web app to scrape macroeconomic indicators from the Bank of England website (bokeh, urllib, pandas)"
+      ]
     },
     {
       "company": "<a href='https://www.imperial.ac.uk'>Imperial College London</a>",

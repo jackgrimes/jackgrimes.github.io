@@ -5,13 +5,17 @@ layout: default
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-145091317-1"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  
-  gtag('config', 'UA-145091317-1');
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'UA-145091317-1');
 </script>
 
 {% include menubar.html active="cv"%}
 
-<meta http-equiv="Refresh" content="0; url={{ site.cv-file-name }}" />
+<meta http-equiv="Refresh" content="0; url={{ site.cv-file-name }}"/>
