@@ -82,8 +82,8 @@
   "education": [
     {
       "institution": "<a href='https://www.imperial.ac.uk'>Imperial College London</a>",
-      "area": "Engineering/Epidemiology<br><a style='font-size:15px'; font-weight:normal' href='https://spiral.imperial.ac.uk/handle/10044/1/44497'><i>An investigation into the roles of water, sanitation, and hygiene in the control of schistosomes and other helminths</i></a>",
-      "studyType": "Ph.D",
+      "area": "Engineering/Epidemiology<br><a style='font-size:15px; font-weight:normal' href='https://spiral.imperial.ac.uk/handle/10044/1/44497'><i>An investigation into the roles of water, sanitation, and hygiene in the control of schistosomes and other helminths</i></a>",
+      "studyType": "Ph.D.",
       "startDate": "2012",
       "endDate": "2015",
       "gpa": "",
@@ -298,35 +298,15 @@
       ]
     },
     {
-      "course": "Codecademy Learn SQL",
-      "website": "https://www.codecademy.com/learn/learn-sql",
+      "course": "Codecademy Courses",
+      "website": "https://www.codecademy.com/",
       "date": "2017",
-      "provider": "Codecademy",
+      "provider": "",
       "highlights": [
-      ]
-    },
-    {
-      "course": "Codecademy SQL: Table Transformation",
-      "website": "https://www.codecademy.com/learn/sql-table-transformation",
-      "date": "2017",
-      "provider": "Codecademy",
-      "highlights": [
-      ]
-    },
-    {
-      "course": "Codecademy SQL: Analyzing Business Metrics",
-      "website": "https://www.codecademy.com/learn/sql-analyzing-business-metrics",
-      "date": "2017",
-      "provider": "Codecademy",
-      "highlights": [
-      ]
-    },
-    {
-      "course": "Codecademy Learn Python 2",
-      "website": "https://www.codecademy.com/learn/learn-python",
-      "date": "2017",
-      "provider": "Codecademy",
-      "highlights": [
+        "<a href='https://www.codecademy.com/learn/learn-sql'>Codecademy Learn SQL</a>",
+        "<a href='https://www.codecademy.com/learn/sql-table-transformation-sql'>Codecademy SQL: Table Transformation</a>",
+        "<a href='https://www.codecademy.com/learn/sql-analyzing-business-metrics'>Codecademy SQL: Analyzing Business Metrics</a>",
+        "<a href='https://www.codecademy.com/learn/learn-python'>Codecademy Learn Python 2</a>"
       ]
     }
   ],

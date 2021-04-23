@@ -11,7 +11,10 @@
 
         <div class="ui grid">
             <div class="twelve wide column no-bottom">
-                <h3 class="ui no-bottom"><b><a href="{{ entry.website }}">{{ entry.course }} ({{ entry.provider }})</a></b>
+                <h3 class="ui no-bottom">
+                    <b>
+                        <a href="{{ entry.website }}">{{ entry.course }}</a>{% if entry.provider %}{% for p in entry.provider %}<a href="{{ entry.website }}"> ({{ p }})</a>{% endfor %}{% endif %}
+                    </b>
                 </h3>
                 {% if entry.highlights %}
                 <ul style="margin: 0px;">
@@ -33,4 +36,5 @@
         {% endfor %}
     </div>
 </div>
+<div style="width:100%; height:30px"></div>
 {% endif %}
