@@ -26,16 +26,15 @@
                 {% endif %}
             </div>
             <div class="four wide right aligned column no-bottom">
-                <h3 class="ui no-bottom"><b>
+                <h3 class="ui no-bottom" style="position: sticky; top: 10px;"><b>
                     {% if entry.date %}
                     {{ entry.date }}
                     {% endif %}
                 </b></h3>
             </div>
         </div>
-
+        <div style="width:100%; height:50px"></div>
         {% endfor %}
     </div>
 </div>
-<div style="width:100%; height:30px"></div>
 {% endif %}
