@@ -134,19 +134,35 @@
   ],
   "work": [
     {
+	  "company": "<a href='https://morsum.co/'>Morsum</a>",
+      "position": "Senior Data Scientist",
+      "website": "",
+      "startDate": "2021",
+      "endDate": "Present",
+      "summary": "",
+      "highlights": [
+		"CI/CD pipelines using Github Actions",
+		],
+	  "projects": [
+		"CI/CD pipelines using Github Actions",
+		],
+	  "hidden_projects": [
+		],
+    },
+    {
 	  "company": "<a href='https://www.lloydsbankinggroup.com'>Lloyds Banking Group</a>",
       "position": "Data Scientist, Machine Intelligence Programme",
       "website": "",
       "startDate": "2019",
-      "endDate": "Present",
+      "endDate": "2021",
       "summary": "",
       "highlights": [
-		"Predominantly using Python, Git, PyCharm, Jenkins , pandas, spaCy, scikit-learn, pytest, NetworkX",
+		"Predominantly using Python, Git, PyCharm, Jenkins, pandas, spaCy, scikit-learn, pytest, NetworkX",
 		"Natural language processing (NLP), network analysis, classification, clustering",
 		"High-quality (efficient and readable), production-ready tested code",
 		"Quality control and investigation of the performance of that code",
 		"Running the Modelling Interest Group, organising sessions about interesting modelling topics",
-		"Planning and delivering the Advanced Modelling and Natural Language Processing parts of the Data Science Graduate Scheme Training Programme"
+		"Planning and delivering the <i>Advanced Modelling</i> and <i>Natural Language Processing</i> parts of the <i>Data Science Graduate Scheme Training Programme</i>"
 		],
 	  "projects": [
 		"Rectification of incorrect indicator application through supervised machine learning (spaCy, scikit-learn, tf-idf, random forests, logistic regressions)",
