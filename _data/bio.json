@@ -82,7 +82,7 @@
   "education": [
     {
       "institution": "<a href='https://www.imperial.ac.uk'>Imperial College London</a>",
-      "area": "Engineering/Epidemiology<br><a style='font-size:15px' href='https://spiral.imperial.ac.uk/handle/10044/1/44497'><i>An investigation into the roles of water, sanitation, and hygiene in the control of schistosomes and other helminths</i></a>",
+      "area": "Engineering/Epidemiology<br><a style='font-size:15px'; font-weight:normal' href='https://spiral.imperial.ac.uk/handle/10044/1/44497'><i>An investigation into the roles of water, sanitation, and hygiene in the control of schistosomes and other helminths</i></a>",
       "studyType": "Ph.D",
       "startDate": "2012",
       "endDate": "2015",
