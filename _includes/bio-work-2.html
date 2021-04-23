@@ -2,7 +2,7 @@
 
 {% if site.data.bio.work %}
 <div class="sixteen wide column no-bottom">
-  <h3 class="ui left aligned header no-bottom">Professional Experience</h3>
+  <h2 class="ui left aligned header no-bottom">Professional Experience</h2>
   <hr style="margin: 0px;">
 </div>
 
@@ -30,7 +30,7 @@
   </div>
 
   <div style="padding-top: 0px;" class="sixteen wide column no-bottom">
-    <p class="ui no-bottom">{{ entry.summary }}</p>
+    <h3 class="ui no-bottom">{{ entry.summary }}</h3>
     {% if entry.highlights %}
       <ul style="margin: 0px;">
         {% for highlight in entry.highlights %}

@@ -3,7 +3,7 @@
 {% if site.data.bio.courses %}
 <div class="row">
   <div class="two wide column">
-    <h3 class="ui left aligned header no-bottom">Courses</h3>
+    <h2 class="ui left aligned header no-bottom">Courses</h2>
   </div>
 
   <div class="fourteen wide column no-bottom">
@@ -11,7 +11,7 @@
 
     <div class="ui grid">
       <div class="twelve wide column no-bottom">
-        <p class="ui no-bottom"><b><a href="{{ entry.website }}">{{ entry.course }} ({{ entry.provider }})</a></b></p>
+        <h3 class="ui no-bottom"><b><a href="{{ entry.website }}">{{ entry.course }} ({{ entry.provider }})</a></b></h3>
         {% if entry.highlights %}
         <ul style="margin: 0px;">
           {% for highlight in entry.highlights %}
@@ -21,11 +21,11 @@
         {% endif %}
       </div>
       <div class="four wide right aligned column no-bottom">
-        <p class="ui no-bottom"><b>
+        <h3 class="ui no-bottom"><b>
           {% if entry.date %}
           {{ entry.date }}
           {% endif %}
-        </b></p>
+        </b></h3>
       </div>
     </div>
 

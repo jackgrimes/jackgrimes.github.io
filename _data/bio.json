@@ -47,6 +47,11 @@
       "name": "visualisation",
       "keywords": [
       ]
+    },
+        {
+      "name": "software engineering",
+      "keywords": [
+      ]
     }
   ],
   "skills": [
@@ -228,6 +233,10 @@
       "endDate": "2017",
       "summary": "",
       "highlights": [
+        "Concluding analyses of data collected during my PhD",
+        "Primarily using R and ArcGIS"
+      ],
+      "projects": [
         "Mixed effects logistic regression to assess the relationships between environmental risk factors, parasites, and overall health, using R and lme4) (<a href='https://journals.plos.org/plosntds/article?id=10.1371/journal.pntd.0005948'>paper</a>)",
         "Using parasite infection intensity and Box-Cox transformations, for more accurate estimations of parasite infection prevalence (using R)"
       ]
