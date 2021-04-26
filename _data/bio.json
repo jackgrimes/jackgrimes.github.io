@@ -34,22 +34,22 @@
   },
   "interests": [
     {
-      "name": "deep learning",
+      "name": "Deep learning",
       "keywords": [
       ]
     },
     {
-      "name": "classical statistics",
+      "name": "Classical statistics",
       "keywords": [
       ]
     },
     {
-      "name": "visualisation",
+      "name": "Visualisation",
       "keywords": [
       ]
     },
     {
-      "name": "software engineering",
+      "name": "Software engineering",
       "keywords": [
       ]
     }
@@ -94,7 +94,7 @@
         "Non-parametric Statistics using R",
         "Data management using R",
         "Primary data collection in surveys: training and supervision of 41 data collectors, data collected from over 100,000 children in over 2,000 schools",
-        "Supervision of 2 M.Sc. students during my Ph.D. work (and, more recently, an MEng student in 2020)",
+        "Supervision of two M.Sc. students during my Ph.D. work (and, more recently, an MEng student in 2020)",
         "Fieldwork: spent around 6 months of my Ph.D. in Ethiopia - supervising data collection but also negotiating contracts, obtaining equipment, hiring staff etc",
         "First author of 6 papers, also contributed to 5 more (see <a href='https://scholar.google.co.uk/citations?hl=en&user=HZLogpQAAAAJ'>Google Scholar</a>)"
       ],
@@ -125,7 +125,7 @@
     {
       "institution": "<a href='https://www.ox.ac.uk'>University of Oxford</a>",
       "area": "Physics",
-      "studyType": "B.A.",
+      "studyType": "M.A. (Oxon)",
       "startDate": "2007",
       "endDate": "2010",
       "gpa": "",
@@ -162,7 +162,7 @@
     },
     {
       "company": "<a href='https://www.lloydsbankinggroup.com'>Lloyds Banking Group</a>",
-      "position": "Data Scientist, Machine Intelligence Programme",
+      "position": "Data Scientist, Applied Science",
       "website": "",
       "startDate": "2019",
       "endDate": "2021",
