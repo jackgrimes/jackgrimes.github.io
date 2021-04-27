@@ -59,23 +59,23 @@
       "name": "Languages and Frameworks",
       "level": "",
       "keywords": [
-        "Python",
-        "R"
+        "<a href='https://www.python.org/'>Python</a>",
+        "<a href='https://www.r-project.org/'>R</a>"
       ]
     },
     {
       "name": "Toolsets/OS",
       "level": "",
       "keywords": [
-        "Git/GitHub"
+        "<a href='https://git-scm.com/'>Git</a>/<a href='https://github.com/'>GitHub</a>"
       ]
     },
     {
       "name": "Platforms",
       "level": "",
       "keywords": [
-        "Google Cloud Platform",
-        "Domino"
+        "<a href='https://cloud.google.com/'>Google Cloud Platform</a>",
+        "<a href='https://www.dominodatalab.com/'>Domino</a>"
       ]
     }
   ],
@@ -90,19 +90,19 @@
       "thesis": "<a href='https://spiral.imperial.ac.uk/handle/10044/1/44497'><i>An investigation into the roles of water, sanitation, and hygiene in the control of schistosomes and other helminths</i></a>",
       "courses": [
         "Systematic review and meta-analysis (<a href='https://journals.plos.org/plosntds/article?id=10.1371/journal.pntd.0003296'>paper</a>)",
-        "GIS and Spatial Statistics using R and ArcGIS",
-        "Non-parametric Statistics using R",
-        "Data management using R",
+        "GIS and Spatial Statistics using <a href='https://www.r-project.org/'>R</a> and <a href='https://www.arcgis.com/'>ArcGIS</a>",
+        "Non-parametric Statistics using <a href='https://www.r-project.org/'>R</a>",
+        "Data management using <a href='https://www.r-project.org/'>R</a>",
         "Primary data collection in surveys: training and supervision of 41 data collectors, data collected from over 100,000 children in over 2,000 schools",
-        "Supervision of two M.Sc. students during my Ph.D. work (and, more recently, an MEng student in 2020)",
+        "Supervision of two M.Sc. students during my Ph.D. work (and, more recently, an M.Eng. student in 2020)",
         "Fieldwork: spent around 6 months of my Ph.D. in Ethiopia - supervising data collection but also negotiating contracts, obtaining equipment, hiring staff etc",
         "First author of 6 papers, also contributed to 5 more (see <a href='https://scholar.google.co.uk/citations?hl=en&user=HZLogpQAAAAJ'>Google Scholar</a>)"
       ],
       "presentations": [
-        "The American Society of Tropical Medicine and Hygiene Annual Meetings (2012, 2013, and 2016)",
-        "The Wellcome Centre for Global Health Research Annual Meeting (2016)",
-        "The launch of the Centre for International Child Health at Imperial College London (2016)",
-        "The International Society for Neglected Tropical Diseases: Water Conference (2014)",
+        "<a href='https://www.astmh.org/'>The American Society of Tropical Medicine and Hygiene Annual Meetings</a>: (2012, 2013, and 2016)",
+        "<a href='https://www.imperial.ac.uk/global-health-innovation/global-engagement/wellcome-centre-for-global-health-research-annual-meeting/'>The Wellcome Centre for Global Health Research</a> Annual Meeting (2016)",
+        "The launch of the <a href='https://www.imperial.ac.uk/centre-for-international-child-health/about-us/our-partners-and-collaborators/'>Centre for International Child Health at Imperial College London </a> (2016)",
+        "<a href='https://www.isntd.org/'>The International Society for Neglected Tropical Diseases</a>: Water Conference (2014)",
         "Many less formal meetings in London"
       ]
     },
@@ -152,10 +152,10 @@
       "endDate": "Present",
       "summary": "",
       "highlights": [
-        "CI/CD pipelines using GitHub Actions"
+        "CI/CD pipelines using <a href='https://github.com/features/actions/'>GitHub Actions</a>"
       ],
       "projects": [
-        "CI/CD pipelines using GitHub Actions"
+        "CI/CD pipelines using <a href='https://github.com/features/actions/'>GitHub Actions</a>"
       ],
       "hidden_projects": [
       ]
@@ -168,7 +168,7 @@
       "endDate": "2021",
       "summary": "",
       "highlights": [
-        "Predominantly using Python, Git, PyCharm, Jenkins, pandas, spaCy, scikit-learn, pytest, NetworkX",
+        "Predominantly using <a href='https://www.python.org/'>Python</a>, <a href='https://git-scm.com/'>Git</a>, <a href='https://www.jetbrains.com/pycharm/'>PyCharm</a>, <a href='https://www.jenkins.io/'>Jenkins</a>, <a href='https://pandas.pydata.org/'>pandas</a>, <a href='https://spacy.io/'>spaCy</a>, <a href='https://scikit-learn.org/'>scikit-learn</a>, <a href='https://docs.pytest.org/'>pytest</a>, <a href='https://networkx.org/'>NetworkX</a>",
         "Natural language processing (NLP), network analysis, classification, clustering",
         "High-quality (efficient and readable), production-ready tested code",
         "Quality control and investigation of the performance of that code",
@@ -176,9 +176,9 @@
         "Planning and delivering the <i>Advanced Modelling</i> and <i>Natural Language Processing</i> parts of the <i>Data Science Graduate Scheme Training Programme</i>"
       ],
       "projects": [
-        "Rectification of incorrect indicator application through supervised machine learning (spaCy, scikit-learn, tf-idf, random forests, logistic regressions)",
-        "Rectification of incorrect indicator application through unsupervised machine learning (spaCy, scikit-learn, tf-idf, <i>k</i>-means clustering)",
-        "Understanding the indicator portfolio through network analysis (NetworkX, netwulf)",
+        "Rectification of incorrect indicator application through supervised machine learning (<a href='https://spacy.io/'>spaCy</a>, <a href='https://scikit-learn.org/'>scikit-learn</a>, tf-idf, random forests, logistic regressions)",
+        "Rectification of incorrect indicator application through unsupervised machine learning (<a href='https://spacy.io/'>spaCy</a>, <a href='https://scikit-learn.org/'>scikit-learn</a>, tf-idf, <i>k</i>-means clustering)",
+        "Understanding the indicator portfolio through network analysis (<a href='https://networkx.org/'>NetworkX</a>, <a href='https://netwulf.readthedocs.io'>netwulf</a>)",
         "Automatic verification of mortgage applicants' incomes"
       ],
       "hidden_projects": [
@@ -194,12 +194,12 @@
       "endDate": "2019",
       "summary": "",
       "highlights": [
-        "Predominantly using Python, Git, SAS VA, Flask",
-        "Predictive analytics using pandas, scikit-learn",
-        "Fraud prevention using face_recognition",
-        "Topic modelling using Gensim, Latent Dirichlet allocation, SAS VA",
-        "Web app development using Flask",
-        "Dashboards in SAS VA",
+        "Predominantly using <a href='https://www.python.org/'>Python</a>, <a href='https://git-scm.com/'>Git</a>, <a href='https://www.sas.com/en_gb/software/visual-analytics.html'>SAS VA</a>, <a href='https://flask.palletsprojects.com/'>Flask</a>",
+        "Predictive analytics using <a href='https://pandas.pydata.org/'>pandas</a>, <a href='https://scikit-learn.org/'>scikit-learn</a>",
+        "Fraud prevention using <a href='https://pypi.org/project/face-recognition/'>face_recognition</a>",
+        "Topic modelling using <a href='https://radimrehurek.com/gensim/'>Gensim</a>, Latent Dirichlet allocation, <a href='https://www.sas.com/en_gb/software/visual-analytics.html'>SAS VA</a>",
+        "Web app development using <a href='https://flask.palletsprojects.com/'>Flask</a>",
+        "Dashboards in <a href='https://www.sas.com/en_gb/software/visual-analytics.html'>SAS VA</a>",
         "Line-management of an intern",
         "Presented my work widely, at internal conferences throughout the UK"
       ],
@@ -213,7 +213,7 @@
       "hidden_projects": [
         "Fraudulent applications robot: handling fraudulent applications process with Blue Prism robotic process automation",
         "Personal Lending Decisions robot: updating one system with data from another with Blue Prism robotic process automation",
-        "Robotics/facial recognition integration: integrating machine learning solutions into Blue Prism robotic process automation",
+        "Robotics/face recognition integration: integrating machine learning solutions into Blue Prism robotic process automation",
         "Credit strategy emulator: VBA code to run (and save results of) credit models. VBA and SAS/Le Mans integration",
         "HIVE leaders macro (VBA to scrape from internal web page)",
         "EUC dashboard - SAS VA",
@@ -224,11 +224,11 @@
         "Chatbots (operational risk handbook)(IBM Watson)"
       ],
       "projects": [
-        "Face recognition for fraud prevention (Flask, face_recognition, Python)",
-        "Natural language processing to understand complaints made to the Financial Ombudsman Service (Gensim, SAS VA, Latent Dirichlet Analysis",
-        "Predictive model of falling into financial difficulty (scikit-learn, pandas, imblearn)",
-        "Predictive model of fraudulent transactions in commercial bank accounts (scikit-learn, pandas, imblearn)",
-        "Web app to scrape macroeconomic indicators from the Bank of England website (bokeh, urllib, pandas)"
+        "Face recognition for fraud prevention (<a href='https://flask.palletsprojects.com/'>Flask</a>, <a href='https://pypi.org/project/face-recognition/'>face_recognition</a>, <a href='https://www.python.org/'>Python</a>)",
+        "Natural language processing to understand complaints made to the Financial Ombudsman Service (<a href='https://radimrehurek.com/gensim/'>Gensim</a>, <a href='https://www.sas.com/en_gb/software/visual-analytics.html'>SAS VA</a>, Latent Dirichlet Analysis)",
+        "Predictive model of falling into financial difficulty (<a href='https://scikit-learn.org/'>scikit-learn</a>, <a href='https://pandas.pydata.org/'>pandas</a>, <a href='https://pypi.org/project/imbalanced-learn/'>imblearn</a>)",
+        "Predictive model of fraudulent transactions in commercial bank accounts (<a href='https://scikit-learn.org/'>scikit-learn</a>, <a href='https://pandas.pydata.org/'>pandas</a>, <a href='https://pypi.org/project/imbalanced-learn/'>imblearn</a>)",
+        "Web app to scrape macroeconomic indicators from the Bank of England website (<a href='https://docs.bokeh.org/'>bokeh</a>, <a href='https://docs.python.org/3/library/urllib.html'>urllib</a>, <a href='https://pandas.pydata.org/'>pandas</a>)"
       ]
     },
     {
@@ -240,11 +240,11 @@
       "summary": "",
       "highlights": [
         "Concluding analyses of data collected during my Ph.D.",
-        "Primarily using R and ArcGIS"
+        "Primarily using <a href='https://www.r-project.org/'>R</a> and <a href='https://www.arcgis.com/'>ArcGIS</a>"
       ],
       "projects": [
-        "Mixed effects logistic regression to assess the relationships between environmental risk factors, parasites, and overall health, using R and lme4) (<a href='https://journals.plos.org/plosntds/article?id=10.1371/journal.pntd.0005948'>paper</a>)",
-        "Using parasite infection intensity and Box-Cox transformations, for more accurate estimations of parasite infection prevalence (using R)"
+        "Mixed effects logistic regression to assess the relationships between environmental risk factors, parasites, and overall health, using <a href='https://www.r-project.org/'>R</a> and <a href='https://cran.r-project.org/web/packages/lme4/lme4.pdf'>lme4</a>) (<a href='https://journals.plos.org/plosntds/article?id=10.1371/journal.pntd.0005948'>paper</a>)",
+        "Using parasite infection intensity and Box-Cox transformations, for more accurate estimations of parasite infection prevalence (using <a href='https://www.r-project.org/'>R</a>)"
       ]
     }
   ],
