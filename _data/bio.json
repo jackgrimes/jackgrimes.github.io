@@ -161,7 +161,7 @@
         "Data ingestion: data transformation pipelines, models for selection of the best data, and anomaly detection to guide manual review",
         "Database design: for optimal enrichment of data",
         "Best practices: implementing <a href 'https://github.com/features/actions/>GitHub Actions</a> builds, unit tests, <a href 'https://sonarcloud.io>sonarcloud</a>",
-        "<a href='https://git-scm.com/'>Git</a>, <a href='https://www.jetbrains.com/pycharm/'>PyCharm</a>, <a href='{https://pandas.pydata.org/'>pandas</a>, <a href='<a href='https://scikit-learn.org/'>scikit-learn</a>, <a href='<a href='https://docs.pytest.org/'>pytest</a>, <a href='https://cloud.google.com/'>Google Cloud Platform</a>, <a href='https://www.mysql.com/'>MySQL</a>"
+        "<a href='https://git-scm.com/'>Git</a>, <a href='https://www.jetbrains.com/pycharm/'>PyCharm</a>, <a href='{https://pandas.pydata.org/'>pandas</a>, <a href='https://scikit-learn.org/'>scikit-learn</a>, <a href='https://docs.pytest.org/'>pytest</a>, <a href='https://cloud.google.com/'>Google Cloud Platform</a>, <a href='https://www.mysql.com/'>MySQL</a>"
       ],
       "hidden_projects": [
       ]
