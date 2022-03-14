@@ -126,9 +126,9 @@ function vis(new_controls) {
   // Control variables
   window.controls = {
     // Input/output
-    'file_path': "",
+    'file_path': "/plos_ntds_network/network_data.json",
     'download_figure': download,
-    'zoom': 1.5,
+    'zoom': 0.8,
     // Physics
     'node_charge': -30,
     'node_gravity': 0.1,
@@ -142,18 +142,18 @@ function vis(new_controls) {
     'node_stroke_color': '#000000',
     'node_label_color': '#000000',
     'display_node_labels': false,
-    'scale_node_size_by_strength': false,
+    'scale_node_size_by_strength': true,
     'node_size': 10,
     'node_stroke_width': 0.5,
     'node_size_variation': 0.5,
     // Links
     'link_color': '#7c7c7c',
-    'link_width': 5,
+    'link_width': 0.8,
     'link_alpha': 0.5,
     'link_width_variation': 0.5,
     // Thresholding
-    'display_singleton_nodes': true,
-    'min_link_weight_percentile': 0.0,
+    'display_singleton_nodes': false,
+    'min_link_weight_percentile': 0.1,
     'max_link_weight_percentile': 1.0
   };
 
@@ -165,8 +165,6 @@ function vis(new_controls) {
   d3.keys(new_controls).forEach(key => {
     controls[key] = new_controls[key];
   });
-
-  if (controls['file_path'] == "") controls['file_path'] = "https://gist.githubusercontent.com/ulfaslak/6be66de1ac3288d5c1d9452570cbba5a/raw/0b9595c09b9f70a77ee05ca16d5a8b42a9130c9e/miserables.json";
 
   // Force layout
   var simulation = d3.forceSimulation()
@@ -299,7 +297,7 @@ function vis(new_controls) {
 
 
   // Key events //
-  // ---------- // 
+  // ---------- //
 
   var shiftDown = false
   window.onkeydown = function() {
@@ -439,11 +437,10 @@ function vis(new_controls) {
   f4.add(controls, 'link_width_variation', 0., 3.).name('Width variation').onChange(function(v) { inputtedLinkWidthExponent(v) }).title(title4_4);
 
   // Thresholding
-  var f5 = gui.addFolder('Thresholding'); f5.close();
+  var f5 = gui.addFolder('Thresholding'); f5.open();
   f5.add(controls, 'display_singleton_nodes', true).name('Singleton nodes').onChange(function(v) { inputtedShowSingletonNodes(v) }).title(title5_1);
   f5.add(controls, 'min_link_weight_percentile', 0, 0.99).name('Min. link percentile').step(0.01).onChange(function(v) { inputtedMinLinkWeight(v) }).listen().title(title5_2);
   f5.add(controls, 'max_link_weight_percentile', 0.01, 1).name('Max. link percentile').step(0.01).onChange(function(v) { inputtedMaxLinkWeight(v) }).listen().title(title5_3);
-
 
   // Utility functions //
   // ----------------- //
@@ -641,7 +638,7 @@ function vis(new_controls) {
   }
 
   var vMinPrev = 0;
-  var dvMin = 0;
+  var dvMin = 1;
   function inputtedMinLinkWeight(v) {
     dvMin = v - vMinPrev
     if (shiftDown) {
@@ -654,6 +651,7 @@ function vis(new_controls) {
     vMaxPrev = controls['max_link_weight_percentile']
     shave(); restart();
   }
+
 
   var vMaxPrev = 1;
   var dvMax = 0;
@@ -779,8 +777,19 @@ function vis(new_controls) {
     // Container for part of the network which are not in `graph` (for faster thresholding)
     window.negativeGraph = { 'nodes': [], 'links': [] }
 
+
     // If 'display_singleton_nodes' is untoggled then the graph should be updated
+    inputtedShowSingletonNodes(true)
+    inputtedShowSingletonNodes(false)
     inputtedShowSingletonNodes(controls['display_singleton_nodes'])
+
+
+
+    inputtedMinLinkWeight(0)
+    inputtedMinLinkWeight(1)
+    inputtedMinLinkWeight(controls['min_link_weight_percentile'])
+
+
     inputtedNodeSizeByStrength(controls['scale_node_size_by_strength'])
 
     // If 'scale_node_size_by_strength' is toggled, then node sizes need to follow computed degrees
@@ -794,7 +803,7 @@ function vis(new_controls) {
 
     // Reset all thresholds ...
     // commented this out because it overwrites the predefined values in `config`
-    // controls["min_link_weight_percentile"] = 0
+    // controls["min_link_weight_percentile"] = 0.5
     // controls["max_link_weight_percentile"] = 1
 
     // Run the restart if all of this was OK
