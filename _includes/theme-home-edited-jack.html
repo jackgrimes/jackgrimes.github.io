@@ -1,0 +1,34 @@
+<!-- Home page design with large image to left of bio info. -->
+{% assign essay_pages = site.pages | where: "type", "essay"  | where_exp: "page", "page.draft != true" %}
+{% assign project_pages = site.pages | where: "type", "project" | where_exp: "page", "page.draft != true" %}
+{% assign num_essays = essay_pages.size %}
+{% assign num_projects = project_pages.size %}
+
+<div style="height: 100%;" class="ui middle aligned two column centered stackable grid container">
+
+    <div class="column">
+        <h2 class="header no-bottom" style="text-align:center;">{{ site.data.bio.basics.name }}</h2>
+        <p></p>
+        <p style="text-align: center">
+            {% include home-network-links.html %}
+        </p>
+        <p style="text-align: center">
+            <a href="{{ site.baseurl}}/projects/">
+                <button class="ui basic button">Projects ({{ num_projects }})</button>
+            </a>
+        </p>
+        <p style="text-align: center">
+            <!--<a href="{{ site.baseurl}}/essays/">
+              <button class="ui basic button">Essays ({{ num_essays }})</button>
+            </a>-->
+            <a href="{{ site.baseurl}}/bio/">
+                <button class="ui basic button">{{ site.bio-page-label }}</button>
+            </a>
+        </p>
+        <p style="text-align: center">
+            <a href="{{ site.baseurl }}/cv">
+                <button class="ui basic button">CV (pdf)</button>
+            </a>
+        </p>
+    </div>
+</div>
