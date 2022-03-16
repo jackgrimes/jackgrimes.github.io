@@ -14,7 +14,7 @@ labels:
 summary: I investigated the best time to go to the gym, by scraping the current number of people in the gym at 5-minute intervals over several weeks.
 ---
 
-The number of people in the gym varies with time of day, and with day of the week. To investigate the best time to go to the gymn, I wrote code to:
+The number of people in the gym varies with time of day, and with day of the week. To investigate the best time to go to the gym, I wrote code to:
 
 <ul>
   <li>Login to the gym website and scrape the number of people currently at the gym, at 5-minute intervals</li>
