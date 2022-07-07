@@ -163,6 +163,8 @@
       "summary": "",
       "highlights": [
         "Building and launching a fully integrated data science-for-food platform",
+        "NLP classifiers for context-dependent filling out of abbreviations",
+        "Product recommender systems",
         "Data ingestion: data transformation pipelines, models for selection of the best data, and anomaly detection to guide manual review",
         "Database design: for optimal enrichment of data",
         "Best practices: implementing <a href='https://github.com/features/actions/'>GitHub Actions</a> builds, unit tests, <a href='https://sonarcloud.io/'>sonarcloud</a>",
