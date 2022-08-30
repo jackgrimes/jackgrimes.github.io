@@ -5,7 +5,7 @@
     "picture": "/images/jack.png",
     "email": "jack@jackgrimes.net",
     "phone": "",
-    "website": "http://jackgrimes.net",
+    "website": "https://jackgrimes.net",
     "summary": "I am a London-based data scientist with experience in financial services, epidemiology, engineering and physics",
     "location": {
       "address": "",
@@ -18,12 +18,12 @@
       {
         "network": "github",
         "username": "jackgrimes",
-        "url": "http://github.com/jackgrimes"
+        "url": "https://github.com/jackgrimes"
       },
       {
         "network": "linkedin",
         "username": "jack-grimes-86a1414b",
-        "url": "http://linkedin.com/in/jack-grimes-86a1414b"
+        "url": "https://linkedin.com/in/jack-grimes-86a1414b"
       },
       {
         "network": "Google Scholar",
@@ -34,36 +34,25 @@
   },
   "interests": [
     {
-      "name": "Productionised data science",
+      "name": "Cycling",
       "keywords": [
       ]
     },
     {
-      "name": "Graph data science",
+      "name": "Walking",
       "keywords": [
       ]
     },
     {
-      "name": "Software engineering",
+      "name": "Travelling",
       "keywords": [
       ]
     },
     {
-      "name": "Classical statistics",
+      "name": "Reading",
       "keywords": [
       ]
     },
-    {
-      "name": "Deep learning",
-      "keywords": [
-      ]
-    },
-    {
-      "name": "Visualisation",
-      "keywords": [
-      ]
-    },
-
   ],
   "skills": [
     {
@@ -106,7 +95,7 @@
         "First author of 6 papers, also contributed to 5 more (see <a href='https://scholar.google.co.uk/citations?hl=en&user=HZLogpQAAAAJ'>Google Scholar</a>)",
         "Fieldwork: spent around 6 months of my Ph.D. in Ethiopia - supervising data collection (training and supervision of 41 data collectors, data collected from over 100,000 children in over 2,000 schools)",
         "Fieldwork: also building partnerships with external institutions, negotiating contracts, obtaining equipment, hiring staff etc",
-        "Supervision of two M.Sc. students during my Ph.D. work (and, more recently, an M.Eng. student in 2020)",
+        "Supervision of two M.Sc. students during my Ph.D. work (and, more recently, an M.Eng. student in 2020)"
       ],
       "presentations": [
         "<a href='https://www.astmh.org/'>The American Society of Tropical Medicine and Hygiene Annual Meetings</a>: (2012, 2013, and 2016)",
@@ -162,13 +151,13 @@
       "endDate": "Present",
       "summary": "",
       "highlights": [
-        "Building and launching a fully integrated data science-for-food platform",
-        "NLP classifiers for context-dependent filling out of abbreviations",
-        "Product recommender systems",
-        "Data ingestion: data transformation pipelines, models for selection of the best data, and anomaly detection to guide manual review",
-        "Database design: for optimal enrichment of data",
-        "Best practices: implementing <a href='https://github.com/features/actions/'>GitHub Actions</a> builds, unit tests, <a href='https://sonarcloud.io/'>sonarcloud</a>",
-        "<a href='https://git-scm.com/'>Git</a>, <a href='https://www.jetbrains.com/pycharm/'>PyCharm</a>, <a href='https://pandas.pydata.org/'>pandas</a>, <a href='https://scikit-learn.org/'>scikit-learn</a>, <a href='https://docs.pytest.org/'>pytest</a>, <a href='https://cloud.google.com/'>Google Cloud Platform</a>, <a href='https://www.mysql.com/'>MySQL</a>"
+        "<a href='https://ancho.vi/'>.Anchovi</a>: A food marketplace for food distributors, restaurants, and shops",
+        "Product recommender system: design and build of a system including a framework for A/B testing",
+        "Product name cleaner: classifiers for filling out abbreviations, identifying descriptions, and regex for removing unwanted string patterns, hosting on Flask API",
+        "Design of database and pipelines for data ingestion",
+        "Best practices: driving the use of unit tests, code linting and formatting, and using <a href='https://sonarcloud.io/'>sonarcloud</a> and <a href='https://github.com/features/actions/'>GitHub Actions</a> builds to ensure standards are met",
+        "Building the Data Science team and outlining the teams' responsibilities",
+        "Predominantly using <a href='https://git-scm.com/'>Git</a>, <a href='https://cloud.google.com/'>Google Cloud Platform</a>, <a href='https://www.mysql.com/'>MySQL</a>, <a href='https://pandas.pydata.org/'>pandas</a>, <a href='https://www.jetbrains.com/pycharm/'>PyCharm</a>, <a href='https://docs.pytest.org/'>pytest</a>, <a href='https://scikit-learn.org/'>scikit-learn</a>"
       ],
       "hidden_projects": [
       ]
@@ -182,11 +171,11 @@
       "summary": "",
       "highlights": [
         "Efficient, readable, unit-tested data science code for production",
-        "Predominantly using <a href='https://www.python.org/'>Python</a>, <a href='https://git-scm.com/'>Git</a>, <a href='https://www.jetbrains.com/pycharm/'>PyCharm</a>, <a href='https://www.jenkins.io/'>Jenkins</a>, <a href='https://pandas.pydata.org/'>pandas</a>, <a href='https://spacy.io/'>spaCy</a>, <a href='https://scikit-learn.org/'>scikit-learn</a>, <a href='https://docs.pytest.org/'>pytest</a>, <a href='https://networkx.org/'>NetworkX</a>",
         "Natural language processing (NLP), network analysis, classification, clustering",
         "Quality control and performance assessment of that code",
         "Running the <i>Modelling Interest Group</i>, organising sessions about interesting modelling topics",
-        "Planning and delivering the <i>Advanced Modelling</i> and <i>Natural Language Processing</i> parts of the <i>Data Science Graduate Scheme Training Programme</i>"
+        "Planning and delivering the <i>Advanced Modelling</i> and <i>Natural Language Processing</i> parts of the <i>Data Science Graduate Scheme Training Programme</i>",
+        "Predominantly using <a href='https://git-scm.com/'>Git</a>, <a href='https://www.jenkins.io/'>Jenkins</a>, <a href='https://networkx.org/'>NetworkX</a>, <a href='https://pandas.pydata.org/'>pandas</a>, <a href='https://www.jetbrains.com/pycharm/'>PyCharm</a>, <a href='https://docs.pytest.org/'>pytest</a>, <a href='https://scikit-learn.org/'>scikit-learn</a>, <a href='https://spacy.io/'>spaCy</a>"
       ],
       "projects": [
         "Rectification of incorrect indicator application through supervised machine learning (<a href='https://spacy.io/'>spaCy</a>, <a href='https://scikit-learn.org/'>scikit-learn</a>, tf-idf, random forests, logistic regressions)",
@@ -208,14 +197,14 @@
       "summary": "",
       "highlights": [
         "Delivering data science solutions packaged into Flask apps for other teams",
-        "Predominantly using <a href='https://www.python.org/'>Python</a>, <a href='https://git-scm.com/'>Git</a>, <a href='https://www.sas.com/en_gb/software/visual-analytics.html'>SAS VA</a>, <a href='https://flask.palletsprojects.com/'>Flask</a>",
         "Predictive analytics using <a href='https://pandas.pydata.org/'>pandas</a>, <a href='https://scikit-learn.org/'>scikit-learn</a>",
         "Fraud prevention using <a href='https://pypi.org/project/face-recognition/'>face_recognition</a>",
         "Topic modelling using <a href='https://radimrehurek.com/gensim/'>Gensim</a>, Latent Dirichlet allocation, <a href='https://www.sas.com/en_gb/software/visual-analytics.html'>SAS VA</a>",
         "Web app development using <a href='https://flask.palletsprojects.com/'>Flask</a>",
         "Dashboards in <a href='https://www.sas.com/en_gb/software/visual-analytics.html'>SAS VA</a>",
         "Line-management of an intern",
-        "Presented my work widely, at internal conferences throughout the UK"
+        "Presented my work widely, at internal conferences throughout the UK",
+        "Predominantly using <a href='https://pypi.org/project/face-recognition/'>face_recognition</a>, <a href='https://flask.palletsprojects.com/'>Flask</a>, <a href='https://radimrehurek.com/gensim/'>Gensim</a>, <a href='https://git-scm.com/'>Git</a>, <a href='https://pandas.pydata.org/'>pandas</a>, <a href='https://www.sas.com/en_gb/software/visual-analytics.html'>SAS VA</a>, <a href='https://scikit-learn.org/'>scikit-learn</a>"
       ],
       "presentations_in": [
         "Edinburgh",
