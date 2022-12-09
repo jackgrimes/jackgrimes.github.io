@@ -152,8 +152,9 @@
       "summary": "",
       "highlights": [
         "<a href='https://ancho.vi/'>.Anchovi</a>: A food marketplace for food distributors, restaurants, and shops",
+        "Machine learning framework for productionising model (re-)training,  serving and monitoring",
+        "Display name cleaner: classifiers for filling out abbreviations, identifying descriptions, and regex for removing unwanted string patterns, hosting on Flask API",
         "Product recommender system: design and build of a system including a framework for A/B testing",
-        "Product name cleaner: classifiers for filling out abbreviations, identifying descriptions, and regex for removing unwanted string patterns, hosting on Flask API",
         "Design of database and pipelines for data ingestion",
         "Best practices: driving the use of unit tests, code linting and formatting, and using <a href='https://sonarcloud.io/'>sonarcloud</a> and <a href='https://github.com/features/actions/'>GitHub Actions</a> builds to ensure standards are met",
         "Building the Data Science team and outlining the teams' responsibilities",
@@ -266,6 +267,14 @@
     }
   ],
   "courses": [
+    {
+      "course": "(Ongoing:) Machine Learning on Google Cloud Specialization",
+      "website": "https://www.coursera.org/specializations/machine-learning-tensorflow-gcp",
+      "date": "2022",
+      "provider": "Google",
+      "highlights": [
+      ]
+    },
     {
       "course": "Bayesian Statistics: From Concept to Data Analysis",
       "website": "https://www.coursera.org/learn/bayesian-statistics",
