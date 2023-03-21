@@ -52,7 +52,7 @@
       "name": "Reading",
       "keywords": [
       ]
-    },
+    }
   ],
   "skills": [
     {
@@ -145,23 +145,37 @@
   "work": [
      {
       "company": "<a href='https://morsum.co/'>Morsum</a>",
-      "position": "Senior Data Scientist",
+      "position": "Technical Lead (Data Science)",
       "website": "",
-      "startDate": "2021",
+      "startDate": "2022",
       "endDate": "Present",
       "summary": "",
       "highlights": [
-        "<a href='https://ancho.vi/'>.Anchovi</a>: A food marketplace for food distributors, restaurants, and shops",
-        "Machine learning framework for productionising model (re-)training,  serving and monitoring",
-        "Display name cleaner: classifiers for filling out abbreviations, identifying descriptions, and regex for removing unwanted string patterns, hosting on Flask API",
-        "Product recommender system: design and build of a system including a framework for A/B testing",
-        "Design of database and pipelines for data ingestion",
-        "Best practices: driving the use of unit tests, code linting and formatting, and using <a href='https://sonarcloud.io/'>sonarcloud</a> and <a href='https://github.com/features/actions/'>GitHub Actions</a> builds to ensure standards are met",
-        "Building the Data Science team and outlining the teams' responsibilities",
-        "Predominantly using <a href='https://git-scm.com/'>Git</a>, <a href='https://cloud.google.com/'>Google Cloud Platform</a>, <a href='https://www.mysql.com/'>MySQL</a>, <a href='https://pandas.pydata.org/'>pandas</a>, <a href='https://www.jetbrains.com/pycharm/'>PyCharm</a>, <a href='https://docs.pytest.org/'>pytest</a>, <a href='https://scikit-learn.org/'>scikit-learn</a>"
-      ],
+        "Leading a squad responsible for product search, recommendations, and substitutions, in an online food marketplace <a href='https://ancho.vi/'>.Anchovi</a>",
+        "Productionising <a href='https://www.sbert.net/'>Sentence-BERT</a> model serving and training",
+        "MLOps: <a href='https://cloud.google.com/vertex-ai'>VertexAI</a> for model serving, data versioning",
+        "Recruitment of a Machine Learning Engineer"],
       "hidden_projects": [
       ]
+    },
+     {
+      "company": "<a href='https://morsum.co/'>Morsum</a>",
+      "position": "Senior Data Scientist",
+      "website": "",
+      "startDate": "2021",
+      "endDate": "2022",
+      "summary": "",
+      "highlights": [
+        "Standardisation of incoming text data: the display name cleaner: using text vectorisers and classifiers to fill out abbreviations, and to separate out product descriptions from names",
+        "Embedding this machine learning into wider business logic code, and serving on a Flask API",
+        "Ownership of this product and  coordination with end users and other stakeholders",
+        "MLOps: implementing an initial standardised approach to the model registry, loading and serving, using Google Cloud Storage",
+        "Driving good software engineering practices: unit tests, code linting and formatting, and <a href='https://sonarcloud.io/'>sonarcloud</a> and <a href='https://github.com/features/actions/'>GitHub Actions</a> builds to ensure standards are met",
+        "Building the Data Science team and outlining the teams' responsibilities",
+        "Design of databases and pipelines for data ingestion: redefining data entities",
+        "Predominantly using <a href='https://git-scm.com/'>Git</a>, <a href='https://cloud.google.com/'>Google Cloud Platform</a>, <a href='https://www.mysql.com/'>MySQL</a>, <a href='https://pandas.pydata.org/'>pandas</a>, <a href='https://www.jetbrains.com/pycharm/'>PyCharm</a>, <a href='https://docs.pytest.org/'>pytest</a>, <a href='https://scikit-learn.org/'>scikit-learn</a>"
+      ],
+      "hidden_projects": ["pack size parser"]
     },
     {
       "company": "<a href='https://www.lloydsbankinggroup.com'>Lloyds Banking Group</a>",
