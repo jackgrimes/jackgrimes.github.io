@@ -11,7 +11,7 @@
 
         <div class="ui grid">
             <div class="twelve wide column no-bottom">
-                <h3 class="ui no-bottom"><b>{{ entry.position }}, {{ entry.company }}</b></h3>
+                <h3 class="ui no-bottom">{{ entry.position }}, {{ entry.company }}<span style="font-weight:normal">, {{entry.location}}</span></h3>
                 <p class="ui no-bottom"><a href="{{ entry.website }}">{{ entry.website | remove: "http://" | remove:
                     "https://"
                     }}</a></p>

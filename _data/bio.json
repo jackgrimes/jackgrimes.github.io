@@ -79,113 +79,51 @@
       ]
     }
   ],
-  "education": [
-    {
-      "institution": "<a href='https://www.imperial.ac.uk'>Imperial College London</a>",
-      "area": "Engineering/Epidemiology",
-      "studyType": "Ph.D.",
-      "startDate": "2012",
-      "endDate": "2015",
-      "gpa": "",
-      "thesis": "<a href='https://spiral.imperial.ac.uk/handle/10044/1/44497'><i>An investigation into the roles of water, sanitation, and hygiene in the control of schistosomes and other helminths</i></a>",
-      "courses": [
-        "Statistical comparisons between water and sanitation risk factors and infection, using <a href='https://www.r-project.org/'>R</a>",
-        "GIS and spatial statistics using <a href='https://www.r-project.org/'>R</a> and <a href='https://www.arcgis.com/'>ArcGIS</a>",
-        "Systematic review and meta-analysis (<a href='https://journals.plos.org/plosntds/article?id=10.1371/journal.pntd.0003296'>paper</a>)",
-        "First author of 6 papers, also contributed to 5 more (see <a href='https://scholar.google.co.uk/citations?hl=en&user=HZLogpQAAAAJ'>Google Scholar</a>)",
-        "Fieldwork: spent around 6 months of my Ph.D. in Ethiopia - supervising data collection (training and supervision of 41 data collectors, data collected from over 100,000 children in over 2,000 schools)",
-        "Fieldwork: also building partnerships with external institutions, negotiating contracts, obtaining equipment, hiring staff etc",
-        "Supervision of two M.Sc. students during my Ph.D. work (and, more recently, an M.Eng. student in 2020)"
-      ],
-      "presentations": [
-        "<a href='https://www.astmh.org/'>The American Society of Tropical Medicine and Hygiene Annual Meetings</a>: (2012, 2013, and 2016)",
-        "<a href='https://www.imperial.ac.uk/global-health-innovation/global-engagement/wellcome-centre-for-global-health-research-annual-meeting/'>The Wellcome Centre for Global Health Research</a> Annual Meeting (2016)",
-        "The launch of the <a href='https://www.imperial.ac.uk/centre-for-international-child-health/about-us/our-partners-and-collaborators/'>Centre for International Child Health at Imperial College London </a> (2016)",
-        "<a href='https://www.isntd.org/'>The International Society for Neglected Tropical Diseases</a>: Water Conference (2014)",
-        "Many less formal meetings in London"
-      ]
-    },
-    {
-      "institution": "<a href='https://www.imperial.ac.uk'>Imperial College London</a>",
-      "area": "Environmental Engineering and Sustainable Development",
-      "studyType": "M.Sc.",
-      "startDate": "2010",
-      "endDate": "2011",
-      "gpa": "",
-      "courses": [
-        "Hydroinformatics and Matlab",
-        "Water supply",
-        "Environmental Management in Developing Countries",
-        "Environmental Management and Decision Making",
-        "Air Pollution Control",
-        "Engineering for Sustainable Development"
-      ]
-    },
-    {
-      "institution": "<a href='https://www.ox.ac.uk'>University of Oxford</a>",
-      "area": "Physics",
-      "studyType": "M.A. (Oxon)",
-      "startDate": "2007",
-      "endDate": "2010",
-      "gpa": "",
-      "courses": [
-        "C++",
-        "Statistical Mechanics and Thermal Physics",
-        "Mechanics and Special relativity",
-        "Mathematical Methods",
-        "Differential Equations",
-        "Waves and Optics",
-        "Quantum Mechanics",
-        "Electromagnetism and Circuits",
-        "Condensed Matter Physics and Photonics",
-        "Astrophysics and Atmospheric Physics"
-      ]
-    }
-  ],
   "work": [
      {
       "company": "<a href='https://morsum.co/'>Morsum</a>",
+      "location": "London, UK (remote)",
       "position": "Technical Lead (Data Science)",
       "website": "",
       "startDate": "2022",
       "endDate": "Present",
-      "summary": "",
+      "summary": "Leading a squad responsible for product search, substitutions, recommendations, in an online food marketplace (<a href='https://ancho.vi/'>Ancho.vi</a>), and overseeing best ML practices to ensure robustness and reproducibility",
       "highlights": [
-        "Leading a squad responsible for product search, recommendations, and substitutions, in an online food marketplace <a href='https://ancho.vi/'>.Anchovi</a>",
-        "Productionising <a href='https://www.sbert.net/'>Sentence-BERT</a> model serving and training",
-        "MLOps: <a href='https://cloud.google.com/vertex-ai'>VertexAI</a> for model serving, data versioning",
-        "Recruitment of a Machine Learning Engineer"],
+        "Productionising <a href='https://www.sbert.net/'>Sentence-BERT</a> model serving and fine-tuning, using <a href='https://cloud.google.com/vertex-ai'>VertexAI</a>",
+        "Data versioning in BigQuery",
+        "Recruitment of and line-management of a Machine Learning Engineer"],
+       "projects": ["Product search", "Product substitution", "Product recommendation"],
       "hidden_projects": [
       ]
     },
      {
       "company": "<a href='https://morsum.co/'>Morsum</a>",
       "position": "Senior Data Scientist",
+      "location": "London, UK (remote)",
       "website": "",
       "startDate": "2021",
       "endDate": "2022",
-      "summary": "",
+      "summary": "Building the data science team: defining areas of responsibility, embedding good practices, recruiting data scientists and engineers, and delivering data science products",
       "highlights": [
-        "Standardisation of incoming text data: the display name cleaner: using text vectorisers and classifiers to fill out abbreviations, and to separate out product descriptions from names",
-        "Embedding this machine learning into wider business logic code, and serving on a Flask API",
-        "Ownership of this product and  coordination with end users and other stakeholders",
-        "MLOps: implementing an initial standardised approach to the model registry, loading and serving, using Google Cloud Storage",
-        "Driving good software engineering practices: unit tests, code linting and formatting, and <a href='https://sonarcloud.io/'>sonarcloud</a> and <a href='https://github.com/features/actions/'>GitHub Actions</a> builds to ensure standards are met",
-        "Building the Data Science team and outlining the teams' responsibilities",
-        "Design of databases and pipelines for data ingestion: redefining data entities",
+        "Driving good software engineering practices: unit tests, code linting and formatting, and <a href='https://sonarcloud.io/'>sonarcloud</a> and <a href='https://github.com/features/actions/'>GitHub Actions</a> builds",
+        "MLOps: implementing an initial standardised approach to the model training, registry, loading and serving, using Google Cloud Storage",
+        "Data architecture for data ingestion: redefining data entities",
+        "Embedding machine learning into wider business logic code, and serving on a Flask API",
+        "End-to-end ownership of data science products, and coordination with end users and other stakeholders",
         "Predominantly using <a href='https://git-scm.com/'>Git</a>, <a href='https://cloud.google.com/'>Google Cloud Platform</a>, <a href='https://www.mysql.com/'>MySQL</a>, <a href='https://pandas.pydata.org/'>pandas</a>, <a href='https://www.jetbrains.com/pycharm/'>PyCharm</a>, <a href='https://docs.pytest.org/'>pytest</a>, <a href='https://scikit-learn.org/'>scikit-learn</a>"
       ],
+      "projects": ["The display name cleaner: using text vectorisers and classifiers to address common defects in income product names"],
       "hidden_projects": ["pack size parser"]
     },
     {
       "company": "<a href='https://www.lloydsbankinggroup.com'>Lloyds Banking Group</a>",
       "position": "Data Scientist, Applied Science",
+      "location": "London, UK",
       "website": "",
       "startDate": "2019",
       "endDate": "2021",
-      "summary": "",
+      "summary": "Writing efficient, readable, unit-tested data science code for production, and contributing to the data science community within the bank",
       "highlights": [
-        "Efficient, readable, unit-tested data science code for production",
         "Natural language processing (NLP), network analysis, classification, clustering",
         "Quality control and performance assessment of that code",
         "Running the <i>Modelling Interest Group</i>, organising sessions about interesting modelling topics",
@@ -206,10 +144,11 @@
     {
       "company": "<a href='https://www.lloydsbankinggroup.com'>Lloyds Banking Group</a>",
       "position": "Data Scientist, Risk Innovation",
+      "location": "London, UK",
       "website": "",
       "startDate": "2017",
       "endDate": "2019",
-      "summary": "",
+      "summary": "Building and demonstrating proofs of concept to demonstrate potential applications of machine learning in the bank",
       "highlights": [
         "Delivering data science solutions packaged into Flask apps for other teams",
         "Predictive analytics using <a href='https://pandas.pydata.org/'>pandas</a>, <a href='https://scikit-learn.org/'>scikit-learn</a>",
@@ -252,10 +191,11 @@
     {
       "company": "<a href='https://www.imperial.ac.uk'>Imperial College London</a>",
       "position": "Postdoctoral Researcher",
+      "location": "London, UK",
       "website": "",
       "startDate": "2016",
       "endDate": "2017",
-      "summary": "",
+      "summary": "Statistical analyses of the environmental control of tropical diseases",
       "highlights": [
         "Concluding analyses of data collected during my Ph.D.",
         "Primarily using <a href='https://www.r-project.org/'>R</a> and <a href='https://www.arcgis.com/'>ArcGIS</a>"
@@ -263,6 +203,69 @@
       "projects": [
         "Mixed effects logistic regression (<a href='https://www.r-project.org/'>R</a> and <a href='https://cran.r-project.org/web/packages/lme4/lme4.pdf'>lme4</a>) to assess the relationships between environmental risk factors, parasites, and overall health in a clustered dataset (<a href='https://journals.plos.org/plosntds/article?id=10.1371/journal.pntd.0005948'>paper</a>)",
         "Box-Cox transformations and linear regression (in <a href='https://www.r-project.org/'>R</a>) to account for the 'long tail' of light parasite infections missed due to insufficient diagnostic sensitivity"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "<a href='https://www.imperial.ac.uk'>Imperial College London</a>",
+      "area": "Civil and Environmental Engineering, and Infectious Disease Epidemiology",
+      "studyType": "Ph.D.",
+      "startDate": "2012",
+      "endDate": "2015",
+      "gpa": "",
+      "thesis": "<a href='https://spiral.imperial.ac.uk/handle/10044/1/44497'><i>An investigation into the roles of water, sanitation, and hygiene in the control of schistosomes and other helminths</i></a>",
+      "courses": [
+        "Statistical comparisons between water and sanitation risk factors and infection, using <a href='https://www.r-project.org/'>R</a>",
+        "GIS and spatial statistics using <a href='https://www.r-project.org/'>R</a> and <a href='https://www.arcgis.com/'>ArcGIS</a>",
+        "Systematic review and meta-analysis (<a href='https://journals.plos.org/plosntds/article?id=10.1371/journal.pntd.0003296'>paper</a>)",
+        "First author of 6 papers, also contributed to 5 more (see <a href='https://scholar.google.co.uk/citations?hl=en&user=HZLogpQAAAAJ'>Google Scholar</a>)",
+        "Fieldwork: spent around 6 months of my Ph.D. in Ethiopia - supervising data collection (training and supervision of 41 data collectors, data collected from over 100,000 children in over 2,000 schools)",
+        "Fieldwork: also building partnerships with external institutions, negotiating contracts, obtaining equipment, hiring staff etc",
+        "Supervision of two M.Sc. students during my Ph.D. work (and, more recently, an M.Eng. student in 2020)"
+      ],
+      "presentations": [
+        "<a href='https://www.astmh.org/'>The American Society of Tropical Medicine and Hygiene Annual Meetings</a>: (2012, 2013, and 2016)",
+        "<a href='https://www.imperial.ac.uk/global-health-innovation/global-engagement/wellcome-centre-for-global-health-research-annual-meeting/'>The Wellcome Centre for Global Health Research</a> Annual Meeting (2016)",
+        "The launch of the <a href='https://www.imperial.ac.uk/centre-for-international-child-health/about-us/our-partners-and-collaborators/'>Centre for International Child Health at Imperial College London </a> (2016)",
+        "<a href='https://www.isntd.org/'>The International Society for Neglected Tropical Diseases</a>: Water Conference (2014)",
+        "Many less formal meetings in London"
+      ]
+    },
+    {
+      "institution": "<a href='https://www.imperial.ac.uk'>Imperial College London</a>",
+      "area": "Civil and Environmental Engineering",
+      "studyType": "M.Sc.",
+      "startDate": "2010",
+      "endDate": "2011",
+      "gpa": "",
+      "courses": [
+        "Hydroinformatics and Matlab",
+        "Water supply",
+        "Environmental Management in Developing Countries",
+        "Environmental Management and Decision Making",
+        "Air Pollution Control",
+        "Engineering for Sustainable Development"
+      ]
+    },
+    {
+      "institution": "<a href='https://www.ox.ac.uk'>University of Oxford</a>",
+      "area": "Physics",
+      "studyType": "M.A. (Oxon)",
+      "startDate": "2007",
+      "endDate": "2010",
+      "gpa": "",
+      "courses": [
+        "C++",
+        "Statistical Mechanics and Thermal Physics",
+        "Mechanics and Special relativity",
+        "Mathematical Methods",
+        "Differential Equations",
+        "Waves and Optics",
+        "Quantum Mechanics",
+        "Electromagnetism and Circuits",
+        "Condensed Matter Physics and Photonics",
+        "Astrophysics and Atmospheric Physics"
       ]
     }
   ],
@@ -281,14 +284,6 @@
     }
   ],
   "courses": [
-    {
-      "course": "(Ongoing:) Machine Learning on Google Cloud Specialization",
-      "website": "https://www.coursera.org/specializations/machine-learning-tensorflow-gcp",
-      "date": "2022",
-      "provider": "Coursera, Google Cloud",
-      "highlights": [
-      ]
-    },
     {
       "course": "Bayesian Statistics: From Concept to Data Analysis",
       "website": "https://www.coursera.org/learn/bayesian-statistics",
