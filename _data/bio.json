@@ -87,12 +87,14 @@
       "website": "",
       "startDate": "2022",
       "endDate": "Present",
-      "summary": "Leading a squad responsible for product search, substitutions, recommendations, in an online food marketplace (<a href='https://ancho.vi/'>Ancho.vi</a>), and overseeing best ML practices to ensure robustness and reproducibility",
-      "highlights": [
-        "Productionising <a href='https://www.sbert.net/'>Sentence-BERT</a> model serving and fine-tuning, using <a href='https://cloud.google.com/vertex-ai'>VertexAI</a>",
-        "Data versioning in BigQuery",
-        "Recruitment of and line-management of a Machine Learning Engineer"],
-       "projects": ["Product search", "Product substitution", "Product recommendation"],
+      "summary": "Leading a squad of 5 (Data Scientist, Machine Learning Engineer, Software Engineer, Data Engineer and Product Owner) responsible for the machine learning elements of an online food marketplace (<a href='https://ancho.vi/'>Ancho.vi</a>), and overseeing best ML practices to ensure robustness and reproducibility",
+       "highlights": [
+         "Product search, recommendations and substitutions (<a href='https://www.sbert.net/'>Sentence-BERT</a>)",
+         "Classifiers for allergens and regional origins of foods (<a href='https://huggingface.co/docs/transformers/model_doc/distilbert'>DistilBERT</a>)",
+         "Using transformers for product name cleaning (<a href='https://huggingface.co/docs/transformers/model_doc/bart'>Bart</a>)",
+         "Hosting models on <a href='https://cloud.google.com/vertex-ai'>Vertex AI</a>",
+         "Recruitment of and line-management of a Machine Learning Engineer"],
+       "projects": ["Product search", "Product substitution", "Product recommendation", "Allergens model", "Regional origins model", "Display name cleaner (transformer approach)"],
       "hidden_projects": [
       ]
     },
@@ -107,13 +109,12 @@
       "highlights": [
         "Driving good software engineering practices: unit tests, code linting and formatting, and <a href='https://sonarcloud.io/'>sonarcloud</a> and <a href='https://github.com/features/actions/'>GitHub Actions</a> builds",
         "MLOps: implementing an initial standardised approach to the model training, registry, loading and serving, using Google Cloud Storage",
-        "Data architecture for data ingestion: redefining data entities",
         "Embedding machine learning into wider business logic code, and serving on a Flask API",
         "End-to-end ownership of data science products, and coordination with end users and other stakeholders",
         "Predominantly using <a href='https://git-scm.com/'>Git</a>, <a href='https://cloud.google.com/'>Google Cloud Platform</a>, <a href='https://www.mysql.com/'>MySQL</a>, <a href='https://pandas.pydata.org/'>pandas</a>, <a href='https://www.jetbrains.com/pycharm/'>PyCharm</a>, <a href='https://docs.pytest.org/'>pytest</a>, <a href='https://scikit-learn.org/'>scikit-learn</a>"
       ],
-      "projects": ["The display name cleaner: using text vectorisers and classifiers to address common defects in income product names"],
-      "hidden_projects": ["pack size parser"]
+      "projects": ["The display name cleaner: using text vectorisers and classifiers to address common defects in income product names", "Pack size parser: extracting quantities from unstructured quantity strings"],
+      "hidden_projects": []
     },
     {
       "company": "<a href='https://www.lloydsbankinggroup.com'>Lloyds Banking Group</a>",
