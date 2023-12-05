@@ -93,7 +93,7 @@
          "Classifiers for allergens and regional origins of foods (<a href='https://huggingface.co/docs/transformers/model_doc/distilbert'>DistilBERT</a>)",
          "Using transformers for product name cleaning (<a href='https://huggingface.co/docs/transformers/model_doc/bart'>Bart</a>)",
          "Hosting models on <a href='https://cloud.google.com/vertex-ai'>Vertex AI</a>",
-         "Recruitment of and line-management of a Machine Learning Engineer"],
+         "Recruitment and line-management of a Machine Learning Engineer"],
        "projects": ["Product search", "Product substitution", "Product recommendation", "Allergens model", "Regional origins model", "Display name cleaner (transformer approach)"],
       "hidden_projects": [
       ]
