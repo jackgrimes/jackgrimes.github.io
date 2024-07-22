@@ -1,7 +1,7 @@
 {
   "basics": {
     "name": "Jack Grimes",
-    "label": "Data Scientist",
+    "label": "",
     "picture": "",
     "email": "jack@jackgrimes.net",
     "phone": "",
@@ -45,8 +45,8 @@
       "level": "",
       "keywords": [
       ]
-    },
-  ],
+    }
+    ],
   "work": [
      {
       "company": ",
