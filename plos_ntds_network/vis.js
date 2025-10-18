@@ -315,8 +315,35 @@ canvas.addEventListener("touchmove", e => {
 
 canvas.addEventListener("touchend", e => {
     e.preventDefault();
+
+    if (e.changedTouches.length === 1) {
+        const touch = e.changedTouches[0];
+        const rect = canvas.getBoundingClientRect();
+        const x = zoomScaler.invert(touch.clientX - rect.left - panX);
+        const y = zoomScaler.invert(touch.clientY - rect.top - panY);
+
+        // Find node under touch
+        let tappedNode = simulation.find(x, y, 20);
+        if (tappedNode) {
+            tappedNode = tappedNode.id;
+
+            // Toggle selection
+            if (selectedNodes.includes(tappedNode)) {
+                selectedNodes.splice(selectedNodes.indexOf(tappedNode), 1);
+            } else {
+                selectedNodes.push(tappedNode);
+            }
+
+            // Mark hovered node for label rendering
+            hoveredNode = tappedNode;
+
+            simulation.restart(); // redraw
+        }
+    }
+
     endPan();
 }, { passive: false });
+
 
 // Pinch zoom for touch devices
 let initialPinchDist = null;
@@ -347,9 +374,6 @@ function handlePinchZoom(e) {
     ticked();
     initialPinchDist = pinchDist;
 }
-
-canvas.addEventListener("touchcancel", () => { initialPinchDist = null; });
-canvas.addEventListener("touchend", () => { initialPinchDist = null; });
 
 
   // Network functions
