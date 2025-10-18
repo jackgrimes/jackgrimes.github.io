@@ -372,28 +372,41 @@ function drawText(d) {
     }
   }, true)
 
- // Add this after inputtedZoom function
 canvas.addEventListener("wheel", function(event) {
     event.preventDefault();  // stop page scroll
 
-    // Zoom factor per wheel step
     const zoomFactor = 1.05;
     let newZoom = controls['zoom'];
 
-    if (event.deltaY < 0) {  // scroll up
+    if (event.deltaY < 0) {  // zoom in
         newZoom *= zoomFactor;
-    } else {  // scroll down
+    } else {  // zoom out
         newZoom /= zoomFactor;
     }
 
     // Clamp zoom
     newZoom = Math.max(0.6, Math.min(5, newZoom));
-    
-    // Update controls and call existing zoom function
-    controls['zoom'] = newZoom;
-    inputtedZoom(newZoom);
 
-    // Update dat.GUI slider
+    // Compute cursor position in canvas coordinates
+    const rect = canvas.getBoundingClientRect();
+    const mouseX = event.clientX - rect.left;
+    const mouseY = event.clientY - rect.top;
+
+    // Compute graph coords under cursor before zoom
+    const graphX = zoomScaler.invert(mouseX - panX);
+    const graphY = zoomScaler.invert(mouseY - panY);
+
+    // Update zoom
+    controls['zoom'] = newZoom;
+
+    // Update zoomScaler
+    zoomScaler.range([width * (1 - newZoom), newZoom * width]);
+
+    // Compute new pan so the graph point stays under the cursor
+    panX = mouseX - zoomScaler(graphX);
+    panY = mouseY - zoomScaler(graphY);
+
+    inputtedZoom(newZoom);
     gui.updateDisplay();
 });
 
