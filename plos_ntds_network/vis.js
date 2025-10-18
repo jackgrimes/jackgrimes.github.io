@@ -135,7 +135,7 @@ function vis(new_controls) {
     // Input/output
     'file_path': "/plos_ntds_network/network_data.json",
     'download_figure': download,
-    'zoom': 0.69,
+    'zoom': 0.79,
     // Physics
     'node_charge': -30,
     'node_gravity': 0.1,
