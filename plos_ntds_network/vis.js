@@ -135,7 +135,7 @@ function vis(new_controls) {
     // Input/output
     'file_path': "/plos_ntds_network/network_data.json",
     'download_figure': download,
-    'zoom': 0.8,
+    'zoom': 0.69,
     // Physics
     'node_charge': -30,
     'node_gravity': 0.1,
@@ -297,6 +297,10 @@ canvas.addEventListener("mousemove", e => movePan(e.clientX, e.clientY));
 canvas.addEventListener("mouseup", endPan);
 canvas.addEventListener("mouseleave", endPan);
 
+document.addEventListener('gesturestart', e => e.preventDefault());
+document.addEventListener('gesturechange', e => e.preventDefault());
+document.addEventListener('gestureend', e => e.preventDefault());
+
 
 
 let initialPinchDist = null;
@@ -308,6 +312,9 @@ canvas.addEventListener("touchstart", e => {
     const touch = e.touches[0];
     startPan(touch.clientX, touch.clientY);
   } else if (e.touches.length === 2) {
+
+    console.log('Pinch detected');
+
     e.preventDefault();
 
     const [t1, t2] = e.touches;
