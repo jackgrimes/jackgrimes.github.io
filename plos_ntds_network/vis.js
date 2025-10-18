@@ -305,9 +305,15 @@ canvas.addEventListener("touchstart", e => {
         const touch = e.touches[0];
         startPan(touch.clientX, touch.clientY);
     } else if (e.touches.length === 2) {
-        // Start pinch zoom
-        initialPinchDist = null;
-    }
+    e.preventDefault();
+
+    const [t1, t2] = e.touches;
+    const dx = t2.clientX - t1.clientX;
+    const dy = t2.clientY - t1.clientY;
+
+    initialPinchDist = Math.hypot(dx, dy);
+    initialZoom = zoom;
+  }
 }, { passive: false });
 
 canvas.addEventListener("touchmove", e => {
@@ -316,9 +322,29 @@ canvas.addEventListener("touchmove", e => {
     if (e.touches.length === 1) {
         const touch = e.touches[0];
         movePan(touch.clientX, touch.clientY);
-    } else if (e.touches.length === 2) {
-        handlePinchZoom(e);
-    }
+    } else if (e.touches.length === 2) if (e.touches.length === 2 && initialPinchDist !== null) {
+    e.preventDefault();
+
+    const [t1, t2] = e.touches;
+    const dx = t2.clientX - t1.clientX;
+    const dy = t2.clientY - t1.clientY;
+
+    const dist = Math.hypot(dx, dy);
+    const scale = dist / initialPinchDist;
+
+    // Update zoom (clamped)
+    zoom = Math.max(0.1, Math.min(zoom * scale / initialZoom, 8));
+
+    // Optionally zoom around the midpoint of the pinch
+    const rect = canvas.getBoundingClientRect();
+    const midX = (t1.clientX + t2.clientX) / 2 - rect.left;
+    const midY = (t1.clientY + t2.clientY) / 2 - rect.top;
+
+    panX = midX - (midX - panX) * (zoom / initialZoom);
+    panY = midY - (midY - panY) * (zoom / initialZoom);
+
+    ticked(); // re-render
+  }
 }, { passive: false });
 
 canvas.addEventListener("touchend", e => {
