@@ -264,6 +264,32 @@ function endPan() {
     isPanning = false;
 }
 
+  d3.select(canvas).on("mousemove", function() {
+    if (!controls['display_node_labels']) {
+      xy = d3.mouse(this)
+      hoveredNode = simulation.find(
+          zoomScaler.invert(xy[0] - panX), 
+          zoomScaler.invert(xy[1] - panY), 
+          20
+      );      
+      if (typeof (hoveredNode) != 'undefined') {
+        hoveredNode = hoveredNode.id;
+      }
+      simulation.restart();
+    }
+  })
+
+  window.addEventListener("mousedown", function() {
+    if (typeof (hoveredNode) != 'undefined') {
+      if (selectedNodes.includes(hoveredNode)) {
+        selectedNodes.splice(selectedNodes.indexOf(hoveredNode), 1)
+      } else {
+        selectedNodes.push(hoveredNode)
+      }
+      simulation.restart();
+    }
+  }, true)
+
 // Mouse
 canvas.addEventListener("mousedown", e => startPan(e.clientX, e.clientY));
 canvas.addEventListener("mousemove", e => movePan(e.clientX, e.clientY));
@@ -402,31 +428,6 @@ function drawText(d) {
   var hoveredNode;
   var selectedNodes = [];
   var xy;
-  d3.select(canvas).on("mousemove", function() {
-    if (!controls['display_node_labels']) {
-      xy = d3.mouse(this)
-      hoveredNode = simulation.find(
-          zoomScaler.invert(xy[0] - panX), 
-          zoomScaler.invert(xy[1] - panY), 
-          20
-      );      
-      if (typeof (hoveredNode) != 'undefined') {
-        hoveredNode = hoveredNode.id;
-      }
-      simulation.restart();
-    }
-  })
-
-  window.addEventListener("mousedown", function() {
-    if (typeof (hoveredNode) != 'undefined') {
-      if (selectedNodes.includes(hoveredNode)) {
-        selectedNodes.splice(selectedNodes.indexOf(hoveredNode), 1)
-      } else {
-        selectedNodes.push(hoveredNode)
-      }
-      simulation.restart();
-    }
-  }, true)
 
 canvas.addEventListener("wheel", function(event) {
     event.preventDefault();  // stop page scroll
