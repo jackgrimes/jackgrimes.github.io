@@ -254,8 +254,8 @@ function movePan(x, y) {
     if (isPanning) {
         let dx = x - lastMouse.x;
         let dy = y - lastMouse.y;
-        panX += dx / controls['zoom'];
-        panY += dy / controls['zoom'];
+        panX += dx;
+        panY += dy;
         lastMouse = { x, y };
         ticked();
     }
