@@ -334,6 +334,31 @@ function vis(new_controls) {
     }
   }, true)
 
+ // Add this after inputtedZoom function
+canvas.addEventListener("wheel", function(event) {
+    event.preventDefault();  // stop page scroll
+
+    // Zoom factor per wheel step
+    const zoomFactor = 1.05;
+    let newZoom = controls['zoom'];
+
+    if (event.deltaY < 0) {  // scroll up
+        newZoom *= zoomFactor;
+    } else {  // scroll down
+        newZoom /= zoomFactor;
+    }
+
+    // Clamp zoom
+    newZoom = Math.max(0.6, Math.min(5, newZoom));
+    
+    // Update controls and call existing zoom function
+    controls['zoom'] = newZoom;
+    inputtedZoom(newZoom);
+
+    // Update dat.GUI slider
+    gui.updateDisplay();
+});
+
 
   // Parameter controls //
   // ------------------ //
