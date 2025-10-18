@@ -299,12 +299,15 @@ canvas.addEventListener("mouseleave", endPan);
 
 
 
-// Touch support for pan and drag
+let initialPinchDist = null;
+let initialZoom = 1;
+
+// TOUCH START
 canvas.addEventListener("touchstart", e => {
-    if (e.touches.length === 1) {
-        const touch = e.touches[0];
-        startPan(touch.clientX, touch.clientY);
-    } else if (e.touches.length === 2) {
+  if (e.touches.length === 1) {
+    const touch = e.touches[0];
+    startPan(touch.clientX, touch.clientY);
+  } else if (e.touches.length === 2) {
     e.preventDefault();
 
     const [t1, t2] = e.touches;
@@ -316,40 +319,44 @@ canvas.addEventListener("touchstart", e => {
   }
 }, { passive: false });
 
+// TOUCH MOVE
 canvas.addEventListener("touchmove", e => {
-    e.preventDefault(); // stop page scrolling
+  e.preventDefault();
 
-    if (e.touches.length === 1) {
-        const touch = e.touches[0];
-        movePan(touch.clientX, touch.clientY);
-    } else if (e.touches.length === 2 && initialPinchDist !== null) {
-    e.preventDefault();
-
+  if (e.touches.length === 1) {
+    const touch = e.touches[0];
+    movePan(touch.clientX, touch.clientY);
+  } 
+  else if (e.touches.length === 2 && initialPinchDist !== null) {
     const [t1, t2] = e.touches;
     const dx = t2.clientX - t1.clientX;
     const dy = t2.clientY - t1.clientY;
-
     const dist = Math.hypot(dx, dy);
+
+    // Calculate zoom relative to initial pinch distance
     const scale = dist / initialPinchDist;
+    const newZoom = Math.max(0.1, Math.min(initialZoom * scale, 8));
 
-    // Update zoom (clamped)
-    zoom = Math.max(0.1, Math.min(zoom * scale / initialZoom, 8));
-
-    // Optionally zoom around the midpoint of the pinch
     const rect = canvas.getBoundingClientRect();
     const midX = (t1.clientX + t2.clientX) / 2 - rect.left;
     const midY = (t1.clientY + t2.clientY) / 2 - rect.top;
 
-    panX = midX - (midX - panX) * (zoom / initialZoom);
-    panY = midY - (midY - panY) * (zoom / initialZoom);
+    // Zoom around midpoint
+    panX = midX - (midX - panX) * (newZoom / zoom);
+    panY = midY - (midY - panY) * (newZoom / zoom);
+
+    zoom = newZoom;
 
     ticked(); // re-render
   }
 }, { passive: false });
 
+// TOUCH END
 canvas.addEventListener("touchend", e => {
-    endPan();
-    if (e.touches.length < 2) initialPinchDist = null;
+  endPan();
+  if (e.touches.length < 2) {
+    initialPinchDist = null;
+  }
 }, { passive: false });
 
 
