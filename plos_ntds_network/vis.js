@@ -217,17 +217,15 @@ function vis(new_controls) {
     simulation.force("link")
       .links(graph.links);
 
-    d3.select(canvas)
-      .call(d3.drag()
-        .container(canvas)
-        .subject(dragsubject)
-        .on("start", dragstarted)
-        .on("drag", dragged)
-        .on("end", dragended))
-      .on("touchstart", null)  // remove your custom pan if node exists
-      .on("touchmove", null)
-      .on("touchend", null);
-
+d3.select(canvas)
+  .call(
+    d3.drag()
+      .container(canvas)
+      .subject(dragsubject)
+      .on("start", dragstarted)
+      .on("drag", dragged)
+      .on("end", dragended)
+  );
 
     if (nodePositions || controls['freeze_nodes']) {
       simulation.alpha(0).restart();
@@ -281,20 +279,6 @@ function endPan() {
       simulation.restart();
     }
   })
-  d3.select(canvas).on("touchmove", function() {
-  if (!controls['display_node_labels']) {
-    xy = d3.mouse(this)
-    hoveredNode = simulation.find(
-        zoomScaler.invert(xy[0] - panX), 
-        zoomScaler.invert(xy[1] - panY), 
-        20
-    );      
-    if (typeof (hoveredNode) != 'undefined') {
-      hoveredNode = hoveredNode.id;
-    }
-    simulation.restart();
-  }
-})
 
   window.addEventListener("mousedown", function() {
     if (typeof (hoveredNode) != 'undefined') {
@@ -306,16 +290,6 @@ function endPan() {
       simulation.restart();
     }
   }, true)
-  window.addEventListener("touchdown", function() {
-  if (typeof (hoveredNode) != 'undefined') {
-    if (selectedNodes.includes(hoveredNode)) {
-      selectedNodes.splice(selectedNodes.indexOf(hoveredNode), 1)
-    } else {
-      selectedNodes.push(hoveredNode)
-    }
-    simulation.restart();
-  }
-}, true)
 
 // Mouse
 canvas.addEventListener("mousedown", e => startPan(e.clientX, e.clientY));
@@ -323,74 +297,107 @@ canvas.addEventListener("mousemove", e => movePan(e.clientX, e.clientY));
 canvas.addEventListener("mouseup", endPan);
 canvas.addEventListener("mouseleave", endPan);
 
-canvas.addEventListener("touchstart", e => startPan(e.clientX, e.clientY));
-canvas.addEventListener("touchmove", e => movePan(e.clientX, e.clientY));
-canvas.addEventListener("touchend", endPan);
-canvas.addEventListener("mouseleave", endPan);
 
 
-// Pinch zoom for touch devices
-let initialPinchDist = null;
-function handlePinchZoom(e) {
-    const touch1 = e.touches[0];
-    const touch2 = e.touches[1];
-    const pinchDist = Math.hypot(touch1.clientX - touch2.clientX, touch1.clientY - touch2.clientY);
-
-    if (!initialPinchDist) {
-        initialPinchDist = pinchDist;
-        return;
+// Touch support for pan and drag
+canvas.addEventListener("touchstart", e => {
+    if (e.touches.length === 1) {
+        const touch = e.touches[0];
+        startPan(touch.clientX, touch.clientY);
+    } else if (e.touches.length === 2) {
+        // Start pinch zoom
+        initialPinchDist = null;
     }
+}, { passive: false });
 
-    const zoomFactor = pinchDist / initialPinchDist;
-    let newZoom = clip(controls['zoom'] * zoomFactor, 0.6, 5);
-    controls['zoom'] = newZoom;
+canvas.addEventListener("touchmove", e => {
+    e.preventDefault(); // stop page scrolling
 
-    // Recalculate pan so center remains stable
-    const rect = canvas.getBoundingClientRect();
-    const centerX = (touch1.clientX + touch2.clientX) / 2 - rect.left;
-    const centerY = (touch1.clientY + touch2.clientY) / 2 - rect.top;
-    const graphX = zoomScaler.invert(centerX - panX);
-    const graphY = zoomScaler.invert(centerY - panY);
-    zoomScaler.range([width * (1 - newZoom), newZoom * width]);
-    panX = centerX - zoomScaler(graphX);
-    panY = centerY - zoomScaler(graphY);
+    if (e.touches.length === 1) {
+        const touch = e.touches[0];
+        movePan(touch.clientX, touch.clientY);
+    } else if (e.touches.length === 2) {
+        handlePinchZoom(e);
+    }
+}, { passive: false });
 
-    ticked();
-    initialPinchDist = pinchDist;
-}
+canvas.addEventListener("touchend", e => {
+    endPan();
+    if (e.touches.length < 2) initialPinchDist = null;
+}, { passive: false });
+
+
+
+
 
 
   // Network functions
   // -----------------
 
- function dragsubject() {
-    return simulation.find(
-        zoomScaler.invert(d3.event.x - panX), 
-        zoomScaler.invert(d3.event.y - panY), 
-        20
-    );
+function dragsubject() {
+  let clientX, clientY;
+
+  if (d3.event.sourceEvent) {
+    const src = d3.event.sourceEvent.touches ? d3.event.sourceEvent.touches[0] : d3.event.sourceEvent;
+    clientX = src.clientX;
+    clientY = src.clientY;
+  } else {
+    clientX = d3.event.x;
+    clientY = d3.event.y;
+  }
+
+  const rect = canvas.getBoundingClientRect();
+  const x = zoomScaler.invert(clientX - rect.left - panX);
+  const y = zoomScaler.invert(clientY - rect.top - panY);
+
+  return simulation.find(x, y, 20);
 }
 
-  function dragstarted() {
-    console.log("dragstarted")
-    if (!controls['freeze_nodes']) simulation.alphaTarget(0.3);
-    simulation.restart();
-    d3.event.subject.fx = d3.event.subject.x;
-    d3.event.subject.fy = d3.event.subject.y;
-  }
+function dragstarted(event, d) {
+  event.sourceEvent.stopPropagation();
+  if (!controls['freeze_nodes']) simulation.alphaTarget(0.3).restart();
+  d.fx = d.x;
+  d.fy = d.y;
+}
+
+function dragstarted() {
+  if (!controls['freeze_nodes']) simulation.alphaTarget(0.3);
+  simulation.restart();
+  d3.event.subject.fx = d3.event.subject.x;
+  d3.event.subject.fy = d3.event.subject.y;
+}
 
 function dragged() {
-    d3.event.subject.fx = zoomScaler.invert(event.clientX - canvasOffsetX - panX);
-    d3.event.subject.fy = zoomScaler.invert(event.clientY - canvasOffsetY - panY);
-    if (controls['freeze_nodes']) simulation.restart();
+  let clientX, clientY;
+
+  // D3 v4 may not always attach sourceEvent reliably — handle both cases
+  if (d3.event.sourceEvent) {
+    const src = d3.event.sourceEvent.touches ? d3.event.sourceEvent.touches[0] : d3.event.sourceEvent;
+    clientX = src.clientX;
+    clientY = src.clientY;
+  } else {
+    // fallback for when D3 event has direct x/y in screen space
+    clientX = d3.event.x;
+    clientY = d3.event.y;
+  }
+
+  const rect = canvas.getBoundingClientRect();
+
+  // Convert from screen to simulation space
+  const x = zoomScaler.invert(clientX - rect.left - panX);
+  const y = zoomScaler.invert(clientY - rect.top - panY);
+
+  d3.event.subject.fx = x;
+  d3.event.subject.fy = y;
+
+  if (controls['freeze_nodes']) simulation.restart();
 }
 
-  function dragended() {
-    console.log("dragended")
-    if (!controls['freeze_nodes']) simulation.alphaTarget(0);
-    d3.event.subject.fx = null;
-    d3.event.subject.fy = null;
-  }
+function dragended() {
+  if (!controls['freeze_nodes']) simulation.alphaTarget(0);
+  d3.event.subject.fx = null;
+  d3.event.subject.fy = null;
+}
 
   function drawLink(d) {
   var thisLinkWidth = valIfValid(d.weight, 1) ** (controls['link_width_variation']) * linkWidthNorm * controls['link_width'];

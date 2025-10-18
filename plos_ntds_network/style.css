@@ -75,3 +75,7 @@ p.sidebar-text {
 .swal2-popup {
     font-family: "Helvetica Neue", Helvetica, Arial, "Open Sans", sans-serif;
 }
+
+canvas {
+  touch-action: none; /* Prevent browser gestures from interfering */
+}
