@@ -24,6 +24,13 @@ function vis(new_controls) {
   canvas.width = parentdiv.offsetWidth;
   canvas.height = parentdiv.offsetHeight;
 
+
+  let panX = 0;
+  let panY = 0;
+  let isPanning = false;
+  let lastMouse = null;
+
+
   window.onresize = function() {
     canvasOffsetX = canvas.getBoundingClientRect().x;
     canvasOffsetY = canvas.getBoundingClientRect().y;
@@ -235,14 +242,44 @@ function vis(new_controls) {
   }
 
 
+  canvas.addEventListener("mousedown", function(event) {
+  // Only pan if not clicking a node
+  if (typeof hoveredNode === "undefined") {
+    isPanning = true;
+    lastMouse = { x: event.clientX, y: event.clientY };
+  }
+});
+
+canvas.addEventListener("mousemove", function(event) {
+  if (isPanning) {
+    let dx = event.clientX - lastMouse.x;
+    let dy = event.clientY - lastMouse.y;
+    panX += dx / controls['zoom'];
+    panY += dy / controls['zoom'];
+    lastMouse = { x: event.clientX, y: event.clientY };
+    ticked();
+  }
+});
+
+canvas.addEventListener("mouseup", function(event) {
+  isPanning = false;
+});
+canvas.addEventListener("mouseleave", function(event) {
+  isPanning = false;
+});
+
 
 
   // Network functions
   // -----------------
 
-  function dragsubject() {
-    return simulation.find(zoomScaler.invert(d3.event.x), zoomScaler.invert(d3.event.y), 20);
-  }
+ function dragsubject() {
+    return simulation.find(
+        zoomScaler.invert(d3.event.x - panX), 
+        zoomScaler.invert(d3.event.y - panY), 
+        20
+    );
+}
 
   function dragstarted() {
     console.log("dragstarted")
@@ -252,12 +289,11 @@ function vis(new_controls) {
     d3.event.subject.fy = d3.event.subject.y;
   }
 
-  function dragged() {
-    console.log("dragged")
-    d3.event.subject.fx = zoomScaler.invert(event.clientX - canvasOffsetX);
-    d3.event.subject.fy = zoomScaler.invert(event.clientY - canvasOffsetY);
+function dragged() {
+    d3.event.subject.fx = zoomScaler.invert(event.clientX - canvasOffsetX - panX);
+    d3.event.subject.fy = zoomScaler.invert(event.clientY - canvasOffsetY - panY);
     if (controls['freeze_nodes']) simulation.restart();
-  }
+}
 
   function dragended() {
     console.log("dragended")
@@ -267,33 +303,31 @@ function vis(new_controls) {
   }
 
   function drawLink(d) {
-    var thisLinkWidth = valIfValid(d.weight, 1) ** (controls['link_width_variation']) * linkWidthNorm * controls['link_width'];
-    context.beginPath();
-    context.moveTo(zoomScaler(d.source.x), zoomScaler(d.source.y));
-    context.lineTo(zoomScaler(d.target.x), zoomScaler(d.target.y));
-    context.lineWidth = thisLinkWidth * controls['zoom'];
-    context.stroke();
-  }
+  var thisLinkWidth = valIfValid(d.weight, 1) ** (controls['link_width_variation']) * linkWidthNorm * controls['link_width'];
+  context.beginPath();
+  context.moveTo(zoomScaler(d.source.x) + panX, zoomScaler(d.source.y) + panY);
+  context.lineTo(zoomScaler(d.target.x) + panX, zoomScaler(d.target.y) + panY);
+  context.lineWidth = thisLinkWidth * controls['zoom'];
+  context.stroke();
+}
 
-  function drawNode(d) {
-    // Node
+function drawNode(d) {
+  var thisNodeSize = valIfValid(d.size, 1) ** (controls['node_size_variation']) * nodeSizeNorm * controls['node_size'];
+  context.beginPath();
+  context.arc(zoomScaler(d.x) + panX, zoomScaler(d.y) + panY, thisNodeSize * (controls['zoom'] + (controls['zoom'] - 1)), 0, 2 * Math.PI);
+  context.fillStyle = computeNodeColor(d);
+  context.fill();
+  context.stroke();
+}
+
+function drawText(d) {
+  if (controls['display_node_labels'] || d.id == hoveredNode || selectedNodes.includes(d.id)) {
     var thisNodeSize = valIfValid(d.size, 1) ** (controls['node_size_variation']) * nodeSizeNorm * controls['node_size'];
-    context.beginPath();
-    context.moveTo(zoomScaler(d.x) + thisNodeSize * (controls['zoom'] + (controls['zoom'] - 1)), zoomScaler(d.y));
-    context.arc(zoomScaler(d.x), zoomScaler(d.y), thisNodeSize * (controls['zoom'] + (controls['zoom'] - 1)), 0, 2 * Math.PI);
-    context.fillStyle = computeNodeColor(d);
-    context.fill();
-    context.stroke();
+    context.font = clip(thisNodeSize * controls['zoom'] * 2, 10, 20) + "px Helvetica"
+    context.fillStyle = controls['node_label_color']
+    context.fillText(d.id, zoomScaler(d.x) + panX, zoomScaler(d.y) + panY)
   }
-
-  function drawText(d) {
-    if (controls['display_node_labels'] || d.id == hoveredNode || selectedNodes.includes(d.id)) {
-      var thisNodeSize = valIfValid(d.size, 1) ** (controls['node_size_variation']) * nodeSizeNorm * controls['node_size'];
-      context.font = clip(thisNodeSize * controls['zoom'] * 2, 10, 20) + "px Helvetica"
-      context.fillStyle = controls['node_label_color']
-      context.fillText(d.id, zoomScaler(d.x), zoomScaler(d.y))
-    }
-  }
+}
 
 
   // Key events //
@@ -315,7 +349,11 @@ function vis(new_controls) {
   d3.select(canvas).on("mousemove", function() {
     if (!controls['display_node_labels']) {
       xy = d3.mouse(this)
-      hoveredNode = simulation.find(zoomScaler.invert(xy[0]), zoomScaler.invert(xy[1]), 20)
+      hoveredNode = simulation.find(
+          zoomScaler.invert(xy[0] - panX), 
+          zoomScaler.invert(xy[1] - panY), 
+          20
+      );      
       if (typeof (hoveredNode) != 'undefined') {
         hoveredNode = hoveredNode.id;
       }
