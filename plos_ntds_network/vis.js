@@ -223,7 +223,10 @@ function vis(new_controls) {
         .subject(dragsubject)
         .on("start", dragstarted)
         .on("drag", dragged)
-        .on("end", dragended));
+        .on("end", dragended))
+      .on("touchstart", null)  // remove your custom pan if node exists
+      .on("touchmove", null)
+      .on("touchend", null);
 
 
     if (nodePositions || controls['freeze_nodes']) {
