@@ -322,7 +322,7 @@ canvas.addEventListener("touchmove", e => {
     if (e.touches.length === 1) {
         const touch = e.touches[0];
         movePan(touch.clientX, touch.clientY);
-    } else if (e.touches.length === 2) if (e.touches.length === 2 && initialPinchDist !== null) {
+    } else if (e.touches.length === 2 && initialPinchDist !== null) {
     e.preventDefault();
 
     const [t1, t2] = e.touches;
