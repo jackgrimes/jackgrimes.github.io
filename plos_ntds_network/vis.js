@@ -241,65 +241,89 @@ function vis(new_controls) {
     }
   }
 
-
-  canvas.addEventListener("mousedown", function(event) {
-  // Only pan if not clicking a node
-  if (typeof hoveredNode === "undefined") {
-    isPanning = true;
-    lastMouse = { x: event.clientX, y: event.clientY };
-  }
-});
-
-canvas.addEventListener("mousemove", function(event) {
-  if (isPanning) {
-    let dx = event.clientX - lastMouse.x;
-    let dy = event.clientY - lastMouse.y;
-    panX += dx / controls['zoom'];
-    panY += dy / controls['zoom'];
-    lastMouse = { x: event.clientX, y: event.clientY };
-    ticked();
-  }
-});
-
-canvas.addEventListener("mouseup", function(event) {
-  isPanning = false;
-});
-canvas.addEventListener("mouseleave", function(event) {
-  isPanning = false;
-});
-
-// Phones
-canvas.addEventListener("touchstart", function(event) {
-    event.preventDefault();
-    if (event.touches.length === 1 && typeof hoveredNode === "undefined") {
+// Unified pan handling for mouse & touch
+function startPan(x, y) {
+    if (typeof hoveredNode === "undefined") {
         isPanning = true;
-        lastMouse = { 
-            x: event.touches[0].clientX, 
-            y: event.touches[0].clientY 
-        };
+        lastMouse = { x, y };
     }
-}, { passive: false });
+}
 
-canvas.addEventListener("touchmove", function(event) {
-    event.preventDefault();
-    if (isPanning && event.touches.length === 1) {
-        let dx = event.touches[0].clientX - lastMouse.x;
-        let dy = event.touches[0].clientY - lastMouse.y;
+function movePan(x, y) {
+    if (isPanning) {
+        let dx = x - lastMouse.x;
+        let dy = y - lastMouse.y;
         panX += dx / controls['zoom'];
         panY += dy / controls['zoom'];
-        lastMouse = { 
-            x: event.touches[0].clientX, 
-            y: event.touches[0].clientY 
-        };
+        lastMouse = { x, y };
         ticked();
+    }
+}
+
+function endPan() {
+    isPanning = false;
+}
+
+// Mouse
+canvas.addEventListener("mousedown", e => startPan(e.clientX, e.clientY));
+canvas.addEventListener("mousemove", e => movePan(e.clientX, e.clientY));
+canvas.addEventListener("mouseup", endPan);
+canvas.addEventListener("mouseleave", endPan);
+
+// Touch
+canvas.addEventListener("touchstart", e => {
+    e.preventDefault();
+    if (e.touches.length === 1) {
+        startPan(e.touches[0].clientX, e.touches[0].clientY);
     }
 }, { passive: false });
 
-canvas.addEventListener("touchend", function(event) {
-    event.preventDefault();
-    isPanning = false;
+canvas.addEventListener("touchmove", e => {
+    e.preventDefault();
+    if (e.touches.length === 1) {
+        movePan(e.touches[0].clientX, e.touches[0].clientY);
+    } else if (e.touches.length === 2) {
+        handlePinchZoom(e); // For pinch zoom
+    }
 }, { passive: false });
 
+canvas.addEventListener("touchend", e => {
+    e.preventDefault();
+    endPan();
+}, { passive: false });
+
+// Pinch zoom for touch devices
+let initialPinchDist = null;
+function handlePinchZoom(e) {
+    const touch1 = e.touches[0];
+    const touch2 = e.touches[1];
+    const pinchDist = Math.hypot(touch1.clientX - touch2.clientX, touch1.clientY - touch2.clientY);
+
+    if (!initialPinchDist) {
+        initialPinchDist = pinchDist;
+        return;
+    }
+
+    const zoomFactor = pinchDist / initialPinchDist;
+    let newZoom = clip(controls['zoom'] * zoomFactor, 0.6, 5);
+    controls['zoom'] = newZoom;
+
+    // Recalculate pan so center remains stable
+    const rect = canvas.getBoundingClientRect();
+    const centerX = (touch1.clientX + touch2.clientX) / 2 - rect.left;
+    const centerY = (touch1.clientY + touch2.clientY) / 2 - rect.top;
+    const graphX = zoomScaler.invert(centerX - panX);
+    const graphY = zoomScaler.invert(centerY - panY);
+    zoomScaler.range([width * (1 - newZoom), newZoom * width]);
+    panX = centerX - zoomScaler(graphX);
+    panY = centerY - zoomScaler(graphY);
+
+    ticked();
+    initialPinchDist = pinchDist;
+}
+
+canvas.addEventListener("touchcancel", () => { initialPinchDist = null; });
+canvas.addEventListener("touchend", () => { initialPinchDist = null; });
 
 
   // Network functions
