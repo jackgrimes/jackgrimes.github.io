@@ -268,6 +268,38 @@ canvas.addEventListener("mouseleave", function(event) {
   isPanning = false;
 });
 
+// Phones
+canvas.addEventListener("touchstart", function(event) {
+    event.preventDefault();
+    if (event.touches.length === 1 && typeof hoveredNode === "undefined") {
+        isPanning = true;
+        lastMouse = { 
+            x: event.touches[0].clientX, 
+            y: event.touches[0].clientY 
+        };
+    }
+}, { passive: false });
+
+canvas.addEventListener("touchmove", function(event) {
+    event.preventDefault();
+    if (isPanning && event.touches.length === 1) {
+        let dx = event.touches[0].clientX - lastMouse.x;
+        let dy = event.touches[0].clientY - lastMouse.y;
+        panX += dx / controls['zoom'];
+        panY += dy / controls['zoom'];
+        lastMouse = { 
+            x: event.touches[0].clientX, 
+            y: event.touches[0].clientY 
+        };
+        ticked();
+    }
+}, { passive: false });
+
+canvas.addEventListener("touchend", function(event) {
+    event.preventDefault();
+    isPanning = false;
+}, { passive: false });
+
 
 
   // Network functions
