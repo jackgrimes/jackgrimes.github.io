@@ -311,11 +311,9 @@ canvas.addEventListener("touchstart", e => {
   if (e.touches.length === 1) {
     const touch = e.touches[0];
     startPan(touch.clientX, touch.clientY);
-  } else if (e.touches.length === 2) {
-
-    console.log('Pinch detected');
-
-    e.preventDefault();
+  } 
+  else if (e.touches.length === 2) {
+    e.preventDefault(); // prevent browser pinch
 
     const [t1, t2] = e.touches;
     const dx = t2.clientX - t1.clientX;
@@ -330,9 +328,10 @@ canvas.addEventListener("touchstart", e => {
 canvas.addEventListener("touchmove", e => {
   e.preventDefault();
 
-  if (e.touches.length === 1) {
+  if (e.touches.length === 1 && initialPinchDist === null) {
     const touch = e.touches[0];
     movePan(touch.clientX, touch.clientY);
+    ticked(); // re-render
   } 
   else if (e.touches.length === 2 && initialPinchDist !== null) {
     const [t1, t2] = e.touches;
@@ -340,15 +339,16 @@ canvas.addEventListener("touchmove", e => {
     const dy = t2.clientY - t1.clientY;
     const dist = Math.hypot(dx, dy);
 
-    // Calculate zoom relative to initial pinch distance
+    // Calculate zoom factor relative to initial pinch
     const scale = dist / initialPinchDist;
     const newZoom = Math.max(0.1, Math.min(initialZoom * scale, 8));
 
+    // Calculate midpoint to zoom around
     const rect = canvas.getBoundingClientRect();
     const midX = (t1.clientX + t2.clientX) / 2 - rect.left;
     const midY = (t1.clientY + t2.clientY) / 2 - rect.top;
 
-    // Zoom around midpoint
+    // Adjust pan so zoom centers on pinch midpoint
     panX = midX - (midX - panX) * (newZoom / zoom);
     panY = midY - (midY - panY) * (newZoom / zoom);
 
