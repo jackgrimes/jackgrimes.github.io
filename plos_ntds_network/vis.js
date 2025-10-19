@@ -409,38 +409,38 @@ canvas.addEventListener("touchmove", e => {
     }
     // If not dragging a node, do nothing (no pan on single finger)
   }
-// Two-finger: pan and zoom
-else if (e.touches.length === 2 && initialPinchDist !== null && twoFingerMidpoint !== null) {
-  const [t1, t2] = e.touches;
-  const dx = t2.clientX - t1.clientX;
-  const dy = t2.clientY - t1.clientY;
-  const dist = Math.hypot(dx, dy);
+  // Two-finger: pan and zoom
+  else if (e.touches.length === 2 && initialPinchDist !== null && twoFingerMidpoint !== null) {
+    const [t1, t2] = e.touches;
+    const dx = t2.clientX - t1.clientX;
+    const dy = t2.clientY - t1.clientY;
+    const dist = Math.hypot(dx, dy);
 
-  // Calculate current midpoint
-  const newMidX = (t1.clientX + t2.clientX) / 2;
-  const newMidY = (t1.clientY + t2.clientY) / 2;
+    // Calculate current midpoint
+    const newMidX = (t1.clientX + t2.clientX) / 2;
+    const newMidY = (t1.clientY + t2.clientY) / 2;
 
-  // Calculate new zoom
-  const scale = dist / initialPinchDist;
-  const newZoom = Math.max(0.1, Math.min(8, initialZoom * scale));
+    // Calculate new zoom
+    const scale = dist / initialPinchDist;
+    const newZoom = Math.max(0.1, Math.min(8, initialZoom * scale));
 
-  // Update zoom and zoom scaler
-  controls['zoom'] = newZoom;
-  zoomScaler = d3.scaleLinear().domain([0, width]).range([width * (1 - newZoom), newZoom * width]);
+    // Update zoom and zoom scaler
+    controls['zoom'] = newZoom;
+    zoomScaler = d3.scaleLinear().domain([0, width]).range([width * (1 - newZoom), newZoom * width]);
 
-  // Get canvas-relative coordinates of current midpoint
-  const rect = canvas.getBoundingClientRect();
-  const canvasMidX = newMidX - rect.left;
-  const canvasMidY = newMidY - rect.top;
+    // Get canvas-relative coordinates of current midpoint
+    const rect = canvas.getBoundingClientRect();
+    const canvasMidX = newMidX - rect.left;
+    const canvasMidY = newMidY - rect.top;
 
-  // Calculate pan so the INITIAL graph point stays under the current finger midpoint
-  // This combines both zoom anchoring and panning from finger movement
-  panX = canvasMidX - zoomScaler(window.initialGraphX);
-  panY = canvasMidY - zoomScaler(window.initialGraphY);
-  
-  ticked(); // re-render
-})
-
+    // Calculate pan so the INITIAL graph point stays under the current finger midpoint
+    // This combines both zoom anchoring and panning from finger movement
+    panX = canvasMidX - zoomScaler(window.initialGraphX);
+    panY = canvasMidY - zoomScaler(window.initialGraphY);
+    
+    ticked(); // re-render
+  }
+}, { passive: false });
 
 // --- TOUCH END ---
 canvas.addEventListener("touchend", e => {
