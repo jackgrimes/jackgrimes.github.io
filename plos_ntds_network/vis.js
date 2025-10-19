@@ -420,7 +420,15 @@ else if (e.touches.length === 2 && initialPinchDist !== null && twoFingerMidpoin
   const newMidX = (t1.clientX + t2.clientX) / 2;
   const newMidY = (t1.clientY + t2.clientY) / 2;
 
-  // Get canvas-relative coordinates
+  // Calculate pan delta from finger movement FIRST (before any transformations)
+  const panDeltaX = newMidX - twoFingerMidpoint.x;
+  const panDeltaY = newMidY - twoFingerMidpoint.y;
+
+  // Apply pan delta
+  panX += panDeltaX;
+  panY += panDeltaY;
+
+  // Get canvas-relative coordinates of current midpoint
   const rect = canvas.getBoundingClientRect();
   const canvasMidX = newMidX - rect.left;
   const canvasMidY = newMidY - rect.top;
@@ -437,17 +445,11 @@ else if (e.touches.length === 2 && initialPinchDist !== null && twoFingerMidpoin
   controls['zoom'] = newZoom;
   zoomScaler = d3.scaleLinear().domain([0, width]).range([width * (1 - newZoom), newZoom * width]);
 
-  // Recalculate pan so the same graph point stays under the finger midpoint (AFTER zoom change)
+  // Adjust pan so the same graph point stays under the finger midpoint (AFTER zoom change)
   panX = canvasMidX - zoomScaler(graphX);
   panY = canvasMidY - zoomScaler(graphY);
 
-  // Now add pan from finger movement (delta from last stored midpoint)
-  const panDeltaX = newMidX - twoFingerMidpoint.x;
-  const panDeltaY = newMidY - twoFingerMidpoint.y;
-  panX += panDeltaX;
-  panY += panDeltaY;
-
-  // Update stored midpoint
+  // Update stored midpoint for next frame
   twoFingerMidpoint.x = newMidX;
   twoFingerMidpoint.y = newMidY;
   
