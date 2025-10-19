@@ -410,44 +410,48 @@ canvas.addEventListener("touchmove", e => {
     // If not dragging a node, do nothing (no pan on single finger)
   }
   // Two-finger: pan and zoom
-  else if (e.touches.length === 2 && initialPinchDist !== null && twoFingerMidpoint !== null) {
-    const [t1, t2] = e.touches;
-    const dx = t2.clientX - t1.clientX;
-    const dy = t2.clientY - t1.clientY;
-    const dist = Math.hypot(dx, dy);
+// Two-finger: pan and zoom
+else if (e.touches.length === 2 && initialPinchDist !== null && twoFingerMidpoint !== null) {
+  const [t1, t2] = e.touches;
+  const dx = t2.clientX - t1.clientX;
+  const dy = t2.clientY - t1.clientY;
+  const dist = Math.hypot(dx, dy);
 
-    // Calculate new midpoint
-    const newMidX = (t1.clientX + t2.clientX) / 2;
-    const newMidY = (t1.clientY + t2.clientY) / 2;
+  // Calculate new midpoint
+  const newMidX = (t1.clientX + t2.clientX) / 2;
+  const newMidY = (t1.clientY + t2.clientY) / 2;
 
-    // Pan based on midpoint movement
-    const panDeltaX = newMidX - twoFingerMidpoint.x;
-    const panDeltaY = newMidY - twoFingerMidpoint.y;
-    panX += panDeltaX;
-    panY += panDeltaY;
-    
-    // Update stored midpoint
-    twoFingerMidpoint.x = newMidX;
-    twoFingerMidpoint.y = newMidY;
+  // Zoom: Scale factor relative to initial pinch distance
+  const scale = dist / initialPinchDist;
+  const newZoom = Math.max(0.1, Math.min(8, initialZoom * scale));
 
-    // Zoom: Scale factor relative to initial pinch distance
-    const scale = dist / initialPinchDist;
-    const newZoom = Math.max(0.1, Math.min(8, initialZoom * scale));
+  // Get the point in graph space that's under the midpoint BEFORE zoom
+  const rect = canvas.getBoundingClientRect();
+  const canvasMidX = newMidX - rect.left;
+  const canvasMidY = newMidY - rect.top;
+  const graphX = zoomScaler.invert(canvasMidX - panX);
+  const graphY = zoomScaler.invert(canvasMidY - panY);
 
-    // Apply zoom around the midpoint
-    const rect = canvas.getBoundingClientRect();
-    const canvasMidX = newMidX - rect.left;
-    const canvasMidY = newMidY - rect.top;
+  // Update zoom
+  controls['zoom'] = newZoom;
+  zoomScaler.range([width * (1 - newZoom), newZoom * width]);
 
-    // Adjust pan to zoom around the midpoint
-    panX = canvasMidX - (canvasMidX - panX) * (newZoom / controls['zoom']);
-    panY = canvasMidY - (canvasMidY - panY) * (newZoom / controls['zoom']);
+  // Adjust pan so the graph point stays under the midpoint after zoom
+  panX = canvasMidX - zoomScaler(graphX);
+  panY = canvasMidY - zoomScaler(graphY);
 
-    controls['zoom'] = newZoom;
-    zoomScaler.range([width * (1 - newZoom), newZoom * width]);
-    
-    ticked(); // re-render
-  }
+  // Now apply the pan from finger movement
+  const panDeltaX = newMidX - twoFingerMidpoint.x;
+  const panDeltaY = newMidY - twoFingerMidpoint.y;
+  panX += panDeltaX;
+  panY += panDeltaY;
+  
+  // Update stored midpoint
+  twoFingerMidpoint.x = newMidX;
+  twoFingerMidpoint.y = newMidY;
+  
+  ticked(); // re-render
+}
 }, { passive: false });
 
 // --- TOUCH END ---
