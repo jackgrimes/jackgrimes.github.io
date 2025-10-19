@@ -357,10 +357,9 @@ canvas.addEventListener("touchstart", e => {
       touchDragSubject.fx = touchDragSubject.x;
       touchDragSubject.fy = touchDragSubject.y;
     }
-    // Don't start panning for single finger - only drag nodes
   } 
   else if (e.touches.length === 2) {
-    e.preventDefault(); // prevent system pinch
+    e.preventDefault();
     
     // Cancel any ongoing drag
     if (touchDragSubject) {
@@ -378,12 +377,18 @@ canvas.addEventListener("touchstart", e => {
     initialZoom = controls['zoom'];
     
     // Store initial midpoint for panning
-    twoFingerMidpoint = {
-      x: (t1.clientX + t2.clientX) / 2,
-      y: (t1.clientY + t2.clientY) / 2
-    };
+    const midX = (t1.clientX + t2.clientX) / 2;
+    const midY = (t1.clientY + t2.clientY) / 2;
+    twoFingerMidpoint = { x: midX, y: midY };
     
-    touchStartPos = null; // Reset since we're now in two-finger mode
+    // Store what graph point is under the initial midpoint (for zoom anchoring)
+    const rect = canvas.getBoundingClientRect();
+    const canvasMidX = midX - rect.left;
+    const canvasMidY = midY - rect.top;
+    window.initialGraphX = zoomScaler.invert(canvasMidX - panX);
+    window.initialGraphY = zoomScaler.invert(canvasMidY - panY);
+    
+    touchStartPos = null;
   }
 }, { passive: false });
 
@@ -416,18 +421,9 @@ else if (e.touches.length === 2 && initialPinchDist !== null && twoFingerMidpoin
   const dy = t2.clientY - t1.clientY;
   const dist = Math.hypot(dx, dy);
 
-  // Calculate current midpoint in screen coordinates
+  // Calculate current midpoint
   const newMidX = (t1.clientX + t2.clientX) / 2;
   const newMidY = (t1.clientY + t2.clientY) / 2;
-
-  // Get canvas-relative coordinates of the OLD midpoint (where fingers were last frame)
-  const rect = canvas.getBoundingClientRect();
-  const oldCanvasMidX = twoFingerMidpoint.x - rect.left;
-  const oldCanvasMidY = twoFingerMidpoint.y - rect.top;
-
-  // Find what graph point is at the old midpoint position (BEFORE zoom change)
-  const graphX = zoomScaler.invert(oldCanvasMidX - panX);
-  const graphY = zoomScaler.invert(oldCanvasMidY - panY);
 
   // Calculate new zoom
   const scale = dist / initialPinchDist;
@@ -437,21 +433,19 @@ else if (e.touches.length === 2 && initialPinchDist !== null && twoFingerMidpoin
   controls['zoom'] = newZoom;
   zoomScaler = d3.scaleLinear().domain([0, width]).range([width * (1 - newZoom), newZoom * width]);
 
-  // Calculate where that graph point would be with new zoom, at the NEW midpoint position
-  const newCanvasMidX = newMidX - rect.left;
-  const newCanvasMidY = newMidY - rect.top;
-  
-  // Recalculate pan so the graph point moves from old midpoint to new midpoint
-  panX = newCanvasMidX - zoomScaler(graphX);
-  panY = newCanvasMidY - zoomScaler(graphY);
+  // Get canvas-relative coordinates of current midpoint
+  const rect = canvas.getBoundingClientRect();
+  const canvasMidX = newMidX - rect.left;
+  const canvasMidY = newMidY - rect.top;
 
-  // Update stored midpoint
-  twoFingerMidpoint.x = newMidX;
-  twoFingerMidpoint.y = newMidY;
+  // Calculate pan so the INITIAL graph point stays under the current finger midpoint
+  // This combines both zoom anchoring and panning from finger movement
+  panX = canvasMidX - zoomScaler(window.initialGraphX);
+  panY = canvasMidY - zoomScaler(window.initialGraphY);
   
   ticked(); // re-render
 }
-}, { passive: false });
+
 
 // --- TOUCH END ---
 canvas.addEventListener("touchend", e => {
