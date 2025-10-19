@@ -467,6 +467,29 @@ function drawText(d) {
   }
 }
 
+const searchInput = document.getElementById('nodeSearch');
+let searchTimeout = null; // store timeout ID
+
+searchInput.addEventListener('input', e => {
+  const query = e.target.value.trim().toLowerCase();
+
+  // Clear any previous scheduled search
+  clearTimeout(searchTimeout);
+
+  // Wait 300ms (adjust delay as needed)
+  searchTimeout = setTimeout(() => {
+    if (!query) {
+      selectedNodes = [];
+    } else {
+      selectedNodes = graph.nodes
+        .filter(n => n.id.toLowerCase().includes(query))
+        .map(n => n.id);
+    }
+
+    ticked(); // redraw after delay
+  }, 300); // ← delay in milliseconds
+});
+
 
   // Key events //
   // ---------- //
