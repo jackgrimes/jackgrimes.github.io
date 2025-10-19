@@ -446,7 +446,7 @@ function vis(new_controls) {
 
       // Calculate new zoom
       const scale = dist / initialPinchDist;
-      const newZoom = Math.max(0.1, Math.min(8, initialZoom * scale));
+      const newZoom = Math.max(0.6, Math.min(5, initialZoom * scale));
 
       // Update zoom and zoom scaler
       controls['zoom'] = newZoom;
