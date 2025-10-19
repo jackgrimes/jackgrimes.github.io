@@ -301,7 +301,6 @@ canvas.addEventListener('gesturestart', e => e.preventDefault(), {passive:false}
 canvas.addEventListener('gesturechange', e => e.preventDefault(), {passive:false});
 canvas.addEventListener('gestureend', e => e.preventDefault(), {passive:false});
 
-// --- Global pinch state ---
 let initialPinchDist = null;
 let initialZoom = 1;
 let touchDragSubject = null; // Track which node is being dragged
@@ -323,10 +322,8 @@ canvas.addEventListener("touchstart", e => {
       if (!controls['freeze_nodes']) simulation.alphaTarget(0.3).restart();
       touchDragSubject.fx = touchDragSubject.x;
       touchDragSubject.fy = touchDragSubject.y;
-    } else {
-      // Start panning
-      startPan(touch.clientX, touch.clientY);
     }
+    // Don't start panning for single finger - only drag nodes
   } 
   else if (e.touches.length === 2) {
     e.preventDefault(); // prevent system pinch
@@ -338,9 +335,6 @@ canvas.addEventListener("touchstart", e => {
       touchDragSubject.fy = null;
       touchDragSubject = null;
     }
-    
-    // Cancel any ongoing pan
-    endPan();
 
     const [t1, t2] = e.touches;
     const dx = t2.clientX - t1.clientX;
@@ -348,6 +342,11 @@ canvas.addEventListener("touchstart", e => {
 
     initialPinchDist = Math.hypot(dx, dy);
     initialZoom = controls['zoom'];
+    
+    // Start panning with two fingers - use midpoint
+    const midX = (t1.clientX + t2.clientX) / 2;
+    const midY = (t1.clientY + t2.clientY) / 2;
+    startPan(midX, midY);
   }
 }, { passive: false });
 
@@ -355,7 +354,7 @@ canvas.addEventListener("touchstart", e => {
 canvas.addEventListener("touchmove", e => {
   e.preventDefault();
 
-  // Single-finger drag node or pan
+  // Single-finger: only drag nodes (no panning)
   if (e.touches.length === 1 && initialPinchDist === null) {
     const touch = e.touches[0];
     
@@ -369,30 +368,35 @@ canvas.addEventListener("touchmove", e => {
       touchDragSubject.fy = y;
       
       if (controls['freeze_nodes']) simulation.restart();
-    } else {
-      // Pan the canvas
-      movePan(touch.clientX, touch.clientY);
+      ticked(); // re-render
     }
-    ticked(); // re-render
+    // If not dragging a node, do nothing (no pan on single finger)
   }
-  // Two-finger pinch zoom
+  // Two-finger: pan and zoom
   else if (e.touches.length === 2 && initialPinchDist !== null) {
     const [t1, t2] = e.touches;
     const dx = t2.clientX - t1.clientX;
     const dy = t2.clientY - t1.clientY;
     const dist = Math.hypot(dx, dy);
 
+    // Calculate midpoint for panning
+    const midX = (t1.clientX + t2.clientX) / 2;
+    const midY = (t1.clientY + t2.clientY) / 2;
+
+    // Pan with the midpoint
+    movePan(midX, midY);
+
     // Scale factor relative to initial pinch distance
     const scale = dist / initialPinchDist;
     const newZoom = Math.max(0.1, Math.min(8, initialZoom * scale));
 
     const rect = canvas.getBoundingClientRect();
-    const midX = (t1.clientX + t2.clientX)/2 - rect.left;
-    const midY = (t1.clientY + t2.clientY)/2 - rect.top;
+    const canvasMidX = midX - rect.left;
+    const canvasMidY = midY - rect.top;
 
     // Zoom around midpoint
-    panX = midX - (midX - panX) * (newZoom / controls['zoom']);
-    panY = midY - (midY - panY) * (newZoom / controls['zoom']);
+    panX = canvasMidX - (canvasMidX - panX) * (newZoom / controls['zoom']);
+    panY = canvasMidY - (canvasMidY - panY) * (newZoom / controls['zoom']);
 
     controls['zoom'] = newZoom;
     zoomScaler.range([width * (1 - newZoom), newZoom * width]);
