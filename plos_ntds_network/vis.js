@@ -482,7 +482,7 @@ searchInput.addEventListener('input', e => {
       selectedNodes = [];
     } else {
       selectedNodes = graph.nodes
-        .filter(n => n.id.toLowerCase().includes(query))
+        .filter(n => n.id.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(query))
         .map(n => n.id);
     }
 
