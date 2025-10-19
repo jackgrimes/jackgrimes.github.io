@@ -420,22 +420,14 @@ else if (e.touches.length === 2 && initialPinchDist !== null && twoFingerMidpoin
   const newMidX = (t1.clientX + t2.clientX) / 2;
   const newMidY = (t1.clientY + t2.clientY) / 2;
 
-  // Calculate pan delta from finger movement FIRST (before any transformations)
-  const panDeltaX = newMidX - twoFingerMidpoint.x;
-  const panDeltaY = newMidY - twoFingerMidpoint.y;
-
-  // Apply pan delta
-  panX += panDeltaX;
-  panY += panDeltaY;
-
-  // Get canvas-relative coordinates of current midpoint
+  // Get canvas-relative coordinates of the OLD midpoint (where fingers were last frame)
   const rect = canvas.getBoundingClientRect();
-  const canvasMidX = newMidX - rect.left;
-  const canvasMidY = newMidY - rect.top;
+  const oldCanvasMidX = twoFingerMidpoint.x - rect.left;
+  const oldCanvasMidY = twoFingerMidpoint.y - rect.top;
 
-  // Find what graph point is currently under the finger midpoint (BEFORE zoom change)
-  const graphX = zoomScaler.invert(canvasMidX - panX);
-  const graphY = zoomScaler.invert(canvasMidY - panY);
+  // Find what graph point is at the old midpoint position (BEFORE zoom change)
+  const graphX = zoomScaler.invert(oldCanvasMidX - panX);
+  const graphY = zoomScaler.invert(oldCanvasMidY - panY);
 
   // Calculate new zoom
   const scale = dist / initialPinchDist;
@@ -445,11 +437,15 @@ else if (e.touches.length === 2 && initialPinchDist !== null && twoFingerMidpoin
   controls['zoom'] = newZoom;
   zoomScaler = d3.scaleLinear().domain([0, width]).range([width * (1 - newZoom), newZoom * width]);
 
-  // Adjust pan so the same graph point stays under the finger midpoint (AFTER zoom change)
-  panX = canvasMidX - zoomScaler(graphX);
-  panY = canvasMidY - zoomScaler(graphY);
+  // Calculate where that graph point would be with new zoom, at the NEW midpoint position
+  const newCanvasMidX = newMidX - rect.left;
+  const newCanvasMidY = newMidY - rect.top;
+  
+  // Recalculate pan so the graph point moves from old midpoint to new midpoint
+  panX = newCanvasMidX - zoomScaler(graphX);
+  panY = newCanvasMidY - zoomScaler(graphY);
 
-  // Update stored midpoint for next frame
+  // Update stored midpoint
   twoFingerMidpoint.x = newMidX;
   twoFingerMidpoint.y = newMidY;
   
