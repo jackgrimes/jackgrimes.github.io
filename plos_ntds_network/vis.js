@@ -289,7 +289,6 @@ window.addEventListener("mousedown", function(event) {
   }
 }, true)
 
-// Add a new mouseup event handler right after the mousedown handler:
 window.addEventListener("mouseup", function(event) {
   if (typeof (hoveredNode) != 'undefined' && mouseDownPos) {
     // Calculate distance moved
@@ -299,12 +298,14 @@ window.addEventListener("mouseup", function(event) {
     
     // Only toggle selection if moved less than 10 pixels (it was a click, not a drag)
     if (distance < 10) {
-      if (selectedNodes.includes(hoveredNode)) {
-        selectedNodes.splice(selectedNodes.indexOf(hoveredNode), 1)
+      const nodeId = hoveredNode;
+      if (selectedNodes.includes(nodeId)) {
+        selectedNodes.splice(selectedNodes.indexOf(nodeId), 1);
+        hoveredNode = undefined; // Clear hover so label disappears immediately
       } else {
-        selectedNodes.push(hoveredNode)
+        selectedNodes.push(nodeId);
       }
-      simulation.restart();
+      ticked(); // Immediate redraw
     }
   }
   mouseDownPos = null;
