@@ -324,11 +324,6 @@ canvas.addEventListener('gesturestart', e => e.preventDefault(), {passive:false}
 canvas.addEventListener('gesturechange', e => e.preventDefault(), {passive:false});
 canvas.addEventListener('gestureend', e => e.preventDefault(), {passive:false});
 
-// Remove the document-level gesture prevention that was there before
-
-
-// Replace the entire touch handling section (lines 294-352) with this:
-
 // --- Global pinch state ---
 let initialPinchDist = null;
 let initialZoom = 1;
@@ -444,7 +439,7 @@ else if (e.touches.length === 2 && initialPinchDist !== null && twoFingerMidpoin
   panY = canvasMidY - zoomScaler(window.initialGraphY);
   
   ticked(); // re-render
-}
+})
 
 
 // --- TOUCH END ---
