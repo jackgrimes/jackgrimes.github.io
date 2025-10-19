@@ -409,7 +409,6 @@ canvas.addEventListener("touchmove", e => {
     }
     // If not dragging a node, do nothing (no pan on single finger)
   }
-  // Two-finger: pan and zoom
 // Two-finger: pan and zoom
 else if (e.touches.length === 2 && initialPinchDist !== null && twoFingerMidpoint !== null) {
   const [t1, t2] = e.touches;
@@ -417,7 +416,7 @@ else if (e.touches.length === 2 && initialPinchDist !== null && twoFingerMidpoin
   const dy = t2.clientY - t1.clientY;
   const dist = Math.hypot(dx, dy);
 
-  // Calculate new midpoint
+  // Calculate current midpoint
   const newMidX = (t1.clientX + t2.clientX) / 2;
   const newMidY = (t1.clientY + t2.clientY) / 2;
 
@@ -425,28 +424,42 @@ else if (e.touches.length === 2 && initialPinchDist !== null && twoFingerMidpoin
   const scale = dist / initialPinchDist;
   const newZoom = Math.max(0.1, Math.min(8, initialZoom * scale));
 
-  // Get the point in graph space that's under the midpoint BEFORE zoom
+  // Convert initial midpoint (where pinch started) to canvas coordinates
   const rect = canvas.getBoundingClientRect();
-  const canvasMidX = newMidX - rect.left;
-  const canvasMidY = newMidY - rect.top;
-  const graphX = zoomScaler.invert(canvasMidX - panX);
-  const graphY = zoomScaler.invert(canvasMidY - panY);
-
-  // Update zoom
-  controls['zoom'] = newZoom;
-  zoomScaler.range([width * (1 - newZoom), newZoom * width]);
-
-  // Adjust pan so the graph point stays under the midpoint after zoom
-  panX = canvasMidX - zoomScaler(graphX);
-  panY = canvasMidY - zoomScaler(graphY);
-
-  // Now apply the pan from finger movement
-  const panDeltaX = newMidX - twoFingerMidpoint.x;
-  const panDeltaY = newMidY - twoFingerMidpoint.y;
-  panX += panDeltaX;
-  panY += panDeltaY;
+  const initialCanvasMidX = twoFingerMidpoint.x - rect.left;
+  const initialCanvasMidY = twoFingerMidpoint.y - rect.top;
   
-  // Update stored midpoint
+  // Get the graph point under the initial midpoint (using initial zoom state)
+  const initialZoomScaler = d3.scaleLinear().domain([0, width]).range([width * (1 - initialZoom), initialZoom * width]);
+  
+  // We need to calculate what graph coordinates were at the pinch start point
+  // This is tricky because panX/panY have changed... let's use a different approach
+  
+  // Calculate zoom center in canvas space (current midpoint position)
+  const currentCanvasMidX = newMidX - rect.left;
+  const currentCanvasMidY = newMidY - rect.top;
+  
+  // The zoom should keep the graph point that was under twoFingerMidpoint at the start
+  // in the same screen position. We need to calculate panX/panY to achieve this.
+  
+  // Store old pan values
+  const oldPanX = panX;
+  const oldPanY = panY;
+  
+  // Update zoom scaler
+  const oldZoomScaler = d3.scaleLinear().domain([0, width]).range([width * (1 - controls['zoom']), controls['zoom'] * width]);
+  controls['zoom'] = newZoom;
+  zoomScaler = d3.scaleLinear().domain([0, width]).range([width * (1 - newZoom), newZoom * width]);
+  
+  // Calculate what graph point is currently at the initial pinch location
+  const graphX = oldZoomScaler.invert(initialCanvasMidX - oldPanX);
+  const graphY = oldZoomScaler.invert(initialCanvasMidY - oldPanY);
+  
+  // Now calculate new pan so this graph point appears at the current finger midpoint
+  panX = currentCanvasMidX - zoomScaler(graphX);
+  panY = currentCanvasMidY - zoomScaler(graphY);
+  
+  // Update stored midpoint for next iteration
   twoFingerMidpoint.x = newMidX;
   twoFingerMidpoint.y = newMidY;
   
