@@ -18,7 +18,7 @@ function vis(new_controls) {
 
   // Canvas //
   // ------ //
-  
+
   var canvas = document.querySelector("canvas");
   var parentdiv = document.getElementsByClassName("canvas_container")[0];
   canvas.width = parentdiv.offsetWidth;
@@ -79,7 +79,10 @@ function vis(new_controls) {
           restartIfValidCSV(reader.result)
         }
       } else {
-        Swal.fire({ text: "File not supported", type: "error" })
+        Swal.fire({
+          text: "File not supported",
+          type: "error"
+        })
         return false
       }
       reader.readAsText(file);
@@ -97,17 +100,17 @@ function vis(new_controls) {
   function postData() {
     let nw_prop = get_network_properties();
     let controls_copy = {};
-    for (let prop in controls){
+    for (let prop in controls) {
       if (
         (controls.hasOwnProperty(prop)) &&
         (prop != 'file_path') &&
         (prop != 'post_to_python') &&
         (prop != 'download_figure')
-       ){
+      ) {
         controls_copy[prop] = controls[prop];
       }
     }
-    post_json(nw_prop, controls_copy, canvas, function(){
+    post_json(nw_prop, controls_copy, canvas, function() {
       Swal.fire({
         //type: "success",
         title: "Success!",
@@ -119,10 +122,9 @@ function vis(new_controls) {
         cancelButtonColor: '#d33',
         confirmButtonText: 'OK',
       }).then((willDelete) => {
-          if (!willDelete) {
-          } else {
-            post_stop();
-          }
+        if (!willDelete) {} else {
+          post_stop();
+        }
       });
     });
   }
@@ -167,8 +169,8 @@ function vis(new_controls) {
 
   // Context dependent keys
   if (isLocal) controls['post_to_python'] = postData;
-  if (isWeb)   controls['upload_file'] = uploadFile;
-    
+  if (isWeb) controls['upload_file'] = uploadFile;
+
   // Overwrite default controls with inputted controls
   d3.keys(new_controls).forEach(key => {
     controls[key] = new_controls[key];
@@ -218,15 +220,15 @@ function vis(new_controls) {
     simulation.force("link")
       .links(graph.links);
 
-d3.select(canvas)
-  .call(
-    d3.drag()
-      .container(canvas)
-      .subject(dragsubject)
-      .on("start", dragstarted)
-      .on("drag", dragged)
-      .on("end", dragended)
-  );
+    d3.select(canvas)
+      .call(
+        d3.drag()
+        .container(canvas)
+        .subject(dragsubject)
+        .on("start", dragstarted)
+        .on("drag", dragged)
+        .on("end", dragended)
+      );
 
     if (nodePositions || controls['freeze_nodes']) {
       simulation.alpha(0).restart();
@@ -235,46 +237,52 @@ d3.select(canvas)
     }
   }
 
-  function simulationSoftRestart(){
-    if (!controls['freeze_nodes']){
+  function simulationSoftRestart() {
+    if (!controls['freeze_nodes']) {
       simulation.restart();
     } else {
       ticked();
     }
   }
 
-// Unified pan handling for mouse & touch
-function startPan(x, y) {
+  // Unified pan handling for mouse & touch
+  function startPan(x, y) {
     if (typeof hoveredNode === "undefined") {
-        isPanning = true;
-        lastMouse = { x, y };
+      isPanning = true;
+      lastMouse = {
+        x,
+        y
+      };
     }
-}
+  }
 
-function movePan(x, y) {
+  function movePan(x, y) {
     if (isPanning) {
-        let dx = x - lastMouse.x;
-        let dy = y - lastMouse.y;
-        panX += dx;
-        panY += dy;
-        lastMouse = { x, y };
-        ticked();
+      let dx = x - lastMouse.x;
+      let dy = y - lastMouse.y;
+      panX += dx;
+      panY += dy;
+      lastMouse = {
+        x,
+        y
+      };
+      ticked();
     }
-}
+  }
 
-function endPan() {
+  function endPan() {
     isPanning = false;
-}
+  }
 
   d3.select(canvas).on("mousemove", function() {
     if (!controls['display_node_labels']) {
       xy = d3.mouse(this)
       hoveredNode = simulation.find(
-          zoomScaler.invert(xy[0] - panX), 
-          zoomScaler.invert(xy[1] - panY), 
-          20
-      );      
-      if (typeof (hoveredNode) != 'undefined') {
+        zoomScaler.invert(xy[0] - panX),
+        zoomScaler.invert(xy[1] - panY),
+        20
+      );
+      if (typeof(hoveredNode) != 'undefined') {
         hoveredNode = hoveredNode.id;
       }
       simulation.restart();
@@ -282,334 +290,354 @@ function endPan() {
   })
 
   // Then modify the mousedown event handler (around line 273-287):
-window.addEventListener("mousedown", function(event) {
-  if (typeof (hoveredNode) != 'undefined') {
-    // Store initial mouse position
-    mouseDownPos = { x: event.clientX, y: event.clientY };
-  }
-}, true)
+  window.addEventListener("mousedown", function(event) {
+    if (typeof(hoveredNode) != 'undefined') {
+      // Store initial mouse position
+      mouseDownPos = {
+        x: event.clientX,
+        y: event.clientY
+      };
+    }
+  }, true)
 
-window.addEventListener("mouseup", function(event) {
-  if (typeof (hoveredNode) != 'undefined' && mouseDownPos) {
-    // Calculate distance moved
-    const dx = event.clientX - mouseDownPos.x;
-    const dy = event.clientY - mouseDownPos.y;
-    const distance = Math.sqrt(dx * dx + dy * dy);
-    
-    // Only toggle selection if moved less than 10 pixels (it was a click, not a drag)
-    if (distance < 10) {
-      const nodeId = hoveredNode;
-      if (selectedNodes.includes(nodeId)) {
-        selectedNodes.splice(selectedNodes.indexOf(nodeId), 1);
-        hoveredNode = undefined; // Clear hover so label disappears immediately
-      } else {
-        selectedNodes.push(nodeId);
+  window.addEventListener("mouseup", function(event) {
+    if (typeof(hoveredNode) != 'undefined' && mouseDownPos) {
+      // Calculate distance moved
+      const dx = event.clientX - mouseDownPos.x;
+      const dy = event.clientY - mouseDownPos.y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+      // Only toggle selection if moved less than 10 pixels (it was a click, not a drag)
+      if (distance < 10) {
+        const nodeId = hoveredNode;
+        if (selectedNodes.includes(nodeId)) {
+          selectedNodes.splice(selectedNodes.indexOf(nodeId), 1);
+          hoveredNode = undefined; // Clear hover so label disappears immediately
+        } else {
+          selectedNodes.push(nodeId);
+        }
+        ticked(); // Immediate redraw
       }
-      ticked(); // Immediate redraw
     }
-  }
-  mouseDownPos = null;
-}, true)
+    mouseDownPos = null;
+  }, true)
 
 
-// Mouse
-canvas.addEventListener("mousedown", e => startPan(e.clientX, e.clientY));
-canvas.addEventListener("mousemove", e => movePan(e.clientX, e.clientY));
-canvas.addEventListener("mouseup", endPan);
-canvas.addEventListener("mouseleave", endPan);
+  // Mouse
+  canvas.addEventListener("mousedown", e => startPan(e.clientX, e.clientY));
+  canvas.addEventListener("mousemove", e => movePan(e.clientX, e.clientY));
+  canvas.addEventListener("mouseup", endPan);
+  canvas.addEventListener("mouseleave", endPan);
 
 
 
-canvas.addEventListener('gesturestart', e => e.preventDefault(), {passive:false});
-canvas.addEventListener('gesturechange', e => e.preventDefault(), {passive:false});
-canvas.addEventListener('gestureend', e => e.preventDefault(), {passive:false});
+  canvas.addEventListener('gesturestart', e => e.preventDefault(), {
+    passive: false
+  });
+  canvas.addEventListener('gesturechange', e => e.preventDefault(), {
+    passive: false
+  });
+  canvas.addEventListener('gestureend', e => e.preventDefault(), {
+    passive: false
+  });
 
-// --- Global pinch state ---
-let initialPinchDist = null;
-let initialZoom = 1;
-let touchDragSubject = null; // Track which node is being dragged
-let twoFingerMidpoint = null; // Track the midpoint for two-finger pan
-let touchStartPos = null; // Track initial touch position to detect drag vs tap
+  // --- Global pinch state ---
+  let initialPinchDist = null;
+  let initialZoom = 1;
+  let touchDragSubject = null; // Track which node is being dragged
+  let twoFingerMidpoint = null; // Track the midpoint for two-finger pan
+  let touchStartPos = null; // Track initial touch position to detect drag vs tap
 
-// --- TOUCH START ---
-canvas.addEventListener("touchstart", e => {
-  if (e.touches.length === 1) {
-    const touch = e.touches[0];
-    const rect = canvas.getBoundingClientRect();
-    const x = zoomScaler.invert(touch.clientX - rect.left - panX);
-    const y = zoomScaler.invert(touch.clientY - rect.top - panY);
-    
-    // Store initial touch position
-    touchStartPos = { x: touch.clientX, y: touch.clientY };
-    
-    // Check if touching a node
-    touchDragSubject = simulation.find(x, y, 20);
-    
-    if (touchDragSubject) {
-      // Start dragging a node
+  // --- TOUCH START ---
+  canvas.addEventListener("touchstart", e => {
+    if (e.touches.length === 1) {
+      const touch = e.touches[0];
+      const rect = canvas.getBoundingClientRect();
+      const x = zoomScaler.invert(touch.clientX - rect.left - panX);
+      const y = zoomScaler.invert(touch.clientY - rect.top - panY);
+
+      // Store initial touch position
+      touchStartPos = {
+        x: touch.clientX,
+        y: touch.clientY
+      };
+
+      // Check if touching a node
+      touchDragSubject = simulation.find(x, y, 20);
+
+      if (touchDragSubject) {
+        // Start dragging a node
+        e.preventDefault();
+        if (!controls['freeze_nodes']) simulation.alphaTarget(0.3).restart();
+        touchDragSubject.fx = touchDragSubject.x;
+        touchDragSubject.fy = touchDragSubject.y;
+      }
+    } else if (e.touches.length === 2) {
       e.preventDefault();
-      if (!controls['freeze_nodes']) simulation.alphaTarget(0.3).restart();
-      touchDragSubject.fx = touchDragSubject.x;
-      touchDragSubject.fy = touchDragSubject.y;
+
+      // Cancel any ongoing drag
+      if (touchDragSubject) {
+        if (!controls['freeze_nodes']) simulation.alphaTarget(0);
+        touchDragSubject.fx = null;
+        touchDragSubject.fy = null;
+        touchDragSubject = null;
+      }
+
+      const [t1, t2] = e.touches;
+      const dx = t2.clientX - t1.clientX;
+      const dy = t2.clientY - t1.clientY;
+
+      initialPinchDist = Math.hypot(dx, dy);
+      initialZoom = controls['zoom'];
+
+      // Store initial midpoint for panning
+      const midX = (t1.clientX + t2.clientX) / 2;
+      const midY = (t1.clientY + t2.clientY) / 2;
+      twoFingerMidpoint = {
+        x: midX,
+        y: midY
+      };
+
+      // Store what graph point is under the initial midpoint (for zoom anchoring)
+      const rect = canvas.getBoundingClientRect();
+      const canvasMidX = midX - rect.left;
+      const canvasMidY = midY - rect.top;
+      window.initialGraphX = zoomScaler.invert(canvasMidX - panX);
+      window.initialGraphY = zoomScaler.invert(canvasMidY - panY);
+
+      touchStartPos = null;
     }
-  } 
-  else if (e.touches.length === 2) {
+  }, {
+    passive: false
+  });
+
+  // --- TOUCH MOVE ---
+  canvas.addEventListener("touchmove", e => {
     e.preventDefault();
-    
-    // Cancel any ongoing drag
-    if (touchDragSubject) {
+
+    // Single-finger: only drag nodes (no panning)
+    if (e.touches.length === 1 && initialPinchDist === null) {
+      const touch = e.touches[0];
+
+      if (touchDragSubject) {
+        // Drag the node
+        const rect = canvas.getBoundingClientRect();
+        const x = zoomScaler.invert(touch.clientX - rect.left - panX);
+        const y = zoomScaler.invert(touch.clientY - rect.top - panY);
+
+        touchDragSubject.fx = x;
+        touchDragSubject.fy = y;
+
+        if (controls['freeze_nodes']) simulation.restart();
+        ticked(); // re-render
+      }
+      // If not dragging a node, do nothing (no pan on single finger)
+    }
+    // Two-finger: pan and zoom
+    else if (e.touches.length === 2 && initialPinchDist !== null && twoFingerMidpoint !== null) {
+      const [t1, t2] = e.touches;
+      const dx = t2.clientX - t1.clientX;
+      const dy = t2.clientY - t1.clientY;
+      const dist = Math.hypot(dx, dy);
+
+      // Calculate current midpoint
+      const newMidX = (t1.clientX + t2.clientX) / 2;
+      const newMidY = (t1.clientY + t2.clientY) / 2;
+
+      // Calculate new zoom
+      const scale = dist / initialPinchDist;
+      const newZoom = Math.max(0.1, Math.min(8, initialZoom * scale));
+
+      // Update zoom and zoom scaler
+      controls['zoom'] = newZoom;
+      zoomScaler = d3.scaleLinear().domain([0, width]).range([width * (1 - newZoom), newZoom * width]);
+
+      // Get canvas-relative coordinates of current midpoint
+      const rect = canvas.getBoundingClientRect();
+      const canvasMidX = newMidX - rect.left;
+      const canvasMidY = newMidY - rect.top;
+
+      // Calculate pan so the INITIAL graph point stays under the current finger midpoint
+      // This combines both zoom anchoring and panning from finger movement
+      panX = canvasMidX - zoomScaler(window.initialGraphX);
+      panY = canvasMidY - zoomScaler(window.initialGraphY);
+
+      ticked(); // re-render
+    }
+  }, {
+    passive: false
+  });
+
+  // --- TOUCH END ---
+  canvas.addEventListener("touchend", e => {
+    // Handle tap on node to toggle label selection
+    if (e.touches.length === 0 && touchDragSubject && touchStartPos && !controls['display_node_labels']) {
+      // Calculate distance moved
+      const touch = e.changedTouches[0];
+      const dx = touch.clientX - touchStartPos.x;
+      const dy = touch.clientY - touchStartPos.y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+      // Only toggle label if moved less than 10 pixels (it was a tap, not a drag)
+      if (distance < 10) {
+        const nodeId = touchDragSubject.id;
+        if (selectedNodes.includes(nodeId)) {
+          selectedNodes.splice(selectedNodes.indexOf(nodeId), 1);
+        } else {
+          selectedNodes.push(nodeId);
+        }
+      }
+    }
+
+    // End node drag
+    if (touchDragSubject && e.touches.length === 0) {
       if (!controls['freeze_nodes']) simulation.alphaTarget(0);
       touchDragSubject.fx = null;
       touchDragSubject.fy = null;
       touchDragSubject = null;
     }
 
-    const [t1, t2] = e.touches;
-    const dx = t2.clientX - t1.clientX;
-    const dy = t2.clientY - t1.clientY;
-
-    initialPinchDist = Math.hypot(dx, dy);
-    initialZoom = controls['zoom'];
-    
-    // Store initial midpoint for panning
-    const midX = (t1.clientX + t2.clientX) / 2;
-    const midY = (t1.clientY + t2.clientY) / 2;
-    twoFingerMidpoint = { x: midX, y: midY };
-    
-    // Store what graph point is under the initial midpoint (for zoom anchoring)
-    const rect = canvas.getBoundingClientRect();
-    const canvasMidX = midX - rect.left;
-    const canvasMidY = midY - rect.top;
-    window.initialGraphX = zoomScaler.invert(canvasMidX - panX);
-    window.initialGraphY = zoomScaler.invert(canvasMidY - panY);
-    
-    touchStartPos = null;
-  }
-}, { passive: false });
-
-// --- TOUCH MOVE ---
-canvas.addEventListener("touchmove", e => {
-  e.preventDefault();
-
-  // Single-finger: only drag nodes (no panning)
-  if (e.touches.length === 1 && initialPinchDist === null) {
-    const touch = e.touches[0];
-    
-    if (touchDragSubject) {
-      // Drag the node
-      const rect = canvas.getBoundingClientRect();
-      const x = zoomScaler.invert(touch.clientX - rect.left - panX);
-      const y = zoomScaler.invert(touch.clientY - rect.top - panY);
-      
-      touchDragSubject.fx = x;
-      touchDragSubject.fy = y;
-      
-      if (controls['freeze_nodes']) simulation.restart();
-      ticked(); // re-render
-    }
-    // If not dragging a node, do nothing (no pan on single finger)
-  }
-  // Two-finger: pan and zoom
-  else if (e.touches.length === 2 && initialPinchDist !== null && twoFingerMidpoint !== null) {
-    const [t1, t2] = e.touches;
-    const dx = t2.clientX - t1.clientX;
-    const dy = t2.clientY - t1.clientY;
-    const dist = Math.hypot(dx, dy);
-
-    // Calculate current midpoint
-    const newMidX = (t1.clientX + t2.clientX) / 2;
-    const newMidY = (t1.clientY + t2.clientY) / 2;
-
-    // Calculate new zoom
-    const scale = dist / initialPinchDist;
-    const newZoom = Math.max(0.1, Math.min(8, initialZoom * scale));
-
-    // Update zoom and zoom scaler
-    controls['zoom'] = newZoom;
-    zoomScaler = d3.scaleLinear().domain([0, width]).range([width * (1 - newZoom), newZoom * width]);
-
-    // Get canvas-relative coordinates of current midpoint
-    const rect = canvas.getBoundingClientRect();
-    const canvasMidX = newMidX - rect.left;
-    const canvasMidY = newMidY - rect.top;
-
-    // Calculate pan so the INITIAL graph point stays under the current finger midpoint
-    // This combines both zoom anchoring and panning from finger movement
-    panX = canvasMidX - zoomScaler(window.initialGraphX);
-    panY = canvasMidY - zoomScaler(window.initialGraphY);
-    
-    ticked(); // re-render
-  }
-}, { passive: false });
-
-// --- TOUCH END ---
-canvas.addEventListener("touchend", e => {
-  // Handle tap on node to toggle label selection
-  if (e.touches.length === 0 && touchDragSubject && touchStartPos && !controls['display_node_labels']) {
-    // Calculate distance moved
-    const touch = e.changedTouches[0];
-    const dx = touch.clientX - touchStartPos.x;
-    const dy = touch.clientY - touchStartPos.y;
-    const distance = Math.sqrt(dx * dx + dy * dy);
-    
-    // Only toggle label if moved less than 10 pixels (it was a tap, not a drag)
-    if (distance < 10) {
-      const nodeId = touchDragSubject.id;
-      if (selectedNodes.includes(nodeId)) {
-        selectedNodes.splice(selectedNodes.indexOf(nodeId), 1);
-      } else {
-        selectedNodes.push(nodeId);
+    // End pinch
+    if (e.touches.length < 2) {
+      if (initialPinchDist !== null) {
+        // Update the GUI to reflect the new zoom level
+        inputtedZoom(controls['zoom']);
+        gui.updateDisplay();
       }
+      initialPinchDist = null;
+      twoFingerMidpoint = null;
     }
-  }
-  
-  // End node drag
-  if (touchDragSubject && e.touches.length === 0) {
-    if (!controls['freeze_nodes']) simulation.alphaTarget(0);
-    touchDragSubject.fx = null;
-    touchDragSubject.fy = null;
-    touchDragSubject = null;
-  }
-  
-  // End pinch
-  if (e.touches.length < 2) {
-    if (initialPinchDist !== null) {
-      // Update the GUI to reflect the new zoom level
-      inputtedZoom(controls['zoom']);
-      gui.updateDisplay();
+
+    // Reset touch start position
+    if (e.touches.length === 0) {
+      touchStartPos = null;
     }
-    initialPinchDist = null;
-    twoFingerMidpoint = null;
-  }
-  
-  // Reset touch start position
-  if (e.touches.length === 0) {
-    touchStartPos = null;
-  }
-  
-  // Always trigger a redraw to show/hide labels
-  ticked();
-}, { passive: false });
+
+    // Always trigger a redraw to show/hide labels
+    ticked();
+  }, {
+    passive: false
+  });
 
 
 
   // Network functions
   // -----------------
 
-function dragsubject() {
-  let clientX, clientY;
+  function dragsubject() {
+    let clientX, clientY;
 
-  if (d3.event.sourceEvent) {
-    const src = d3.event.sourceEvent.touches ? d3.event.sourceEvent.touches[0] : d3.event.sourceEvent;
-    clientX = src.clientX;
-    clientY = src.clientY;
-  } else {
-    clientX = d3.event.x;
-    clientY = d3.event.y;
-  }
-
-  const rect = canvas.getBoundingClientRect();
-  const x = zoomScaler.invert(clientX - rect.left - panX);
-  const y = zoomScaler.invert(clientY - rect.top - panY);
-
-  return simulation.find(x, y, 20);
-}
-
-function dragstarted(event, d) {
-  event.sourceEvent.stopPropagation();
-  if (!controls['freeze_nodes']) simulation.alphaTarget(0.3).restart();
-  d.fx = d.x;
-  d.fy = d.y;
-}
-
-function dragstarted() {
-  if (!controls['freeze_nodes']) simulation.alphaTarget(0.3);
-  simulation.restart();
-  d3.event.subject.fx = d3.event.subject.x;
-  d3.event.subject.fy = d3.event.subject.y;
-}
-
-function dragged() {
-  let clientX, clientY;
-
-  // D3 v4 may not always attach sourceEvent reliably — handle both cases
-  if (d3.event.sourceEvent) {
-    const src = d3.event.sourceEvent.touches ? d3.event.sourceEvent.touches[0] : d3.event.sourceEvent;
-    clientX = src.clientX;
-    clientY = src.clientY;
-  } else {
-    // fallback for when D3 event has direct x/y in screen space
-    clientX = d3.event.x;
-    clientY = d3.event.y;
-  }
-
-  const rect = canvas.getBoundingClientRect();
-
-  // Convert from screen to simulation space
-  const x = zoomScaler.invert(clientX - rect.left - panX);
-  const y = zoomScaler.invert(clientY - rect.top - panY);
-
-  d3.event.subject.fx = x;
-  d3.event.subject.fy = y;
-
-  if (controls['freeze_nodes']) simulation.restart();
-}
-
-function dragended() {
-  if (!controls['freeze_nodes']) simulation.alphaTarget(0);
-  d3.event.subject.fx = null;
-  d3.event.subject.fy = null;
-}
-
-  function drawLink(d) {
-  var thisLinkWidth = valIfValid(d.weight, 1) ** (controls['link_width_variation']) * linkWidthNorm * controls['link_width'];
-  context.beginPath();
-  context.moveTo(zoomScaler(d.source.x) + panX, zoomScaler(d.source.y) + panY);
-  context.lineTo(zoomScaler(d.target.x) + panX, zoomScaler(d.target.y) + panY);
-  context.lineWidth = thisLinkWidth * controls['zoom'];
-  context.stroke();
-}
-
-function drawNode(d) {
-  var thisNodeSize = valIfValid(d.size, 1) ** (controls['node_size_variation']) * nodeSizeNorm * controls['node_size'];
-  context.beginPath();
-  context.arc(zoomScaler(d.x) + panX, zoomScaler(d.y) + panY, thisNodeSize * (controls['zoom'] + (controls['zoom'] - 1)), 0, 2 * Math.PI);
-  context.fillStyle = computeNodeColor(d);
-  context.fill();
-  context.stroke();
-}
-
-function drawText(d) {
-  if (controls['display_node_labels'] || d.id == hoveredNode || selectedNodes.includes(d.id)) {
-    var thisNodeSize = valIfValid(d.size, 1) ** (controls['node_size_variation']) * nodeSizeNorm * controls['node_size'];
-    context.font = clip(thisNodeSize * controls['zoom'] * 2, 10, 20) + "px Helvetica"
-    context.fillStyle = controls['node_label_color']
-    context.fillText(d.id, zoomScaler(d.x) + panX, zoomScaler(d.y) + panY)
-  }
-}
-
-const searchInput = document.getElementById('nodeSearch');
-let searchTimeout = null; // store timeout ID
-
-searchInput.addEventListener('input', e => {
-  const query = e.target.value.trim().toLowerCase();
-
-  // Clear any previous scheduled search
-  clearTimeout(searchTimeout);
-
-  // Wait 300ms (adjust delay as needed)
-  searchTimeout = setTimeout(() => {
-    if (!query) {
-      selectedNodes = [];
+    if (d3.event.sourceEvent) {
+      const src = d3.event.sourceEvent.touches ? d3.event.sourceEvent.touches[0] : d3.event.sourceEvent;
+      clientX = src.clientX;
+      clientY = src.clientY;
     } else {
-      selectedNodes = graph.nodes
-        .filter(n => n.id.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(query))
-        .map(n => n.id);
+      clientX = d3.event.x;
+      clientY = d3.event.y;
     }
 
-    ticked(); // redraw after delay
-  }, 300); // ← delay in milliseconds
-});
+    const rect = canvas.getBoundingClientRect();
+    const x = zoomScaler.invert(clientX - rect.left - panX);
+    const y = zoomScaler.invert(clientY - rect.top - panY);
+
+    return simulation.find(x, y, 20);
+  }
+
+  function dragstarted(event, d) {
+    event.sourceEvent.stopPropagation();
+    if (!controls['freeze_nodes']) simulation.alphaTarget(0.3).restart();
+    d.fx = d.x;
+    d.fy = d.y;
+  }
+
+  function dragstarted() {
+    if (!controls['freeze_nodes']) simulation.alphaTarget(0.3);
+    simulation.restart();
+    d3.event.subject.fx = d3.event.subject.x;
+    d3.event.subject.fy = d3.event.subject.y;
+  }
+
+  function dragged() {
+    let clientX, clientY;
+
+    // D3 v4 may not always attach sourceEvent reliably — handle both cases
+    if (d3.event.sourceEvent) {
+      const src = d3.event.sourceEvent.touches ? d3.event.sourceEvent.touches[0] : d3.event.sourceEvent;
+      clientX = src.clientX;
+      clientY = src.clientY;
+    } else {
+      // fallback for when D3 event has direct x/y in screen space
+      clientX = d3.event.x;
+      clientY = d3.event.y;
+    }
+
+    const rect = canvas.getBoundingClientRect();
+
+    // Convert from screen to simulation space
+    const x = zoomScaler.invert(clientX - rect.left - panX);
+    const y = zoomScaler.invert(clientY - rect.top - panY);
+
+    d3.event.subject.fx = x;
+    d3.event.subject.fy = y;
+
+    if (controls['freeze_nodes']) simulation.restart();
+  }
+
+  function dragended() {
+    if (!controls['freeze_nodes']) simulation.alphaTarget(0);
+    d3.event.subject.fx = null;
+    d3.event.subject.fy = null;
+  }
+
+  function drawLink(d) {
+    var thisLinkWidth = valIfValid(d.weight, 1) ** (controls['link_width_variation']) * linkWidthNorm * controls['link_width'];
+    context.beginPath();
+    context.moveTo(zoomScaler(d.source.x) + panX, zoomScaler(d.source.y) + panY);
+    context.lineTo(zoomScaler(d.target.x) + panX, zoomScaler(d.target.y) + panY);
+    context.lineWidth = thisLinkWidth * controls['zoom'];
+    context.stroke();
+  }
+
+  function drawNode(d) {
+    var thisNodeSize = valIfValid(d.size, 1) ** (controls['node_size_variation']) * nodeSizeNorm * controls['node_size'];
+    context.beginPath();
+    context.arc(zoomScaler(d.x) + panX, zoomScaler(d.y) + panY, thisNodeSize * (controls['zoom'] + (controls['zoom'] - 1)), 0, 2 * Math.PI);
+    context.fillStyle = computeNodeColor(d);
+    context.fill();
+    context.stroke();
+  }
+
+  function drawText(d) {
+    if (controls['display_node_labels'] || d.id == hoveredNode || selectedNodes.includes(d.id)) {
+      var thisNodeSize = valIfValid(d.size, 1) ** (controls['node_size_variation']) * nodeSizeNorm * controls['node_size'];
+      context.font = clip(thisNodeSize * controls['zoom'] * 2, 10, 20) + "px Helvetica"
+      context.fillStyle = controls['node_label_color']
+      context.fillText(d.id, zoomScaler(d.x) + panX, zoomScaler(d.y) + panY)
+    }
+  }
+
+  const searchInput = document.getElementById('nodeSearch');
+  let searchTimeout = null; // store timeout ID
+
+  searchInput.addEventListener('input', e => {
+    const query = e.target.value.trim().toLowerCase();
+
+    // Clear any previous scheduled search
+    clearTimeout(searchTimeout);
+
+    // Wait 300ms (adjust delay as needed)
+    searchTimeout = setTimeout(() => {
+      if (!query) {
+        selectedNodes = [];
+      } else {
+        selectedNodes = graph.nodes
+          .filter(n => n.id.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(query))
+          .map(n => n.id);
+      }
+
+      ticked(); // redraw after delay
+    }, 300); // ← delay in milliseconds
+  });
 
 
   // Key events //
@@ -629,16 +657,16 @@ searchInput.addEventListener('input', e => {
   var selectedNodes = [];
   var xy;
 
-canvas.addEventListener("wheel", function(event) {
-    event.preventDefault();  // stop page scroll
+  canvas.addEventListener("wheel", function(event) {
+    event.preventDefault(); // stop page scroll
 
     const zoomFactor = 1.05;
     let newZoom = controls['zoom'];
 
-    if (event.deltaY < 0) {  // zoom in
-        newZoom *= zoomFactor;
-    } else {  // zoom out
-        newZoom /= zoomFactor;
+    if (event.deltaY < 0) { // zoom in
+      newZoom *= zoomFactor;
+    } else { // zoom out
+      newZoom /= zoomFactor;
     }
 
     // Clamp zoom
@@ -665,7 +693,7 @@ canvas.addEventListener("wheel", function(event) {
 
     inputtedZoom(newZoom);
     gui.updateDisplay();
-});
+  });
 
 
   // Parameter controls //
@@ -726,7 +754,9 @@ canvas.addEventListener("wheel", function(event) {
   var title5_3 = "Max. link percentile: Upper percentile threshold on link weight"
 
   // Control panel
-  var gui = new dat.GUI({ autoPlace: false });
+  var gui = new dat.GUI({
+    autoPlace: false
+  });
   var customContainer = document.getElementsByClassName('controls_container')[0];
   gui.width = customContainer.offsetWidth;
   gui.closed = false;
@@ -734,46 +764,99 @@ canvas.addEventListener("wheel", function(event) {
   gui.remember(controls);
 
   // Input/Output
-  var f1 = gui.addFolder('Input/output'); f1.open();
-  if (isWeb) f1.add(controls, 'file_path', controls['file_path']).name('Path to file').onFinishChange(function(v) { handleURL(v) }).title(title1_1);
+  var f1 = gui.addFolder('Input/output');
+  f1.open();
+  if (isWeb) f1.add(controls, 'file_path', controls['file_path']).name('Path to file').onFinishChange(function(v) {
+    handleURL(v)
+  }).title(title1_1);
   if (isWeb) f1.add(controls, 'upload_file').name('Upload file').title(title1_2);
   f1.add(controls, 'download_figure').name('Download figure').title(title1_3);
   if (isLocal) f1.add(controls, 'post_to_python').name('Post to Python').title(title1_4);
-  f1.add(controls, 'zoom', 0.6, 5).name('Zoom').onChange(function(v) { inputtedZoom(v) }).title(title1_5);
+  f1.add(controls, 'zoom', 0.6, 5).name('Zoom').onChange(function(v) {
+    inputtedZoom(v)
+  }).title(title1_5);
 
   // Physics
-  var f2 = gui.addFolder('Physics'); f2.open();
-  f2.add(controls, 'node_charge', -100, 0).name('Charge').onChange(function(v) { inputtedCharge(v) }).title(title2_1);
-  f2.add(controls, 'node_gravity', 0, 1).name('Gravity').onChange(function(v) { inputtedGravity(v) }).title(title2_2);
-  f2.add(controls, 'link_distance', 0.1, 50).name('Link distance').onChange(function(v) { inputtedDistance(v) }).title(title2_3);
-  f2.add(controls, 'link_distance_variation', 0, 1).name('Link distance variation').step(0.01).onChange(function(v) { inputtedDistanceScaling(v) }).title(title2_4);
-  f2.add(controls, 'node_collision', false).name('Collision').onChange(function(v) { inputtedCollision(v) }).title(title2_5);
-  f2.add(controls, 'wiggle_nodes', false).name('Wiggle').onChange(function(v) { inputtedReheat(v) }).listen().title(title2_6);
-  f2.add(controls, 'freeze_nodes', false).name('Freeze').onChange(function(v) { inputtedFreeze(v) }).listen().title(title2_7);
+  var f2 = gui.addFolder('Physics');
+  f2.open();
+  f2.add(controls, 'node_charge', -100, 0).name('Charge').onChange(function(v) {
+    inputtedCharge(v)
+  }).title(title2_1);
+  f2.add(controls, 'node_gravity', 0, 1).name('Gravity').onChange(function(v) {
+    inputtedGravity(v)
+  }).title(title2_2);
+  f2.add(controls, 'link_distance', 0.1, 50).name('Link distance').onChange(function(v) {
+    inputtedDistance(v)
+  }).title(title2_3);
+  f2.add(controls, 'link_distance_variation', 0, 1).name('Link distance variation').step(0.01).onChange(function(v) {
+    inputtedDistanceScaling(v)
+  }).title(title2_4);
+  f2.add(controls, 'node_collision', false).name('Collision').onChange(function(v) {
+    inputtedCollision(v)
+  }).title(title2_5);
+  f2.add(controls, 'wiggle_nodes', false).name('Wiggle').onChange(function(v) {
+    inputtedReheat(v)
+  }).listen().title(title2_6);
+  f2.add(controls, 'freeze_nodes', false).name('Freeze').onChange(function(v) {
+    inputtedFreeze(v)
+  }).listen().title(title2_7);
 
   // Nodes
-  var f3 = gui.addFolder('Nodes'); f3.open();
-  f3.addColor(controls, 'node_fill_color', controls['node_fill_color']).name('Fill').onChange(function(v) { inputtedNodeFill(v) }).title(title3_1);
-  f3.addColor(controls, 'node_stroke_color', controls['node_stroke_color']).name('Stroke').onChange(function(v) { inputtedNodeStroke(v) }).title(title3_2);
-  f3.addColor(controls, 'node_label_color', controls['node_label_color']).name('Label color').onChange(function(v) { inputtedTextStroke(v) }).title(title3_3);
-  f3.add(controls, 'node_size', 0, 50).name('Size').onChange(function(v) { inputtedNodeSize(v) }).title(title3_6);
-  f3.add(controls, 'node_stroke_width', 0, 10).name('Stroke width').onChange(function(v) { inputtedNodeStrokeSize(v) }).title(title3_7);
-  f3.add(controls, 'node_size_variation', 0., 3.).name('Size variation').onChange(function(v) { inputtedNodeSizeExponent(v) }).title(title3_8);
-  f3.add(controls, 'display_node_labels', false).name('Display labels').onChange(function(v) { inputtedShowLabels(v) }).title(title3_4);
-  f3.add(controls, 'scale_node_size_by_strength', false).name('Size by strength').onChange(function(v) { inputtedNodeSizeByStrength(v) }).title(title3_5);
+  var f3 = gui.addFolder('Nodes');
+  f3.open();
+  f3.addColor(controls, 'node_fill_color', controls['node_fill_color']).name('Fill').onChange(function(v) {
+    inputtedNodeFill(v)
+  }).title(title3_1);
+  f3.addColor(controls, 'node_stroke_color', controls['node_stroke_color']).name('Stroke').onChange(function(v) {
+    inputtedNodeStroke(v)
+  }).title(title3_2);
+  f3.addColor(controls, 'node_label_color', controls['node_label_color']).name('Label color').onChange(function(v) {
+    inputtedTextStroke(v)
+  }).title(title3_3);
+  f3.add(controls, 'node_size', 0, 50).name('Size').onChange(function(v) {
+    inputtedNodeSize(v)
+  }).title(title3_6);
+  f3.add(controls, 'node_stroke_width', 0, 10).name('Stroke width').onChange(function(v) {
+    inputtedNodeStrokeSize(v)
+  }).title(title3_7);
+  f3.add(controls, 'node_size_variation', 0., 3.).name('Size variation').onChange(function(v) {
+    inputtedNodeSizeExponent(v)
+  }).title(title3_8);
+  f3.add(controls, 'display_node_labels', false).name('Display labels').onChange(function(v) {
+    inputtedShowLabels(v)
+  }).title(title3_4);
+  f3.add(controls, 'scale_node_size_by_strength', false).name('Size by strength').onChange(function(v) {
+    inputtedNodeSizeByStrength(v)
+  }).title(title3_5);
 
   // Links
-  var f4 = gui.addFolder('Links'); f4.open();
-  f4.addColor(controls, 'link_color', controls['link_color']).name('Color').onChange(function(v) { inputtedLinkStroke(v) }).title(title4_1);
-  f4.add(controls, 'link_width', 0.01, 30).name('Width').onChange(function(v) { inputtedLinkWidth(v) }).title(title4_2);
-  f4.add(controls, 'link_alpha', 0, 1).name('Alpha').onChange(function(v) { inputtedLinkAlpha(v) }).title(title4_3);
-  f4.add(controls, 'link_width_variation', 0., 3.).name('Width variation').onChange(function(v) { inputtedLinkWidthExponent(v) }).title(title4_4);
+  var f4 = gui.addFolder('Links');
+  f4.open();
+  f4.addColor(controls, 'link_color', controls['link_color']).name('Color').onChange(function(v) {
+    inputtedLinkStroke(v)
+  }).title(title4_1);
+  f4.add(controls, 'link_width', 0.01, 30).name('Width').onChange(function(v) {
+    inputtedLinkWidth(v)
+  }).title(title4_2);
+  f4.add(controls, 'link_alpha', 0, 1).name('Alpha').onChange(function(v) {
+    inputtedLinkAlpha(v)
+  }).title(title4_3);
+  f4.add(controls, 'link_width_variation', 0., 3.).name('Width variation').onChange(function(v) {
+    inputtedLinkWidthExponent(v)
+  }).title(title4_4);
 
   // Thresholding
-  var f5 = gui.addFolder('Thresholding'); f5.open();
-  f5.add(controls, 'display_singleton_nodes', true).name('Singleton nodes').onChange(function(v) { inputtedShowSingletonNodes(v) }).title(title5_1);
-  f5.add(controls, 'min_link_weight_percentile', 0, 0.99).name('Min. link percentile').step(0.01).onChange(function(v) { inputtedMinLinkWeight(v) }).listen().title(title5_2);
-  f5.add(controls, 'max_link_weight_percentile', 0.01, 1).name('Max. link percentile').step(0.01).onChange(function(v) { inputtedMaxLinkWeight(v) }).listen().title(title5_3);
+  var f5 = gui.addFolder('Thresholding');
+  f5.open();
+  f5.add(controls, 'display_singleton_nodes', true).name('Singleton nodes').onChange(function(v) {
+    inputtedShowSingletonNodes(v)
+  }).title(title5_1);
+  f5.add(controls, 'min_link_weight_percentile', 0, 0.99).name('Min. link percentile').step(0.01).onChange(function(v) {
+    inputtedMinLinkWeight(v)
+  }).listen().title(title5_2);
+  f5.add(controls, 'max_link_weight_percentile', 0.01, 1).name('Max. link percentile').step(0.01).onChange(function(v) {
+    inputtedMaxLinkWeight(v)
+  }).listen().title(title5_3);
 
   // Utility functions //
   // ----------------- //
@@ -840,10 +923,12 @@ canvas.addEventListener("wheel", function(event) {
   }
 
   function inputtedCollision(v) {
-    simulation.force("collide").radius(function(d) { return controls['node_collision'] * computeNodeRadii(d) });
-    if (!controls['freeze_nodes']) 
+    simulation.force("collide").radius(function(d) {
+      return controls['node_collision'] * computeNodeRadii(d)
+    });
+    if (!controls['freeze_nodes'])
       simulation.alpha(1)
-    
+
     simulationSoftRestart();
   }
 
@@ -913,16 +998,28 @@ canvas.addEventListener("wheel", function(event) {
   function inputtedNodeSizeByStrength(v) {
     recomputeNodeNorms();
     if (v) {
-        if (controls['display_singleton_nodes']){
-          graph.nodes.forEach(n => { n.size = nodeStrengths[n.id] > 0.0 ? nodeStrengths[n.id] : minNonzeroNodeSize })
-          negativeGraph.nodes.forEach(n => { n.size = nodeStrengths[n.id] > 0.0 ? nodeStrengths[n.id] : minNonzeroNodeSize })
-        } else {
-          graph.nodes.forEach(n => { n.size = nodeStrengths[n.id] })
-          negativeGraph.nodes.forEach(n => { n.size = nodeStrengths[n.id] })
-        }
+      if (controls['display_singleton_nodes']) {
+        graph.nodes.forEach(n => {
+          n.size = nodeStrengths[n.id] > 0.0 ? nodeStrengths[n.id] : minNonzeroNodeSize
+        })
+        negativeGraph.nodes.forEach(n => {
+          n.size = nodeStrengths[n.id] > 0.0 ? nodeStrengths[n.id] : minNonzeroNodeSize
+        })
+      } else {
+        graph.nodes.forEach(n => {
+          n.size = nodeStrengths[n.id]
+        })
+        negativeGraph.nodes.forEach(n => {
+          n.size = nodeStrengths[n.id]
+        })
+      }
     } else if (!v) {
-      graph.nodes.forEach(n => { n.size = valIfValid(findNode(masterGraph, n).size, 1) })
-      negativeGraph.nodes.forEach(n => { n.size = valIfValid(findNode(masterGraph, n).size, 1) })
+      graph.nodes.forEach(n => {
+        n.size = valIfValid(findNode(masterGraph, n).size, 1)
+      })
+      negativeGraph.nodes.forEach(n => {
+        n.size = valIfValid(findNode(masterGraph, n).size, 1)
+      })
     }
     simulationSoftRestart();
   }
@@ -937,7 +1034,9 @@ canvas.addEventListener("wheel", function(event) {
 
   function inputtedNodeSize(v) {
     if (controls['node_collision']) {
-      simulation.force("collide").radius(function(d) { return computeNodeRadii(d) })
+      simulation.force("collide").radius(function(d) {
+        return computeNodeRadii(d)
+      })
       if (!controls['freeze_nodes'])
         simulation.alpha(1);
     }
@@ -952,7 +1051,9 @@ canvas.addEventListener("wheel", function(event) {
   function inputtedNodeSizeExponent(v) {
     nodeSizeNorm = 1 / maxNodeSize ** (controls['node_size_variation'])
     if (controls['node_collision']) {
-      simulation.force("collide").radius(function(d) { return computeNodeRadii(d) })
+      simulation.force("collide").radius(function(d) {
+        return computeNodeRadii(d)
+      })
       if (!controls['freeze_nodes'])
         simulation.alpha(1);
     }
@@ -972,6 +1073,7 @@ canvas.addEventListener("wheel", function(event) {
 
   var vMinPrev = 0;
   var dvMin = 1;
+
   function inputtedMinLinkWeight(v) {
     dvMin = v - vMinPrev
     if (shiftDown) {
@@ -982,12 +1084,14 @@ canvas.addEventListener("wheel", function(event) {
     dvMax = controls['max_link_weight_percentile'] - vMaxPrev
     vMinPrev = v
     vMaxPrev = controls['max_link_weight_percentile']
-    shave(); restart();
+    shave();
+    restart();
   }
 
 
   var vMaxPrev = 1;
   var dvMax = 0;
+
   function inputtedMaxLinkWeight(v) {
     dvMax = v - vMaxPrev
     if (shiftDown) {
@@ -998,7 +1102,8 @@ canvas.addEventListener("wheel", function(event) {
     dvMin = controls['min_link_weight_percentile'] - vMinPrev
     vMinPrev = controls['min_link_weight_percentile']
     vMaxPrev = v
-    shave(); restart();
+    shave();
+    restart();
   }
 
 
@@ -1009,7 +1114,10 @@ canvas.addEventListener("wheel", function(event) {
     if (controls['file_path'].endsWith(".json")) {
       d3.json(controls['file_path'], function(error, _graph) {
         if (error) {
-          Swal.fire({ text: "File not found", type: "error" })
+          Swal.fire({
+            text: "File not found",
+            type: "error"
+          })
           return false
         }
         restartIfValidJSON(_graph);
@@ -1019,7 +1127,10 @@ canvas.addEventListener("wheel", function(event) {
         fetch(controls['file_path']).then(r => r.text()).then(r => restartIfValidCSV(r));
       } catch (error) {
         throw error;
-        Swal.fire({ text: "File not found", type: "error" })
+        Swal.fire({
+          text: "File not found",
+          type: "error"
+        })
       }
     }
   }
@@ -1029,67 +1140,111 @@ canvas.addEventListener("wheel", function(event) {
 
     // Check for 'nodes' and 'links' lists
     if (!masterGraph.nodes || masterGraph.nodes.length == 0) {
-      Swal.fire({ text: "Dataset does not have a key 'nodes'", type: "error" })
+      Swal.fire({
+        text: "Dataset does not have a key 'nodes'",
+        type: "error"
+      })
       return false
     }
     if (!masterGraph.links) {
-      Swal.fire({ text: "Dataset does not have a key 'links'", type: "warning" })
+      Swal.fire({
+        text: "Dataset does not have a key 'links'",
+        type: "warning"
+      })
     }
 
     // Check that node and link objects are formatted right
     for (var d of masterGraph.links) {
       if (!d3.keys(d).includes("source") || !d3.keys(d).includes("target")) {
-        Swal.fire({ text: "Found objects in 'links' without 'source' or 'target' key.", type: "error" });
+        Swal.fire({
+          text: "Found objects in 'links' without 'source' or 'target' key.",
+          type: "error"
+        });
         return false;
       }
     }
 
     // Check that 'links' and 'nodes' data are congruent
-    var nodesNodes = masterGraph.nodes.map(d => { return d.id });
+    var nodesNodes = masterGraph.nodes.map(d => {
+      return d.id
+    });
     var nodesNodesSet = new Set(nodesNodes)
     var linksNodesSet = new Set()
     masterGraph.links.forEach(l => {
-      linksNodesSet.add(l.source); linksNodesSet.add(l.source.id)  // Either l.source or l.source.id will be null
-      linksNodesSet.add(l.target); linksNodesSet.add(l.target.id)  // so just add both and remove null later (same for target)
-    }); linksNodesSet.delete(undefined)
+      linksNodesSet.add(l.source);
+      linksNodesSet.add(l.source.id) // Either l.source or l.source.id will be null
+      linksNodesSet.add(l.target);
+      linksNodesSet.add(l.target.id) // so just add both and remove null later (same for target)
+    });
+    linksNodesSet.delete(undefined)
 
     if (nodesNodesSet.size == 0) {
-      Swal.fire({ text: "No nodes found.", type: "error" })
+      Swal.fire({
+        text: "No nodes found.",
+        type: "error"
+      })
       return false;
     }
     if (nodesNodes.includes(null)) {
-      Swal.fire({ text: "Found items in node list without 'id' key.", type: "error" });
+      Swal.fire({
+        text: "Found items in node list without 'id' key.",
+        type: "error"
+      });
       return false;
     }
     if (nodesNodes.length != nodesNodesSet.size) {
-      Swal.fire({ text: "Found multiple nodes with the same id.", type: "error" });
+      Swal.fire({
+        text: "Found multiple nodes with the same id.",
+        type: "error"
+      });
       return false;
     }
     if (nodesNodesSet.size < linksNodesSet.size) {
-      Swal.fire({ text: "Found nodes referenced in 'links' which are not in 'nodes'.", type: "error" });
+      Swal.fire({
+        text: "Found nodes referenced in 'links' which are not in 'nodes'.",
+        type: "error"
+      });
       return false;
     }
 
     // Check that attributes are indicated consistently in both nodes and links
-    countWeight = masterGraph.links.filter(n => { return 'weight' in n }).length
+    countWeight = masterGraph.links.filter(n => {
+      return 'weight' in n
+    }).length
     if (0 < countWeight & countWeight < masterGraph.links.length) {
-      Swal.fire({ text: "Found links with and links without 'weight' attribute", type: "error" });
+      Swal.fire({
+        text: "Found links with and links without 'weight' attribute",
+        type: "error"
+      });
       return false;
     } else if (countWeight == 0) {
-      masterGraph.links.forEach(l => { l.weight = 1; })
+      masterGraph.links.forEach(l => {
+        l.weight = 1;
+      })
     }
-    var countGroup = masterGraph.nodes.filter(n => { return 'group' in n }).length
+    var countGroup = masterGraph.nodes.filter(n => {
+      return 'group' in n
+    }).length
     if (0 < countGroup & countGroup < masterGraph.nodes.length) {
-      Swal.fire({ text: "Found nodes with and nodes without 'group' attribute", type: "error" });
+      Swal.fire({
+        text: "Found nodes with and nodes without 'group' attribute",
+        type: "error"
+      });
       return false;
     }
-    countSize = masterGraph.nodes.filter(n => { return 'size' in n }).length
+    countSize = masterGraph.nodes.filter(n => {
+      return 'size' in n
+    }).length
     if (0 < countSize & countSize < masterGraph.nodes.length) {
-      Swal.fire({ text: "Found nodes with and nodes without 'size' attribute", type: "error" });
+      Swal.fire({
+        text: "Found nodes with and nodes without 'size' attribute",
+        type: "error"
+      });
       return false;
-    }
-    else if (countSize == 0) {
-      masterGraph.nodes.forEach(n => { n.size = 1; })
+    } else if (countSize == 0) {
+      masterGraph.nodes.forEach(n => {
+        n.size = 1;
+      })
     }
 
     // Reference graph (is never changed)
@@ -1097,18 +1252,24 @@ canvas.addEventListener("wheel", function(event) {
 
     // Size and weight norms, colors and degrees
     computeMasterGraphGlobals();
-    console.log("minNonzeroNodeSize = "+minNonzeroNodeSize);
+    console.log("minNonzeroNodeSize = " + minNonzeroNodeSize);
 
     // Check for really weak links
     if (minLinkWeight < 1e-9) {
-      Swal.fire({ text: "Found links with weight < 1e-9. This may cause trouble with precision.", type: "warning" });
+      Swal.fire({
+        text: "Found links with weight < 1e-9. This may cause trouble with precision.",
+        type: "warning"
+      });
     }
 
     // Active graph that d3 operates on
     window.graph = _.cloneDeep(masterGraph)
 
     // Container for part of the network which are not in `graph` (for faster thresholding)
-    window.negativeGraph = { 'nodes': [], 'links': [] }
+    window.negativeGraph = {
+      'nodes': [],
+      'links': []
+    }
 
 
     // If 'display_singleton_nodes' is untoggled then the graph should be updated
@@ -1127,10 +1288,14 @@ canvas.addEventListener("wheel", function(event) {
 
     // If 'scale_node_size_by_strength' is toggled, then node sizes need to follow computed degrees
     if (controls['scale_node_size_by_strength']) {
-      if (controls['display_singleton_nodes']){
-        graph.nodes.forEach(n => { n.size = nodeStrengths[n.id] > 0.0 ? nodeStrengths[n.id] : minNonzeroNodeSize })
+      if (controls['display_singleton_nodes']) {
+        graph.nodes.forEach(n => {
+          n.size = nodeStrengths[n.id] > 0.0 ? nodeStrengths[n.id] : minNonzeroNodeSize
+        })
       } else {
-        graph.nodes.forEach(n => { n.size = nodeStrengths[n.id] })
+        graph.nodes.forEach(n => {
+          n.size = nodeStrengths[n.id]
+        })
       }
     }
 
@@ -1149,8 +1314,13 @@ canvas.addEventListener("wheel", function(event) {
     // Assume hsleader is "source,target(,weight)"
     var nodes = new Set();
     var links = d3.csvParse(rawInput).map(l => {
-      nodes.add(l.source); nodes.add(l.target);
-      return { 'source': l.source, 'target': l.target, 'weight': +valIfValid(l.weight, 1) }
+      nodes.add(l.source);
+      nodes.add(l.target);
+      return {
+        'source': l.source,
+        'target': l.target,
+        'weight': +valIfValid(l.weight, 1)
+      }
     })
 
     // Warn against zero links
@@ -1164,22 +1334,33 @@ canvas.addEventListener("wheel", function(event) {
     })
 
     if (zeroLinksCount > 0) {
-      Swal.fire({ text: "Removed " + zeroLinksCount + " links with weight 0", type: "warning" })
+      Swal.fire({
+        text: "Removed " + zeroLinksCount + " links with weight 0",
+        type: "warning"
+      })
     }
 
     // Reference graph (is never changed)
     window.masterGraph = {
-      'nodes': Array.from(nodes).map(n => { return { 'id': n, 'size': 1 } }),
+      'nodes': Array.from(nodes).map(n => {
+        return {
+          'id': n,
+          'size': 1
+        }
+      }),
       'links': links
     }
 
     // Size and weight norms, colors and degrees
     computeMasterGraphGlobals();
-    console.log("minNonzeroNodeSize = "+minNonzeroNodeSize);
+    console.log("minNonzeroNodeSize = " + minNonzeroNodeSize);
 
     // Check for really weak links
     if (minLinkWeight < 1e-9) {
-      Swal.fire({ text: "Found links with weight < 1e-9. This may cause trouble with precision.", type: "warning" });
+      Swal.fire({
+        text: "Found links with weight < 1e-9. This may cause trouble with precision.",
+        type: "warning"
+      });
     }
 
     // Active graph that d3 operates on
@@ -1191,15 +1372,22 @@ canvas.addEventListener("wheel", function(event) {
 
     // If 'scale_node_size_by_strength' is toggled, then node sizes need to follow computed degrees
     if (controls['scale_node_size_by_strength']) {
-      if (controls['display_singleton_nodes']){
-        graph.nodes.forEach(n => { n.size = nodeStrengths[n.id] > 0.0 ? nodeStrengths[n.id] : minNonzeroNodeSize })
+      if (controls['display_singleton_nodes']) {
+        graph.nodes.forEach(n => {
+          n.size = nodeStrengths[n.id] > 0.0 ? nodeStrengths[n.id] : minNonzeroNodeSize
+        })
       } else {
-        graph.nodes.forEach(n => { n.size = nodeStrengths[n.id] })
+        graph.nodes.forEach(n => {
+          n.size = nodeStrengths[n.id]
+        })
       }
     }
 
     // Container for part of the network which are not in `graph` (for faster thresholding)
-    window.negativeGraph = { 'nodes': [], 'links': [] }
+    window.negativeGraph = {
+      'nodes': [],
+      'links': []
+    }
 
     // Reset all thresholds ...
     // commented this out because it overwrites the predefined values in `config`
@@ -1237,14 +1425,19 @@ canvas.addEventListener("wheel", function(event) {
     nodePositions = true
     for (var d of masterGraph.nodes) {
       if (!d3.keys(d).includes("x") && !d3.keys(d).includes("y")) {
-        nodePositions = false; break;
+        nodePositions = false;
+        break;
       }
     }
     if (nodePositions) {
       // Rescale node positions to fit nicely inside of canvas depending on xlim or rescale properties.
       if (masterGraph.rescale || ((!masterGraph.hasOwnProperty('rescale') && !masterGraph.hasOwnProperty('xlim')))) {
-        let xVals = []; let yVals = [];
-        masterGraph.nodes.forEach(d => { xVals.push(d.x); yVals.push(d.y) })
+        let xVals = [];
+        let yVals = [];
+        masterGraph.nodes.forEach(d => {
+          xVals.push(d.x);
+          yVals.push(d.y)
+        })
         let domainScalerX = d3.scaleLinear().domain([d3.min(xVals), d3.max(xVals)]).range([width * 0.15, width * (1 - 0.15)])
         let domainScalerY = d3.scaleLinear().domain([d3.min(yVals), d3.max(yVals)]).range([width * 0.15, width * (1 - 0.15)])
         masterGraph.nodes.forEach((d, i) => {
@@ -1259,7 +1452,9 @@ canvas.addEventListener("wheel", function(event) {
     isWeighted = countWeight > 0
 
     // Sort out node colors
-    var nodeGroups = new Set(masterGraph.nodes.filter(n => 'group' in n).map(n => { return n.group }))
+    var nodeGroups = new Set(masterGraph.nodes.filter(n => 'group' in n).map(n => {
+      return n.group
+    }))
     activeSwatch = {};
     for (let g of nodeGroups) {
       if (validColor(g)) {
@@ -1272,8 +1467,10 @@ canvas.addEventListener("wheel", function(event) {
     window.referenceColor = controls['node_fill_color']
 
     // Immutable node degree (unless strength is toggled)
-    masterNodeStrengths = {}; masterGraph.nodes.map(n => masterNodeStrengths[n.id] = 0)
-    masterNodeDegrees = {}; masterGraph.nodes.map(n => masterNodeDegrees[n.id] = 0)
+    masterNodeStrengths = {};
+    masterGraph.nodes.map(n => masterNodeStrengths[n.id] = 0)
+    masterNodeDegrees = {};
+    masterGraph.nodes.map(n => masterNodeDegrees[n.id] = 0)
     masterGraph.links.forEach(l => {
       masterNodeStrengths[l.source] += valIfValid(l.weight, 1);
       masterNodeStrengths[l.target] += valIfValid(l.weight, 1);
@@ -1301,7 +1498,7 @@ canvas.addEventListener("wheel", function(event) {
       } while (all_strengths[i] == 0.0);
       minNonzeroNodeSize = all_strengths[i];
     } else {
-      maxNodeSize = d3.max(masterGraph.nodes.map(n => valIfValid(n.size, 0)));  // Nodes are given size if they don't have size on load
+      maxNodeSize = d3.max(masterGraph.nodes.map(n => valIfValid(n.size, 0))); // Nodes are given size if they don't have size on load
       minNonzeroNodeSize = maxNodeSize;
     }
     nodeSizeNorm = 1 / maxNodeSize ** (controls['node_size_variation'])
@@ -1343,12 +1540,20 @@ canvas.addEventListener("wheel", function(event) {
 
       // Resize nodes
       if (controls['scale_node_size_by_strength']) {
-        if (controls['display_singleton_nodes']){
-          graph.nodes.forEach(n => { n.size = nodeStrengths[n.id] > 0.0 ? nodeStrengths[n.id] : minNonzeroNodeSize })
-          negativeGraph.nodes.forEach(n => { n.size = nodeStrengths[n.id] > 0.0 ? nodeStrengths[n.id] : minNonzeroNodeSize })
+        if (controls['display_singleton_nodes']) {
+          graph.nodes.forEach(n => {
+            n.size = nodeStrengths[n.id] > 0.0 ? nodeStrengths[n.id] : minNonzeroNodeSize
+          })
+          negativeGraph.nodes.forEach(n => {
+            n.size = nodeStrengths[n.id] > 0.0 ? nodeStrengths[n.id] : minNonzeroNodeSize
+          })
         } else {
-          graph.nodes.forEach(n => { n.size = nodeStrengths[n.id] })
-          negativeGraph.nodes.forEach(n => { n.size = nodeStrengths[n.id] })
+          graph.nodes.forEach(n => {
+            n.size = nodeStrengths[n.id]
+          })
+          negativeGraph.nodes.forEach(n => {
+            n.size = nodeStrengths[n.id]
+          })
         }
       }
     }
@@ -1380,8 +1585,10 @@ canvas.addEventListener("wheel", function(event) {
 
       // Resize nodes
       if (controls['scale_node_size_by_strength']) {
-        if (controls['scale_node_size_by_strength']){
-          graph.nodes.forEach(n => { n.size = nodeStrengths[n.id] > 0.0 ? nodeStrengths[n.id] : minNonzeroNodeSize })
+        if (controls['scale_node_size_by_strength']) {
+          graph.nodes.forEach(n => {
+            n.size = nodeStrengths[n.id] > 0.0 ? nodeStrengths[n.id] : minNonzeroNodeSize
+          })
         } else {
           graph.nodes.forEach(n => {
             n.size = nodeStrengths[n.id]
@@ -1402,8 +1609,7 @@ canvas.addEventListener("wheel", function(event) {
     constructor(defaultInit) {
       return new Proxy({}, {
         get: (target, name) => name in target ?
-          target[name] :
-          (target[name] = typeof defaultInit === 'function' ?
+          target[name] : (target[name] = typeof defaultInit === 'function' ?
             new defaultInit().valueOf() :
             defaultInit)
       })
@@ -1437,7 +1643,9 @@ canvas.addEventListener("wheel", function(event) {
     var image = document.createElement("img");
     image.style.color = "rgb(0, 0, 0)";
     image.style.color = stringToTest;
-    if (image.style.color !== "rgb(0, 0, 0)") { return true; }
+    if (image.style.color !== "rgb(0, 0, 0)") {
+      return true;
+    }
     image.style.color = "rgb(255, 255, 255)";
     image.style.color = stringToTest;
     return image.style.color !== "rgb(255, 255, 255)";
@@ -1447,7 +1655,9 @@ canvas.addEventListener("wheel", function(event) {
     /// https://stackoverflow.com/a/24366628/3986879
     var a = document.createElement('div');
     a.style.color = colorStr;
-    var colors = window.getComputedStyle(document.body.appendChild(a)).color.match(/\d+/g).map(function(a) { return parseInt(a, 10); });
+    var colors = window.getComputedStyle(document.body.appendChild(a)).color.match(/\d+/g).map(function(a) {
+      return parseInt(a, 10);
+    });
     document.body.removeChild(a);
     return (colors.length >= 3) ? '#' + (((1 << 24) + (colors[0] << 16) + (colors[1] << 8) + colors[2]).toString(16).substr(1)) : false;
   }
@@ -1471,53 +1681,52 @@ canvas.addEventListener("wheel", function(event) {
 
 
   // Get a JSON object containing all the drawn properties for replication
-  function get_network_properties()
-  {
-      // save all those things we wish to draw to a dict;
-      let network_properties = {};
-      network_properties.xlim = [ 0, width ];
-      network_properties.ylim = [ 0, height ];
-      network_properties.linkColor = controls['link_color'];
-      network_properties.linkAlpha = controls['link_alpha'];
-      network_properties.nodeStrokeColor = controls['node_stroke_color'];
-      network_properties.nodeStrokeWidth = controls['node_stroke_width'] * controls['zoom'];
-      network_properties.links = [];
-      network_properties.nodes = [];
+  function get_network_properties() {
+    // save all those things we wish to draw to a dict;
+    let network_properties = {};
+    network_properties.xlim = [0, width];
+    network_properties.ylim = [0, height];
+    network_properties.linkColor = controls['link_color'];
+    network_properties.linkAlpha = controls['link_alpha'];
+    network_properties.nodeStrokeColor = controls['node_stroke_color'];
+    network_properties.nodeStrokeWidth = controls['node_stroke_width'] * controls['zoom'];
+    network_properties.links = [];
+    network_properties.nodes = [];
 
-      graph.links.forEach(function(d){
-        let thisLinkWidth = valIfValid(d.weight, 1) ** (controls['link_width_variation']) 
-                            * linkWidthNorm 
-                            * controls['link_width']
-                            * controls['zoom'];
-        network_properties.links.push({
-          source: d.source.id,
-          target: d.target.id,
-          width: thisLinkWidth,
-          weight: d.weight
-        });
+    graph.links.forEach(function(d) {
+      let thisLinkWidth = valIfValid(d.weight, 1) ** (controls['link_width_variation']) *
+        linkWidthNorm *
+        controls['link_width'] *
+        controls['zoom'];
+      network_properties.links.push({
+        source: d.source.id,
+        target: d.target.id,
+        width: thisLinkWidth,
+        weight: d.weight
       });
-      graph.nodes.forEach(function(d){
-        let thisNodeSize = valIfValid(d.size, 1) ** (controls['node_size_variation']) 
-                            * nodeSizeNorm 
-                            * controls['node_size']
-                            * (2*controls['zoom']-1);
-        network_properties.nodes.push({
-          id: d.id,
-          x: d.x,
-          y: d.y,
-          x_canvas: zoomScaler(d.x),
-          y_canvas: zoomScaler(d.y), 
-          radius: thisNodeSize,
-          color: computeNodeColor(d)
-        });
+    });
+    graph.nodes.forEach(function(d) {
+      let thisNodeSize = valIfValid(d.size, 1) ** (controls['node_size_variation']) *
+        nodeSizeNorm *
+        controls['node_size'] *
+        (2 * controls['zoom'] - 1);
+      network_properties.nodes.push({
+        id: d.id,
+        x: d.x,
+        y: d.y,
+        x_canvas: zoomScaler(d.x),
+        y_canvas: zoomScaler(d.y),
+        radius: thisNodeSize,
+        color: computeNodeColor(d)
       });
+    });
 
-      return network_properties;
+    return network_properties;
   }
 
   function randomColor() {
     let col = "#"
-    for (i of d3.range(3)){
+    for (i of d3.range(3)) {
       let num = Math.floor(Math.random() * 255).toString(16)
       col += ("0" + num).slice(-2)
     }
@@ -1525,10 +1734,10 @@ canvas.addEventListener("wheel", function(event) {
   }
 
   function getPercentile(val, sortedArr) {
-    return sortedArr.indexOf(val) / sortedArr.length * (sortedArr.length / (sortedArr.length-1))
+    return sortedArr.indexOf(val) / sortedArr.length * (sortedArr.length / (sortedArr.length - 1))
   }
 
   function removeConsecutiveDuplicates(a) {
-    return a.filter((item, pos, arr) => pos === 0 || item !== arr[pos-1])
+    return a.filter((item, pos, arr) => pos === 0 || item !== arr[pos - 1])
   }
 }
