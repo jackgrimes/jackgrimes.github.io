@@ -29,6 +29,7 @@ function vis(new_controls) {
   let panY = 0;
   let isPanning = false;
   let lastMouse = null;
+  let mouseDownPos = null;
 
 
   window.onresize = function() {
@@ -291,6 +292,36 @@ function endPan() {
     }
   }, true)
 
+  // Then modify the mousedown event handler (around line 273-287):
+window.addEventListener("mousedown", function(event) {
+  if (typeof (hoveredNode) != 'undefined') {
+    // Store initial mouse position
+    mouseDownPos = { x: event.clientX, y: event.clientY };
+  }
+}, true)
+
+// Add a new mouseup event handler right after the mousedown handler:
+window.addEventListener("mouseup", function(event) {
+  if (typeof (hoveredNode) != 'undefined' && mouseDownPos) {
+    // Calculate distance moved
+    const dx = event.clientX - mouseDownPos.x;
+    const dy = event.clientY - mouseDownPos.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    
+    // Only toggle selection if moved less than 10 pixels (it was a click, not a drag)
+    if (distance < 10) {
+      if (selectedNodes.includes(hoveredNode)) {
+        selectedNodes.splice(selectedNodes.indexOf(hoveredNode), 1)
+      } else {
+        selectedNodes.push(hoveredNode)
+      }
+      simulation.restart();
+    }
+  }
+  mouseDownPos = null;
+}, true)
+
+
 // Mouse
 canvas.addEventListener("mousedown", e => startPan(e.clientX, e.clientY));
 canvas.addEventListener("mousemove", e => movePan(e.clientX, e.clientY));
@@ -299,7 +330,6 @@ canvas.addEventListener("mouseleave", endPan);
 
 
 
-// Only prevent gestures on the canvas itself
 canvas.addEventListener('gesturestart', e => e.preventDefault(), {passive:false});
 canvas.addEventListener('gesturechange', e => e.preventDefault(), {passive:false});
 canvas.addEventListener('gestureend', e => e.preventDefault(), {passive:false});
@@ -314,6 +344,7 @@ let initialPinchDist = null;
 let initialZoom = 1;
 let touchDragSubject = null; // Track which node is being dragged
 let twoFingerMidpoint = null; // Track the midpoint for two-finger pan
+let touchStartPos = null; // Track initial touch position to detect drag vs tap
 
 // --- TOUCH START ---
 canvas.addEventListener("touchstart", e => {
@@ -322,6 +353,9 @@ canvas.addEventListener("touchstart", e => {
     const rect = canvas.getBoundingClientRect();
     const x = zoomScaler.invert(touch.clientX - rect.left - panX);
     const y = zoomScaler.invert(touch.clientY - rect.top - panY);
+    
+    // Store initial touch position
+    touchStartPos = { x: touch.clientX, y: touch.clientY };
     
     // Check if touching a node
     touchDragSubject = simulation.find(x, y, 20);
@@ -358,6 +392,8 @@ canvas.addEventListener("touchstart", e => {
       x: (t1.clientX + t2.clientX) / 2,
       y: (t1.clientY + t2.clientY) / 2
     };
+    
+    touchStartPos = null; // Reset since we're now in two-finger mode
   }
 }, { passive: false });
 
@@ -427,13 +463,21 @@ canvas.addEventListener("touchmove", e => {
 // --- TOUCH END ---
 canvas.addEventListener("touchend", e => {
   // Handle tap on node to toggle label selection
-  if (e.touches.length === 0 && touchDragSubject && !controls['display_node_labels']) {
-    // This was a tap on a node (not a drag) - toggle selection
-    const nodeId = touchDragSubject.id;
-    if (selectedNodes.includes(nodeId)) {
-      selectedNodes.splice(selectedNodes.indexOf(nodeId), 1);
-    } else {
-      selectedNodes.push(nodeId);
+  if (e.touches.length === 0 && touchDragSubject && touchStartPos && !controls['display_node_labels']) {
+    // Calculate distance moved
+    const touch = e.changedTouches[0];
+    const dx = touch.clientX - touchStartPos.x;
+    const dy = touch.clientY - touchStartPos.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    
+    // Only toggle label if moved less than 10 pixels (it was a tap, not a drag)
+    if (distance < 10) {
+      const nodeId = touchDragSubject.id;
+      if (selectedNodes.includes(nodeId)) {
+        selectedNodes.splice(selectedNodes.indexOf(nodeId), 1);
+      } else {
+        selectedNodes.push(nodeId);
+      }
     }
   }
   
@@ -456,10 +500,14 @@ canvas.addEventListener("touchend", e => {
     twoFingerMidpoint = null;
   }
   
+  // Reset touch start position
+  if (e.touches.length === 0) {
+    touchStartPos = null;
+  }
+  
   // Always trigger a redraw to show/hide labels
   ticked();
 }, { passive: false });
-
 
 
 
