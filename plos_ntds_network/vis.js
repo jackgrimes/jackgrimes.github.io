@@ -441,6 +441,12 @@ else if (e.touches.length === 2 && initialPinchDist !== null && twoFingerMidpoin
   panX = canvasMidX - zoomScaler(graphX);
   panY = canvasMidY - zoomScaler(graphY);
 
+  // Now add pan from finger movement (delta from last stored midpoint)
+  const panDeltaX = newMidX - twoFingerMidpoint.x;
+  const panDeltaY = newMidY - twoFingerMidpoint.y;
+  panX += panDeltaX;
+  panY += panDeltaY;
+
   // Update stored midpoint
   twoFingerMidpoint.x = newMidX;
   twoFingerMidpoint.y = newMidY;
