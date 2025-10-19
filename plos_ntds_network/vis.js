@@ -297,13 +297,23 @@ canvas.addEventListener("mousemove", e => movePan(e.clientX, e.clientY));
 canvas.addEventListener("mouseup", endPan);
 canvas.addEventListener("mouseleave", endPan);
 
+
+
+// Only prevent gestures on the canvas itself
 canvas.addEventListener('gesturestart', e => e.preventDefault(), {passive:false});
 canvas.addEventListener('gesturechange', e => e.preventDefault(), {passive:false});
 canvas.addEventListener('gestureend', e => e.preventDefault(), {passive:false});
 
+// Remove the document-level gesture prevention that was there before
+
+
+// Replace the entire touch handling section (lines 294-352) with this:
+
+// --- Global pinch state ---
 let initialPinchDist = null;
 let initialZoom = 1;
 let touchDragSubject = null; // Track which node is being dragged
+let twoFingerMidpoint = null; // Track the midpoint for two-finger pan
 
 // --- TOUCH START ---
 canvas.addEventListener("touchstart", e => {
@@ -343,10 +353,11 @@ canvas.addEventListener("touchstart", e => {
     initialPinchDist = Math.hypot(dx, dy);
     initialZoom = controls['zoom'];
     
-    // Start panning with two fingers - use midpoint
-    const midX = (t1.clientX + t2.clientX) / 2;
-    const midY = (t1.clientY + t2.clientY) / 2;
-    startPan(midX, midY);
+    // Store initial midpoint for panning
+    twoFingerMidpoint = {
+      x: (t1.clientX + t2.clientX) / 2,
+      y: (t1.clientY + t2.clientY) / 2
+    };
   }
 }, { passive: false });
 
@@ -373,28 +384,36 @@ canvas.addEventListener("touchmove", e => {
     // If not dragging a node, do nothing (no pan on single finger)
   }
   // Two-finger: pan and zoom
-  else if (e.touches.length === 2 && initialPinchDist !== null) {
+  else if (e.touches.length === 2 && initialPinchDist !== null && twoFingerMidpoint !== null) {
     const [t1, t2] = e.touches;
     const dx = t2.clientX - t1.clientX;
     const dy = t2.clientY - t1.clientY;
     const dist = Math.hypot(dx, dy);
 
-    // Calculate midpoint for panning
-    const midX = (t1.clientX + t2.clientX) / 2;
-    const midY = (t1.clientY + t2.clientY) / 2;
+    // Calculate new midpoint
+    const newMidX = (t1.clientX + t2.clientX) / 2;
+    const newMidY = (t1.clientY + t2.clientY) / 2;
 
-    // Pan with the midpoint
-    movePan(midX, midY);
+    // Pan based on midpoint movement
+    const panDeltaX = newMidX - twoFingerMidpoint.x;
+    const panDeltaY = newMidY - twoFingerMidpoint.y;
+    panX += panDeltaX;
+    panY += panDeltaY;
+    
+    // Update stored midpoint
+    twoFingerMidpoint.x = newMidX;
+    twoFingerMidpoint.y = newMidY;
 
-    // Scale factor relative to initial pinch distance
+    // Zoom: Scale factor relative to initial pinch distance
     const scale = dist / initialPinchDist;
     const newZoom = Math.max(0.1, Math.min(8, initialZoom * scale));
 
+    // Apply zoom around the midpoint
     const rect = canvas.getBoundingClientRect();
-    const canvasMidX = midX - rect.left;
-    const canvasMidY = midY - rect.top;
+    const canvasMidX = newMidX - rect.left;
+    const canvasMidY = newMidY - rect.top;
 
-    // Zoom around midpoint
+    // Adjust pan to zoom around the midpoint
     panX = canvasMidX - (canvasMidX - panX) * (newZoom / controls['zoom']);
     panY = canvasMidY - (canvasMidY - panY) * (newZoom / controls['zoom']);
 
@@ -407,6 +426,17 @@ canvas.addEventListener("touchmove", e => {
 
 // --- TOUCH END ---
 canvas.addEventListener("touchend", e => {
+  // Handle tap on node to toggle label selection
+  if (e.touches.length === 0 && touchDragSubject && !controls['display_node_labels']) {
+    // This was a tap on a node (not a drag) - toggle selection
+    const nodeId = touchDragSubject.id;
+    if (selectedNodes.includes(nodeId)) {
+      selectedNodes.splice(selectedNodes.indexOf(nodeId), 1);
+    } else {
+      selectedNodes.push(nodeId);
+    }
+  }
+  
   // End node drag
   if (touchDragSubject && e.touches.length === 0) {
     if (!controls['freeze_nodes']) simulation.alphaTarget(0);
@@ -414,9 +444,6 @@ canvas.addEventListener("touchend", e => {
     touchDragSubject.fy = null;
     touchDragSubject = null;
   }
-  
-  // End pan
-  endPan();
   
   // End pinch
   if (e.touches.length < 2) {
@@ -426,9 +453,12 @@ canvas.addEventListener("touchend", e => {
       gui.updateDisplay();
     }
     initialPinchDist = null;
+    twoFingerMidpoint = null;
   }
+  
+  // Always trigger a redraw to show/hide labels
+  ticked();
 }, { passive: false });
-
 
 
 
