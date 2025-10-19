@@ -297,31 +297,57 @@ canvas.addEventListener("mousemove", e => movePan(e.clientX, e.clientY));
 canvas.addEventListener("mouseup", endPan);
 canvas.addEventListener("mouseleave", endPan);
 
-document.addEventListener('gesturestart', e => e.preventDefault(), {passive:false});
-document.addEventListener('gesturechange', e => e.preventDefault(), {passive:false});
-document.addEventListener('gestureend', e => e.preventDefault(), {passive:false});
-
-
+canvas.addEventListener('gesturestart', e => e.preventDefault(), {passive:false});
+canvas.addEventListener('gesturechange', e => e.preventDefault(), {passive:false});
+canvas.addEventListener('gestureend', e => e.preventDefault(), {passive:false});
 
 // --- Global pinch state ---
 let initialPinchDist = null;
 let initialZoom = 1;
+let touchDragSubject = null; // Track which node is being dragged
 
 // --- TOUCH START ---
 canvas.addEventListener("touchstart", e => {
   if (e.touches.length === 1) {
     const touch = e.touches[0];
-    startPan(touch.clientX, touch.clientY);
+    const rect = canvas.getBoundingClientRect();
+    const x = zoomScaler.invert(touch.clientX - rect.left - panX);
+    const y = zoomScaler.invert(touch.clientY - rect.top - panY);
+    
+    // Check if touching a node
+    touchDragSubject = simulation.find(x, y, 20);
+    
+    if (touchDragSubject) {
+      // Start dragging a node
+      e.preventDefault();
+      if (!controls['freeze_nodes']) simulation.alphaTarget(0.3).restart();
+      touchDragSubject.fx = touchDragSubject.x;
+      touchDragSubject.fy = touchDragSubject.y;
+    } else {
+      // Start panning
+      startPan(touch.clientX, touch.clientY);
+    }
   } 
   else if (e.touches.length === 2) {
     e.preventDefault(); // prevent system pinch
+    
+    // Cancel any ongoing drag
+    if (touchDragSubject) {
+      if (!controls['freeze_nodes']) simulation.alphaTarget(0);
+      touchDragSubject.fx = null;
+      touchDragSubject.fy = null;
+      touchDragSubject = null;
+    }
+    
+    // Cancel any ongoing pan
+    endPan();
 
     const [t1, t2] = e.touches;
     const dx = t2.clientX - t1.clientX;
     const dy = t2.clientY - t1.clientY;
 
     initialPinchDist = Math.hypot(dx, dy);
-    initialZoom = zoom;
+    initialZoom = controls['zoom'];
   }
 }, { passive: false });
 
@@ -329,10 +355,24 @@ canvas.addEventListener("touchstart", e => {
 canvas.addEventListener("touchmove", e => {
   e.preventDefault();
 
-  // Single-finger pan
+  // Single-finger drag node or pan
   if (e.touches.length === 1 && initialPinchDist === null) {
     const touch = e.touches[0];
-    movePan(touch.clientX, touch.clientY);
+    
+    if (touchDragSubject) {
+      // Drag the node
+      const rect = canvas.getBoundingClientRect();
+      const x = zoomScaler.invert(touch.clientX - rect.left - panX);
+      const y = zoomScaler.invert(touch.clientY - rect.top - panY);
+      
+      touchDragSubject.fx = x;
+      touchDragSubject.fy = y;
+      
+      if (controls['freeze_nodes']) simulation.restart();
+    } else {
+      // Pan the canvas
+      movePan(touch.clientX, touch.clientY);
+    }
     ticked(); // re-render
   }
   // Two-finger pinch zoom
@@ -344,29 +384,46 @@ canvas.addEventListener("touchmove", e => {
 
     // Scale factor relative to initial pinch distance
     const scale = dist / initialPinchDist;
-    const newZoom = Math.max(0.1, Math.min(initialZoom * scale, 8));
+    const newZoom = Math.max(0.1, Math.min(8, initialZoom * scale));
 
     const rect = canvas.getBoundingClientRect();
     const midX = (t1.clientX + t2.clientX)/2 - rect.left;
     const midY = (t1.clientY + t2.clientY)/2 - rect.top;
 
     // Zoom around midpoint
-    panX = midX - (midX - panX) * (newZoom / zoom);
-    panY = midY - (midY - panY) * (newZoom / zoom);
+    panX = midX - (midX - panX) * (newZoom / controls['zoom']);
+    panY = midY - (midY - panY) * (newZoom / controls['zoom']);
 
-    zoom = newZoom;
+    controls['zoom'] = newZoom;
+    zoomScaler.range([width * (1 - newZoom), newZoom * width]);
+    
     ticked(); // re-render
   }
 }, { passive: false });
 
 // --- TOUCH END ---
 canvas.addEventListener("touchend", e => {
+  // End node drag
+  if (touchDragSubject && e.touches.length === 0) {
+    if (!controls['freeze_nodes']) simulation.alphaTarget(0);
+    touchDragSubject.fx = null;
+    touchDragSubject.fy = null;
+    touchDragSubject = null;
+  }
+  
+  // End pan
   endPan();
+  
+  // End pinch
   if (e.touches.length < 2) {
+    if (initialPinchDist !== null) {
+      // Update the GUI to reflect the new zoom level
+      inputtedZoom(controls['zoom']);
+      gui.updateDisplay();
+    }
     initialPinchDist = null;
   }
 }, { passive: false });
-
 
 
 

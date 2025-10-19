@@ -20,7 +20,7 @@
 
 .child_div1 {
 	width: var(--major-height);
-	height: var(--major-height));
+	height: var(--major-height);
 	max-width: 95vh;
 	max-height: 95vh;
 	float: left;
