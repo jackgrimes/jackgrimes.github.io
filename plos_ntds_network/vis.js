@@ -281,17 +281,6 @@ function endPan() {
     }
   })
 
-  window.addEventListener("mousedown", function() {
-    if (typeof (hoveredNode) != 'undefined') {
-      if (selectedNodes.includes(hoveredNode)) {
-        selectedNodes.splice(selectedNodes.indexOf(hoveredNode), 1)
-      } else {
-        selectedNodes.push(hoveredNode)
-      }
-      simulation.restart();
-    }
-  }, true)
-
   // Then modify the mousedown event handler (around line 273-287):
 window.addEventListener("mousedown", function(event) {
   if (typeof (hoveredNode) != 'undefined') {
