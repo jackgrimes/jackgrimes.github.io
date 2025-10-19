@@ -138,7 +138,7 @@ function vis(new_controls) {
     // Input/output
     'file_path': "/plos_ntds_network/network_data.json",
     'download_figure': download,
-    'zoom': 0.79,
+    'zoom': 0.7,
     // Physics
     'node_charge': -30,
     'node_gravity': 0.1,
@@ -153,7 +153,7 @@ function vis(new_controls) {
     'node_label_color': '#000000',
     'display_node_labels': false,
     'scale_node_size_by_strength': true,
-    'node_size': 10,
+    'node_size': 20,
     'node_stroke_width': 0.5,
     'node_size_variation': 0.5,
     // Links
@@ -163,7 +163,7 @@ function vis(new_controls) {
     'link_width_variation': 0.5,
     // Thresholding
     'display_singleton_nodes': false,
-    'min_link_weight_percentile': 0.1,
+    'min_link_weight_percentile': 0.02,
     'max_link_weight_percentile': 1.0
   };
 
