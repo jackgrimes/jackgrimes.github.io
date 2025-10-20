@@ -748,22 +748,22 @@ function vis(new_controls) {
   var title2_5 = "Collision: Make it harder for nodes to overlap"
   var title2_6 = "Wiggle: Increase the force layout algorithm temperature to make the nodes wiggle. Useful for big networks that need some time for the nodes to settle in the right positions"
   var title2_7 = "Freeze: Set force layout algorithm temperature to zero, causing the nodes to freeze in their position."
-  var title2_1_1 = "Search for a node"
-  var title3_1 = 'Fill: Node color(s). If nodes have "group" attributes (unless groups are named after colors) each group is given a random color. Changing "Fill color" will continuously change the color of all groups'
-  var title3_2 = "Stroke: The color of the ring around nodes"
-  var title3_3 = "Label color: The color of node labels"
-  var title3_4 = "Display labels: Whether to show labels or not"
-  var title3_5 = "Size by strength: Rescale the size of each node relative to their strength (weighted degree)"
-  var title3_6 = "Size: Change the size of all nodes"
-  var title3_7 = "Stroke width: Change the width of the ring around nodes"
-  var title3_8 = "Size variation: Tweak the node size scaling function. Increase to make big nodes bigger and small nodes smaller. Useful for highlighting densely connected nodes."
-  var title4_1 = "Color: The color of links"
-  var title4_2 = "Width: Change the width of all links"
-  var title4_3 = "Alpha: How transparent links should be. Useful in large dense networks"
-  var title4_4 = "Width variation: Tweak the link width scaling function. Increase to make wide links wider and narrow links narrower. Useful for highlighting strong connections"
-  var title5_1 = "Singleton nodes: Whether or not to show links that have zero degree"
-  var title5_2 = "Min. link percentile: Lower percentile threshold on link weight"
-  var title5_3 = "Max. link percentile: Upper percentile threshold on link weight"
+  var title3_1 = "Search for a node"
+  var title4_1 = 'Fill: Node color(s). If nodes have "group" attributes (unless groups are named after colors) each group is given a random color. Changing "Fill color" will continuously change the color of all groups'
+  var title4_2 = "Stroke: The color of the ring around nodes"
+  var title4_3 = "Label color: The color of node labels"
+  var title4_4 = "Display labels: Whether to show labels or not"
+  var title4_5 = "Size by strength: Rescale the size of each node relative to their strength (weighted degree)"
+  var title4_6 = "Size: Change the size of all nodes"
+  var title4_7 = "Stroke width: Change the width of the ring around nodes"
+  var title4_8 = "Size variation: Tweak the node size scaling function. Increase to make big nodes bigger and small nodes smaller. Useful for highlighting densely connected nodes."
+  var title5_1 = "Color: The color of links"
+  var title5_2 = "Width: Change the width of all links"
+  var title5_3 = "Alpha: How transparent links should be. Useful in large dense networks"
+  var title5_4 = "Width variation: Tweak the link width scaling function. Increase to make wide links wider and narrow links narrower. Useful for highlighting strong connections"
+  var title6_1 = "Singleton nodes: Whether or not to show links that have zero degree"
+  var title6_2 = "Min. link percentile: Lower percentile threshold on link weight"
+  var title6_3 = "Max. link percentile: Upper percentile threshold on link weight"
 
   // Control panel
   var gui = new dat.GUI({
@@ -821,7 +821,7 @@ function vis(new_controls) {
   // }).title(title2_5);
   f2_1.add(controls, 'search', false).name('Search').onChange(function(v) {
     search(v)
-  }).title(title2_1_1);
+  }).title(title3_1);
 
 
   // Nodes
@@ -829,57 +829,57 @@ function vis(new_controls) {
   f3.open();
   f3.addColor(controls, 'node_fill_color', controls['node_fill_color']).name('Fill').onChange(function(v) {
     inputtedNodeFill(v)
-  }).title(title3_1);
+  }).title(title4_1);
   f3.addColor(controls, 'node_stroke_color', controls['node_stroke_color']).name('Stroke').onChange(function(v) {
     inputtedNodeStroke(v)
-  }).title(title3_2);
+  }).title(title4_2);
   f3.addColor(controls, 'node_label_color', controls['node_label_color']).name('Label color').onChange(function(v) {
     inputtedTextStroke(v)
-  }).title(title3_3);
+  }).title(title4_3);
   f3.add(controls, 'node_size', 0, 50).name('Size').onChange(function(v) {
     inputtedNodeSize(v)
-  }).title(title3_6);
+  }).title(title4_6);
   f3.add(controls, 'node_stroke_width', 0, 10).name('Stroke width').onChange(function(v) {
     inputtedNodeStrokeSize(v)
-  }).title(title3_7);
+  }).title(title4_7);
   f3.add(controls, 'node_size_variation', 0., 3.).name('Size variation').onChange(function(v) {
     inputtedNodeSizeExponent(v)
-  }).title(title3_8);
+  }).title(title4_8);
   f3.add(controls, 'display_node_labels', false).name('Display labels').onChange(function(v) {
     inputtedShowLabels(v)
-  }).title(title3_4);
+  }).title(title4_4);
   f3.add(controls, 'scale_node_size_by_strength', false).name('Size by strength').onChange(function(v) {
     inputtedNodeSizeByStrength(v)
-  }).title(title3_5);
+  }).title(title4_5);
 
   // Links
   var f4 = gui.addFolder('Links');
   f4.open();
   f4.addColor(controls, 'link_color', controls['link_color']).name('Color').onChange(function(v) {
     inputtedLinkStroke(v)
-  }).title(title4_1);
+  }).title(title5_1);
   f4.add(controls, 'link_width', 0.01, 30).name('Width').onChange(function(v) {
     inputtedLinkWidth(v)
-  }).title(title4_2);
+  }).title(title5_2);
   f4.add(controls, 'link_alpha', 0, 1).name('Alpha').onChange(function(v) {
     inputtedLinkAlpha(v)
-  }).title(title4_3);
+  }).title(title5_3);
   f4.add(controls, 'link_width_variation', 0., 3.).name('Width variation').onChange(function(v) {
     inputtedLinkWidthExponent(v)
-  }).title(title4_4);
+  }).title(title5_4);
 
   // Thresholding
   var f5 = gui.addFolder('Thresholding');
   f5.open();
   f5.add(controls, 'display_singleton_nodes', true).name('Singleton nodes').onChange(function(v) {
     inputtedShowSingletonNodes(v)
-  }).title(title5_1);
+  }).title(title6_1);
   f5.add(controls, 'min_link_weight_percentile', 0, 0.99).name('Min. link percentile').step(0.01).onChange(function(v) {
     inputtedMinLinkWeight(v)
-  }).listen().title(title5_2);
+  }).listen().title(title6_2);
   f5.add(controls, 'max_link_weight_percentile', 0.01, 1).name('Max. link percentile').step(0.01).onChange(function(v) {
     inputtedMaxLinkWeight(v)
-  }).listen().title(title5_3);
+  }).listen().title(title6_3);
 
   // Utility functions //
   // ----------------- //
