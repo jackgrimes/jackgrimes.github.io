@@ -147,6 +147,8 @@ function vis(new_controls) {
     'node_collision': false,
     'wiggle_nodes': false,
     'freeze_nodes': false,
+    // Search:
+    'search': "",
     // Nodes
     'node_fill_color': '#16a085',
     'node_stroke_color': '#000000',
@@ -616,11 +618,10 @@ function vis(new_controls) {
     }
   }
 
-  const searchInput = document.getElementById('nodeSearch');
   let searchTimeout = null; // store timeout ID
 
-  searchInput.addEventListener('input', e => {
-    const query = e.target.value.trim().toLowerCase();
+  function search(s){
+    const query = s.trim().toLowerCase();
 
     // Clear any previous scheduled search
     clearTimeout(searchTimeout);
@@ -637,7 +638,7 @@ function vis(new_controls) {
 
       ticked(); // redraw after delay
     }, 300); // ← delay in milliseconds
-  });
+  }
 
 
   // Key events //
@@ -800,6 +801,17 @@ function vis(new_controls) {
   f2.add(controls, 'freeze_nodes', false).name('Freeze').onChange(function(v) {
     inputtedFreeze(v)
   }).listen().title(title2_7);
+
+  // Search
+  var f2_1 = gui.addFolder('Search');
+  f2_1.open()
+  // f2_1.add(controls, 'Search', false).name('Search').onChange(function(v) {
+  //   inputtedCollision(v)
+  // }).title(title2_5);
+  f2_1.add(controls, 'search', false).name('Search').onChange(function(v) {
+    search(v)
+  }).title(title2_7);
+
 
   // Nodes
   var f3 = gui.addFolder('Nodes');
