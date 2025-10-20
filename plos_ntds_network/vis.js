@@ -619,7 +619,7 @@ function vis(new_controls) {
   }
 
   function trackSearchEvent(searchTerm) {
-    gtag('event', 'search', {
+    gtag('event', 'network_graph_search', {
       search_term: searchTerm
     });
   }
