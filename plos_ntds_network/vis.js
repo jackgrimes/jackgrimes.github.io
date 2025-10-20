@@ -618,6 +618,12 @@ function vis(new_controls) {
     }
   }
 
+  function trackSearchEvent(searchTerm) {
+    gtag('event', 'search', {
+      search_term: searchTerm
+    });
+  }
+
   let searchTimeout = null; // store timeout ID
 
   function search(s){
@@ -634,6 +640,8 @@ function vis(new_controls) {
         selectedNodes = graph.nodes
           .filter(n => n.id.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(query))
           .map(n => n.id);
+
+        trackSearchEvent(s);
       }
 
       ticked(); // redraw after delay
