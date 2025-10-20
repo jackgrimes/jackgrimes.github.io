@@ -138,10 +138,12 @@ function vis(new_controls) {
     // Input/output
     'file_path': "/plos_ntds_network/network_data.json",
     'download_figure': download,
-    'zoom': 0.7,
+    'zoom': 0.45,
+    'zoom_min': 0.2,
+    'zoom_max': 5, 
     // Physics
     'node_charge': -30,
-    'node_gravity': 0.1,
+    'node_gravity': 0.3,
     'link_distance': 10,
     'link_distance_variation': 0,
     'node_collision': false,
@@ -448,11 +450,11 @@ function vis(new_controls) {
 
       // Calculate new zoom
       const scale = dist / initialPinchDist;
-      const newZoom = Math.max(0.6, Math.min(5, initialZoom * scale));
+      const newZoom = Math.max(controls['zoom_min'], Math.min(controls['zoom_max'], initialZoom * scale));
 
       // Update zoom and zoom scaler
       controls['zoom'] = newZoom;
-      zoomScaler = d3.scaleLinear().domain([0, width]).range([width * (1 - newZoom), newZoom * width]);
+      zoomScaler = d3.scaleLinear().domain([0, width]).range([width * 0.5 * (1 - newZoom), width * 0.5 * (1 + newZoom)]);
 
       // Get canvas-relative coordinates of current midpoint
       const rect = canvas.getBoundingClientRect();
@@ -603,7 +605,7 @@ function vis(new_controls) {
   function drawNode(d) {
     var thisNodeSize = valIfValid(d.size, 1) ** (controls['node_size_variation']) * nodeSizeNorm * controls['node_size'];
     context.beginPath();
-    context.arc(zoomScaler(d.x) + panX, zoomScaler(d.y) + panY, thisNodeSize * (controls['zoom'] + (controls['zoom'] - 1)), 0, 2 * Math.PI);
+    context.arc(zoomScaler(d.x) + panX, zoomScaler(d.y) + panY, Math.max(0.1, thisNodeSize * controls['zoom']), 0, 2 * Math.PI);
     context.fillStyle = computeNodeColor(d);
     context.fill();
     context.stroke();
@@ -679,7 +681,7 @@ function vis(new_controls) {
     }
 
     // Clamp zoom
-    newZoom = Math.max(0.6, Math.min(5, newZoom));
+    newZoom = Math.max(controls['zoom_min'], Math.min(controls['zoom_max'], newZoom));
 
     // Compute cursor position in canvas coordinates
     const rect = canvas.getBoundingClientRect();
@@ -694,7 +696,7 @@ function vis(new_controls) {
     controls['zoom'] = newZoom;
 
     // Update zoomScaler
-    zoomScaler.range([width * (1 - newZoom), newZoom * width]);
+    zoomScaler.range([width * 0.5 * (1 - newZoom), width * 0.5 * (1 + newZoom)]);
 
     // Compute new pan so the graph point stays under the cursor
     panX = mouseX - zoomScaler(graphX);
@@ -746,6 +748,7 @@ function vis(new_controls) {
   var title2_5 = "Collision: Make it harder for nodes to overlap"
   var title2_6 = "Wiggle: Increase the force layout algorithm temperature to make the nodes wiggle. Useful for big networks that need some time for the nodes to settle in the right positions"
   var title2_7 = "Freeze: Set force layout algorithm temperature to zero, causing the nodes to freeze in their position."
+  var title2_1_1 = "Search for a node"
   var title3_1 = 'Fill: Node color(s). If nodes have "group" attributes (unless groups are named after colors) each group is given a random color. Changing "Fill color" will continuously change the color of all groups'
   var title3_2 = "Stroke: The color of the ring around nodes"
   var title3_3 = "Label color: The color of node labels"
@@ -781,7 +784,7 @@ function vis(new_controls) {
   if (isWeb) f1.add(controls, 'upload_file').name('Upload file').title(title1_2);
   f1.add(controls, 'download_figure').name('Download figure').title(title1_3);
   if (isLocal) f1.add(controls, 'post_to_python').name('Post to Python').title(title1_4);
-  f1.add(controls, 'zoom', 0.6, 5).name('Zoom').onChange(function(v) {
+  f1.add(controls, 'zoom', controls['zoom_min'], controls['zoom_max']).name('Zoom').onChange(function(v) {
     inputtedZoom(v)
   }).title(title1_5);
 
@@ -818,7 +821,7 @@ function vis(new_controls) {
   // }).title(title2_5);
   f2_1.add(controls, 'search', false).name('Search').onChange(function(v) {
     search(v)
-  }).title(title2_7);
+  }).title(title2_1_1);
 
 
   // Nodes
@@ -883,7 +886,7 @@ function vis(new_controls) {
 
   // The zoomScaler converts a simulation coordinate (what we don't see) to a
   // canvas coordinate (what we do see), and zoomScaler.invert does the opposite.
-  zoomScaler = d3.scaleLinear().domain([0, width]).range([width * (1 - controls['zoom']), controls['zoom'] * width])
+  zoomScaler = d3.scaleLinear().domain([0, width]).range([width * 0.5 * (1 - controls['zoom']), width * 0.5 * (1 + controls['zoom'])])
 
   function computeNodeRadii(d) {
     var thisNodeSize = nodeSizeNorm * controls['node_size'];
@@ -1002,11 +1005,22 @@ function vis(new_controls) {
 
   function inputtedShowSingletonNodes(v) {
     if (v) {
+      // Add singleton nodes back and ensure they have positions and sizes
+      negativeGraph.nodes.forEach(n => {
+        if (!n.x || !n.y) {
+          n.x = width / 2 + (Math.random() - 0.5) * 100;
+          n.y = height / 2 + (Math.random() - 0.5) * 100;
+        }
+        // Ensure singleton nodes have visible size
+        if (controls['scale_node_size_by_strength'] && nodeStrengths[n.id] === 0) {
+          n.size = minNonzeroNodeSize;
+        }
+      });
       graph['nodes'].push(...negativeGraph.nodes)
       negativeGraph['nodes'] = []
     } else if (!v) {
       graph['nodes'] = graph.nodes.filter(n => {
-        var keepNode = nodeStrengths[n.id] >= minLinkWeight;
+        var keepNode = nodeStrengths[n.id] > 0;
         if (!keepNode) negativeGraph['nodes'].push(n);
         return keepNode;
       })
@@ -1087,7 +1101,7 @@ function vis(new_controls) {
   }
 
   function inputtedZoom(v) {
-    zoomScaler = d3.scaleLinear().domain([0, width]).range([width * (1 - controls['zoom']), controls['zoom'] * width])
+    zoomScaler = d3.scaleLinear().domain([0, width]).range([width * 0.5 * (1 - controls['zoom']), width * 0.5 * (1 + controls['zoom'])])
     simulationSoftRestart();
   }
 
@@ -1272,7 +1286,6 @@ function vis(new_controls) {
 
     // Size and weight norms, colors and degrees
     computeMasterGraphGlobals();
-    console.log("minNonzeroNodeSize = " + minNonzeroNodeSize);
 
     // Check for really weak links
     if (minLinkWeight < 1e-9) {
@@ -1373,7 +1386,6 @@ function vis(new_controls) {
 
     // Size and weight norms, colors and degrees
     computeMasterGraphGlobals();
-    console.log("minNonzeroNodeSize = " + minNonzeroNodeSize);
 
     // Check for really weak links
     if (minLinkWeight < 1e-9) {
@@ -1729,14 +1741,14 @@ function vis(new_controls) {
       let thisNodeSize = valIfValid(d.size, 1) ** (controls['node_size_variation']) *
         nodeSizeNorm *
         controls['node_size'] *
-        (2 * controls['zoom'] - 1);
+        controls['zoom'];
       network_properties.nodes.push({
         id: d.id,
         x: d.x,
         y: d.y,
         x_canvas: zoomScaler(d.x),
         y_canvas: zoomScaler(d.y),
-        radius: thisNodeSize,
+        radius: Math.max(0.1, thisNodeSize),
         color: computeNodeColor(d)
       });
     });
