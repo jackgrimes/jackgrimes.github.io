@@ -2,7 +2,6 @@
 # Provide front matter so Jekyll processes this file as SASS.
 ---
 @charset "utf-8";
-@use "sass:color";
 
 // Default CSS.
 // Don't edit this file.  Put your changes in stylesheet-customizations.scss
@@ -14,12 +13,12 @@ body {
 
 // Default menubar color
 .ui.menu {
-  background: color.scale(silver, $lightness: +0%);
+  background: lighten(silver, 10%);
 }
 
 // Default home page icon color
 .icon-color {
-  color: color.scale(silver, $lightness: -50%);
+  color: darken(silver, 40%);
 }
 
 
