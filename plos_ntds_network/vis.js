@@ -168,7 +168,9 @@ function vis(new_controls) {
     // Thresholding
     'display_singleton_nodes': false,
     'min_link_weight_percentile': 0.02,
-    'max_link_weight_percentile': 1.0
+    'max_link_weight_percentile': 1.0,
+    // Night mode
+    'night_mode': false
   };
 
   // Context dependent keys
@@ -197,21 +199,31 @@ function vis(new_controls) {
   handleURL(controls['file_path']);
   uploadEvent();
 
-  function ticked() {
+function ticked() {
 
-    // draw
-    context.clearRect(0, 0, width, height);
-    context.strokeStyle = controls['link_color'];
-    context.globalAlpha = controls['link_alpha'];
-    context.globalCompositeOperation = "destination-over";
-    graph.links.forEach(drawLink);
-    context.globalAlpha = 1.0
-    context.strokeStyle = controls['node_stroke_color'];
-    context.lineWidth = controls['node_stroke_width'] < 1e-3 ? 1e-9 : controls['node_stroke_width'] * controls['zoom'];
-    context.globalCompositeOperation = "source-over";
-    graph.nodes.forEach(drawNode);
-    graph.nodes.forEach(drawText);
+  // draw
+  context.clearRect(0, 0, width, height);
+  
+  // Set background color based on night mode
+  if (controls['night_mode']) {
+    context.fillStyle = '#000000ff';
+    context.fillRect(0, 0, width, height);
   }
+  
+  // Draw links AFTER background, with source-over
+  context.globalCompositeOperation = "source-over";  // Changed from "destination-over"
+  context.strokeStyle = controls['link_color'];
+  context.globalAlpha = controls['link_alpha'];
+  graph.links.forEach(drawLink);
+  
+  // Draw nodes
+  context.globalAlpha = 1.0
+  context.strokeStyle = controls['node_stroke_color'];
+  context.lineWidth = controls['node_stroke_width'] < 1e-3 ? 1e-9 : controls['node_stroke_width'] * controls['zoom'];
+  context.globalCompositeOperation = "source-over";
+  graph.nodes.forEach(drawNode);
+  graph.nodes.forEach(drawText);
+}
 
   // Restart simulation
   function restart() {
@@ -764,6 +776,7 @@ function vis(new_controls) {
   var title6_1 = "Singleton nodes: Whether or not to show links that have zero degree"
   var title6_2 = "Min. link percentile: Lower percentile threshold on link weight"
   var title6_3 = "Max. link percentile: Upper percentile threshold on link weight"
+  var title7_1 = "Night mode: Switch to dark background with light text and links"
 
   // Control panel
   var gui = new dat.GUI({
@@ -814,72 +827,79 @@ function vis(new_controls) {
   }).listen().title(title2_7);
 
   // Search
-  var f2_1 = gui.addFolder('Search');
-  f2_1.open()
+  var f3 = gui.addFolder('Search');
+  f3.open()
   // f2_1.add(controls, 'Search', false).name('Search').onChange(function(v) {
   //   inputtedCollision(v)
   // }).title(title2_5);
-  f2_1.add(controls, 'search', false).name('Search').onChange(function(v) {
+  f3.add(controls, 'search', false).name('Search').onChange(function(v) {
     search(v)
   }).title(title3_1);
 
 
   // Nodes
-  var f3 = gui.addFolder('Nodes');
-  f3.open();
-  f3.addColor(controls, 'node_fill_color', controls['node_fill_color']).name('Fill').onChange(function(v) {
+  var f4 = gui.addFolder('Nodes');
+  f4.open();
+  f4.addColor(controls, 'node_fill_color', controls['node_fill_color']).name('Fill').onChange(function(v) {
     inputtedNodeFill(v)
   }).title(title4_1);
-  f3.addColor(controls, 'node_stroke_color', controls['node_stroke_color']).name('Stroke').onChange(function(v) {
+  f4.addColor(controls, 'node_stroke_color', controls['node_stroke_color']).name('Stroke').onChange(function(v) {
     inputtedNodeStroke(v)
   }).title(title4_2);
-  f3.addColor(controls, 'node_label_color', controls['node_label_color']).name('Label color').onChange(function(v) {
+  f4.addColor(controls, 'node_label_color', controls['node_label_color']).name('Label color').onChange(function(v) {
     inputtedTextStroke(v)
   }).title(title4_3);
-  f3.add(controls, 'node_size', 0, 50).name('Size').onChange(function(v) {
+  f4.add(controls, 'node_size', 0, 50).name('Size').onChange(function(v) {
     inputtedNodeSize(v)
   }).title(title4_6);
-  f3.add(controls, 'node_stroke_width', 0, 10).name('Stroke width').onChange(function(v) {
+  f4.add(controls, 'node_stroke_width', 0, 10).name('Stroke width').onChange(function(v) {
     inputtedNodeStrokeSize(v)
   }).title(title4_7);
-  f3.add(controls, 'node_size_variation', 0., 3.).name('Size variation').onChange(function(v) {
+  f4.add(controls, 'node_size_variation', 0., 3.).name('Size variation').onChange(function(v) {
     inputtedNodeSizeExponent(v)
   }).title(title4_8);
-  f3.add(controls, 'display_node_labels', false).name('Display labels').onChange(function(v) {
+  f4.add(controls, 'display_node_labels', false).name('Display labels').onChange(function(v) {
     inputtedShowLabels(v)
   }).title(title4_4);
-  f3.add(controls, 'scale_node_size_by_strength', false).name('Size by strength').onChange(function(v) {
+  f4.add(controls, 'scale_node_size_by_strength', false).name('Size by strength').onChange(function(v) {
     inputtedNodeSizeByStrength(v)
   }).title(title4_5);
 
   // Links
-  var f4 = gui.addFolder('Links');
-  f4.open();
-  f4.addColor(controls, 'link_color', controls['link_color']).name('Color').onChange(function(v) {
+  var f5 = gui.addFolder('Links');
+  f5.open();
+  f5.addColor(controls, 'link_color', controls['link_color']).name('Color').onChange(function(v) {
     inputtedLinkStroke(v)
   }).title(title5_1);
-  f4.add(controls, 'link_width', 0.01, 30).name('Width').onChange(function(v) {
+  f5.add(controls, 'link_width', 0.01, 30).name('Width').onChange(function(v) {
     inputtedLinkWidth(v)
   }).title(title5_2);
-  f4.add(controls, 'link_alpha', 0, 1).name('Alpha').onChange(function(v) {
+  f5.add(controls, 'link_alpha', 0, 1).name('Alpha').onChange(function(v) {
     inputtedLinkAlpha(v)
   }).title(title5_3);
-  f4.add(controls, 'link_width_variation', 0., 3.).name('Width variation').onChange(function(v) {
+  f5.add(controls, 'link_width_variation', 0., 3.).name('Width variation').onChange(function(v) {
     inputtedLinkWidthExponent(v)
   }).title(title5_4);
 
   // Thresholding
-  var f5 = gui.addFolder('Thresholding');
-  f5.open();
-  f5.add(controls, 'display_singleton_nodes', true).name('Singleton nodes').onChange(function(v) {
+  var f6 = gui.addFolder('Thresholding');
+  f6.open();
+  f6.add(controls, 'display_singleton_nodes', true).name('Singleton nodes').onChange(function(v) {
     inputtedShowSingletonNodes(v)
   }).title(title6_1);
-  f5.add(controls, 'min_link_weight_percentile', 0, 0.99).name('Min. link percentile').step(0.01).onChange(function(v) {
+  f6.add(controls, 'min_link_weight_percentile', 0, 0.99).name('Min. link percentile').step(0.01).onChange(function(v) {
     inputtedMinLinkWeight(v)
   }).listen().title(title6_2);
-  f5.add(controls, 'max_link_weight_percentile', 0.01, 1).name('Max. link percentile').step(0.01).onChange(function(v) {
+  f6.add(controls, 'max_link_weight_percentile', 0.01, 1).name('Max. link percentile').step(0.01).onChange(function(v) {
     inputtedMaxLinkWeight(v)
   }).listen().title(title6_3);
+
+  // Night mode
+  var f7 = gui.addFolder('Night mode');
+  f7.open();
+  f7.add(controls, 'night_mode', false).name('Night mode').onChange(function(v) {
+  inputtedNightMode(v)
+  }).title(title7_1);
 
   // Utility functions //
   // ----------------- //
@@ -1103,6 +1123,29 @@ function vis(new_controls) {
   function inputtedZoom(v) {
     zoomScaler = d3.scaleLinear().domain([0, width]).range([width * 0.5 * (1 - controls['zoom']), width * 0.5 * (1 + controls['zoom'])])
     simulationSoftRestart();
+  }
+
+  function inputtedNightMode(v) {
+    if (v) {
+      // Switch to night mode colors
+      controls['link_color'] = '#ffffff';
+      controls['link_alpha'] = 0.9;
+      controls['node_label_color'] = '#e0e0e0';
+      document.getElementsByClassName('canvas_container')[0].style.borderWidth=0;
+      // Change page background
+      document.body.style.backgroundColor = '#000000ff';
+    } else {
+      // Switch back to day mode colors
+      controls['link_color'] = '#7c7c7c';
+      controls['link_alpha'] = 0.5;
+      controls['node_label_color'] = '#000000';
+      // Reset page background
+      document.body.style.backgroundColor = '';
+      document.getElementsByClassName('canvas_container')[0].style.borderWidth='2px';
+      document.getElementsByClassName('canvas_container')[0].style.borderStyle = 'solid';
+    }
+    gui.updateDisplay();
+    ticked();
   }
 
   var vMinPrev = 0;
