@@ -305,7 +305,10 @@ function ticked() {
     }
   })
 
-  // Then modify the mousedown event handler (around line 273-287):
+
+  let clickTimer = null;
+  let clickCount = 0;
+
   window.addEventListener("mousedown", function(event) {
     if (typeof(hoveredNode) != 'undefined') {
       // Store initial mouse position
@@ -323,20 +326,52 @@ function ticked() {
       const dy = event.clientY - mouseDownPos.y;
       const distance = Math.sqrt(dx * dx + dy * dy);
 
-      // Only toggle selection if moved less than 10 pixels (it was a click, not a drag)
+      // Only handle clicks if moved less than 10 pixels (not a drag)
       if (distance < 10) {
         const nodeId = hoveredNode;
-        if (selectedNodes.includes(nodeId)) {
-          selectedNodes.splice(selectedNodes.indexOf(nodeId), 1);
-          hoveredNode = undefined; // Clear hover so label disappears immediately
-        } else {
-          selectedNodes.push(nodeId);
+        
+        clickCount++;
+        
+        if (clickCount === 1) {
+          // Wait to see if it's a double-click
+          clickTimer = setTimeout(() => {
+            // Single click - toggle just this node
+            if (selectedNodes.includes(nodeId)) {
+              selectedNodes.splice(selectedNodes.indexOf(nodeId), 1);
+              hoveredNode = undefined;
+            } else {
+              selectedNodes.push(nodeId);
+            }
+            ticked();
+            clickCount = 0;
+          }, 250); // 250ms window for double-click
+          
+        } else if (clickCount === 2) {
+          // Double-click detected
+          clearTimeout(clickTimer);
+          clickCount = 0;
+          
+          // Get all connected nodes
+          const connectedIds = getConnectedNodeIds(nodeId);
+          
+          // Add the clicked node and all its neighbors to selectedNodes
+          if (!selectedNodes.includes(nodeId)) {
+            selectedNodes.push(nodeId);
+          }
+          
+          connectedIds.forEach(id => {
+            if (!selectedNodes.includes(id)) {
+              selectedNodes.push(id);
+            }
+          });
+          
+          ticked();
         }
-        ticked(); // Immediate redraw
       }
     }
     mouseDownPos = null;
   }, true)
+
 
 
   // Mouse
@@ -485,6 +520,9 @@ function ticked() {
   });
 
   // --- TOUCH END ---
+  let touchClickTimer = null;
+  let touchClickCount = 0;
+
   canvas.addEventListener("touchend", e => {
     // Handle tap on node to toggle label selection
     if (e.touches.length === 0 && touchDragSubject && touchStartPos && !controls['display_node_labels']) {
@@ -494,13 +532,45 @@ function ticked() {
       const dy = touch.clientY - touchStartPos.y;
       const distance = Math.sqrt(dx * dx + dy * dy);
 
-      // Only toggle label if moved less than 10 pixels (it was a tap, not a drag)
+      // Only handle taps if moved less than 10 pixels
       if (distance < 10) {
         const nodeId = touchDragSubject.id;
-        if (selectedNodes.includes(nodeId)) {
-          selectedNodes.splice(selectedNodes.indexOf(nodeId), 1);
-        } else {
-          selectedNodes.push(nodeId);
+        
+        touchClickCount++;
+        
+        if (touchClickCount === 1) {
+          // Wait to see if it's a double-tap
+          touchClickTimer = setTimeout(() => {
+            // Single tap - toggle just this node
+            if (selectedNodes.includes(nodeId)) {
+              selectedNodes.splice(selectedNodes.indexOf(nodeId), 1);
+            } else {
+              selectedNodes.push(nodeId);
+            }
+            ticked();
+            touchClickCount = 0;
+          }, 300); // 300ms window for double-tap
+          
+        } else if (touchClickCount === 2) {
+          // Double-tap detected
+          clearTimeout(touchClickTimer);
+          touchClickCount = 0;
+          
+          // Get all connected nodes
+          const connectedIds = getConnectedNodeIds(nodeId);
+          
+          // Add the tapped node and all its neighbors to selectedNodes
+          if (!selectedNodes.includes(nodeId)) {
+            selectedNodes.push(nodeId);
+          }
+          
+          connectedIds.forEach(id => {
+            if (!selectedNodes.includes(id)) {
+              selectedNodes.push(id);
+            }
+          });
+          
+          ticked();
         }
       }
     }
@@ -1702,6 +1772,21 @@ function ticked() {
       return bounceModulus(upper - (v - upper), lower, upper);
     }
   }
+
+  function getConnectedNodeIds(nodeId) {
+  // Returns an array of node IDs that are connected to the given node
+  let connectedIds = new Set();
+  
+  graph.links.forEach(link => {
+    if (link.source.id === nodeId) {
+      connectedIds.add(link.target.id);
+    } else if (link.target.id === nodeId) {
+      connectedIds.add(link.source.id);
+    }
+  });
+  
+  return Array.from(connectedIds);
+}
 
   function toHex(v) {
     var hv = v.toString(16)
