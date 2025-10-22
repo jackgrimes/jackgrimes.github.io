@@ -130,13 +130,32 @@ function vis(new_controls) {
   }
 
 
+  async function getNetworkFiles() {
+    try {
+      const response = await fetch('network_jsons/');
+      const text = await response.text();
+      // Parse directory listing to extract .json files
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(text, 'text/html');
+      const links = Array.from(doc.querySelectorAll('a'))
+        .map(a => a.href)
+        .filter(href => href.endsWith('.json'))
+        .map(href => href.split('/').pop());
+      return links.length > 0 ? links : ['network_data.json'];
+    } catch (error) {
+      // Fallback to a default list if directory listing fails
+      return ['network_data.json', 'example1.json', 'example2.json'];
+    }
+  }
+
   // Simulation //
   // ---------- //
 
   // Control variables
   window.controls = {
     // Input/output
-    'file_path': "/plos_ntds_network/network_data.json",
+    'file_path': "20251022_2006_coauthors_all_author_min_2",
+    'available_files': [],
     'download_figure': download,
     'zoom': 0.45,
     'zoom_min': 0.2,
@@ -605,8 +624,6 @@ function ticked() {
     passive: false
   });
 
-
-
   // Network functions
   // -----------------
 
@@ -818,11 +835,7 @@ function ticked() {
   });
 
   // Titles
-  var title1_1 = "Path to file: URL of eligible file in either JSON or CSV format"
-  var title1_2 = "Upload file: Upload a network from your computer in either JSON or CSV format"
-  var title1_3 = "Download figure: Download the network as a PNG image"
-  var title1_4 = "Post to Python: Post all calculated node and link properties and image (optional) back to Python.";
-  var title1_5 = "Zoom: Zoom in or out"
+  var title1_1 = "Zoom: Zoom in or out"
   var title2_1 = "Charge: Each node has negative charge and thus repel one another (like electrons). The more negative this charge is, the greater the repulsion"
   var title2_2 = "Gravity: Push the nodes more or less towards the center of the canvas"
   var title2_3 = "Link distance: The optimal link distance that the force layout algorithm will try to achieve for each link"
@@ -847,6 +860,10 @@ function ticked() {
   var title6_2 = "Min. link percentile: Lower percentile threshold on link weight"
   var title6_3 = "Max. link percentile: Upper percentile threshold on link weight"
   var title7_1 = "Night mode: Switch to dark background with light text and links"
+  var title8_1 = "Path to file: URL of eligible file in either JSON or CSV format"
+  var title8_2 = "Upload file: Upload a network from your computer in either JSON or CSV format"
+  var title8_3 = "Download figure: Download the network as a PNG image"
+  var title8_4 = "Post to Python: Post all calculated node and link properties and image (optional) back to Python.";
 
   // Control panel
   var gui = new dat.GUI({
@@ -859,17 +876,11 @@ function ticked() {
   gui.remember(controls);
 
   // Input/Output
-  var f1 = gui.addFolder('Input/output');
+  var f1 = gui.addFolder('Zoom');
   f1.open();
-  if (isWeb) f1.add(controls, 'file_path', controls['file_path']).name('Path to file').onFinishChange(function(v) {
-    handleURL(v)
-  }).title(title1_1);
-  if (isWeb) f1.add(controls, 'upload_file').name('Upload file').title(title1_2);
-  f1.add(controls, 'download_figure').name('Download figure').title(title1_3);
-  if (isLocal) f1.add(controls, 'post_to_python').name('Post to Python').title(title1_4);
   f1.add(controls, 'zoom', controls['zoom_min'], controls['zoom_max']).name('Zoom').onChange(function(v) {
     inputtedZoom(v)
-  }).title(title1_5);
+  }).title(title1_1);
 
   // Physics
   var f2 = gui.addFolder('Physics');
@@ -899,9 +910,6 @@ function ticked() {
   // Search
   var f3 = gui.addFolder('Search');
   f3.open()
-  // f2_1.add(controls, 'Search', false).name('Search').onChange(function(v) {
-  //   inputtedCollision(v)
-  // }).title(title2_5);
   f3.add(controls, 'search', false).name('Search').onChange(function(v) {
     search(v)
   }).title(title3_1);
@@ -970,6 +978,44 @@ function ticked() {
   f7.add(controls, 'night_mode', false).name('Night mode').onChange(function(v) {
   inputtedNightMode(v)
   }).title(title7_1);
+
+  // IO
+  var f8 = gui.addFolder('Input/output');
+  f8.open();
+
+  // Create a temporary dropdown that will be populated
+  const fileControl = f8.add(controls, 'file_path').name('Select file').onFinishChange(function(v) {
+    handleURL(v)
+  }).title(title1_1);
+  
+  // Fetch and populate dropdown options
+  getNetworkFiles().then(files => {
+    // Sort files alphabetically
+    files.sort();
+    
+    const fileOptions = {};
+    files.forEach(file => {
+      fileOptions[file] = 'network_jsons/' + file;
+    });
+    
+    // Set the control value to the last file alphabetically
+    if (files.length > 0) {
+      controls['file_path'] = 'network_jsons/' + files[files.length - 1];
+    }
+    
+    // Remove old control and add new one with options
+    f8.remove(fileControl);
+    f8.add(controls, 'file_path', fileOptions).name('Select file').onFinishChange(function(v) {
+      handleURL(v)
+    }).title(title8_1);
+    
+    // Load the selected file
+    handleURL(controls['file_path']);
+  });
+
+  if (isWeb) f8.add(controls, 'upload_file').name('Upload file').title(title8_2);
+  f8.add(controls, 'download_figure').name('Download figure').title(title8_3);
+  if (isLocal) f8.add(controls, 'post_to_python').name('Post to Python').title(title8_4);
 
   // Utility functions //
   // ----------------- //
