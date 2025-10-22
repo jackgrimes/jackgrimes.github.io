@@ -131,21 +131,16 @@ function vis(new_controls) {
 
 
   async function getNetworkFiles() {
-    try {
-      const response = await fetch('network_jsons/');
-      const text = await response.text();
-      // Parse directory listing to extract .json files
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(text, 'text/html');
-      const links = Array.from(doc.querySelectorAll('a'))
-        .map(a => a.href)
-        .filter(href => href.endsWith('.json'))
-        .map(href => href.split('/').pop());
-      return links.length > 0 ? links : ['network_data.json'];
-    } catch (error) {
-      // Fallback to a default list if directory listing fails
-      return ['network_data.json', 'example1.json', 'example2.json'];
-    }
+  try {
+    const response = await fetch('network_jsons/files.json');
+    if (!response.ok) throw new Error('Manifest not found');
+    const files = await response.json();
+    return files;
+  } catch (error) {
+    console.error('Error loading files list:', error);
+    // Fallback
+    return ['20220706_1203_coauthors_all_author_min_2.json'];
+  }
   }
 
   // Simulation //
@@ -154,7 +149,7 @@ function vis(new_controls) {
   // Control variables
   window.controls = {
     // Input/output
-    'file_path': "20251022_2006_coauthors_all_author_min_2",
+    'file_path': "",
     'available_files': [],
     'download_figure': download,
     'zoom': 0.45,
@@ -184,6 +179,7 @@ function vis(new_controls) {
     'link_width': 0.8,
     'link_alpha': 0.5,
     'link_width_variation': 0.5,
+    'display_link_labels': false,
     // Thresholding
     'display_singleton_nodes': false,
     'min_link_weight_percentile': 0.02,
@@ -218,31 +214,34 @@ function vis(new_controls) {
   handleURL(controls['file_path']);
   uploadEvent();
 
-function ticked() {
-
-  // draw
-  context.clearRect(0, 0, width, height);
-  
-  // Set background color based on night mode
-  if (controls['night_mode']) {
-    context.fillStyle = '#000000ff';
-    context.fillRect(0, 0, width, height);
+  function ticked() {
+    // draw
+    context.clearRect(0, 0, width, height);
+    
+    // Set background color based on night mode
+    if (controls['night_mode']) {
+      context.fillStyle = '#000000ff';
+      context.fillRect(0, 0, width, height);
+    }
+    
+    // Draw links AFTER background, with source-over
+    context.globalCompositeOperation = "source-over";
+    context.strokeStyle = controls['link_color'];
+    context.globalAlpha = controls['link_alpha'];
+    graph.links.forEach(drawLink);
+    
+    // Draw link labels
+    context.globalAlpha = 1.0;
+    graph.links.forEach(drawLinkLabel);  // Add this line
+    
+    // Draw nodes
+    context.globalAlpha = 1.0
+    context.strokeStyle = controls['node_stroke_color'];
+    context.lineWidth = controls['node_stroke_width'] < 1e-3 ? 1e-9 : controls['node_stroke_width'] * controls['zoom'];
+    context.globalCompositeOperation = "source-over";
+    graph.nodes.forEach(drawNode);
+    graph.nodes.forEach(drawText);
   }
-  
-  // Draw links AFTER background, with source-over
-  context.globalCompositeOperation = "source-over";  // Changed from "destination-over"
-  context.strokeStyle = controls['link_color'];
-  context.globalAlpha = controls['link_alpha'];
-  graph.links.forEach(drawLink);
-  
-  // Draw nodes
-  context.globalAlpha = 1.0
-  context.strokeStyle = controls['node_stroke_color'];
-  context.lineWidth = controls['node_stroke_width'] < 1e-3 ? 1e-9 : controls['node_stroke_width'] * controls['zoom'];
-  context.globalCompositeOperation = "source-over";
-  graph.nodes.forEach(drawNode);
-  graph.nodes.forEach(drawText);
-}
 
   // Restart simulation
   function restart() {
@@ -719,6 +718,30 @@ function ticked() {
     }
   }
 
+  function drawLinkLabel(d) {
+    if (controls['display_link_labels']) {
+      // Calculate midpoint of link
+      const midX = (zoomScaler(d.source.x) + zoomScaler(d.target.x)) / 2 + panX;
+      const midY = (zoomScaler(d.source.y) + zoomScaler(d.target.y)) / 2 + panY;
+      
+      // Set font size based on zoom
+      const fontSize = clip(10 * controls['zoom'], 8, 16);
+      context.font = fontSize + "px Helvetica";
+      context.fillStyle = controls['link_color'];
+      
+      // Format the weight value (adjust decimal places as needed)
+      const weight = d.weight ? d.weight.toFixed(0) : '1';
+      
+      // Draw text with background for better visibility
+      const textWidth = context.measureText(weight).width;
+      context.fillStyle = controls['night_mode'] ? '#000000dd' : '#ffffffdd';
+      //context.fillRect(midX - textWidth/2 - 2, midY - fontSize/2 - 2, textWidth + 4, fontSize + 4);
+      
+      context.fillStyle = controls['link_color'];
+      context.fillText(weight, midX, midY + fontSize/3);
+    }
+  }
+
   function trackSearchEvent(searchTerm) {
     gtag('event', 'network_graph_search', {
       search_term: searchTerm
@@ -856,6 +879,7 @@ function ticked() {
   var title5_2 = "Width: Change the width of all links"
   var title5_3 = "Alpha: How transparent links should be. Useful in large dense networks"
   var title5_4 = "Width variation: Tweak the link width scaling function. Increase to make wide links wider and narrow links narrower. Useful for highlighting strong connections"
+  var title5_5 = "Link labels: Display the weight/strength value on each link"
   var title6_1 = "Singleton nodes: Whether or not to show links that have zero degree"
   var title6_2 = "Min. link percentile: Lower percentile threshold on link weight"
   var title6_3 = "Max. link percentile: Upper percentile threshold on link weight"
@@ -936,7 +960,7 @@ function ticked() {
   f4.add(controls, 'node_size_variation', 0., 3.).name('Size variation').onChange(function(v) {
     inputtedNodeSizeExponent(v)
   }).title(title4_8);
-  f4.add(controls, 'display_node_labels', false).name('Display labels').onChange(function(v) {
+  f4.add(controls, 'display_node_labels', false).name('Node labels').onChange(function(v) {
     inputtedShowLabels(v)
   }).title(title4_4);
   f4.add(controls, 'scale_node_size_by_strength', false).name('Size by strength').onChange(function(v) {
@@ -958,6 +982,9 @@ function ticked() {
   f5.add(controls, 'link_width_variation', 0., 3.).name('Width variation').onChange(function(v) {
     inputtedLinkWidthExponent(v)
   }).title(title5_4);
+  f5.add(controls, 'display_link_labels', false).name('Link labels').onChange(function(v) {
+    inputtedShowLinkLabels(v)
+  }).title(title5_5);
 
   // Thresholding
   var f6 = gui.addFolder('Thresholding');
@@ -1211,6 +1238,10 @@ function ticked() {
         simulation.alpha(1);
     }
 
+    simulationSoftRestart();
+  }
+
+  function inputtedShowLinkLabels(v) {
     simulationSoftRestart();
   }
 
